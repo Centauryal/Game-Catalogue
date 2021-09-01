@@ -19,9 +19,11 @@
 		4C1E545A26D9312500F57BDF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E545926D9312500F57BDF /* Extension.swift */; };
 		4C1E545F26D931C500F57BDF /* GamesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E545D26D931C500F57BDF /* GamesTableViewCell.swift */; };
 		4C1E546026D931C500F57BDF /* GamesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1E545E26D931C500F57BDF /* GamesTableViewCell.xib */; };
-		4C537ACE26D936CA0031F9C3 /* DetailBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C537ACD26D936CA0031F9C3 /* DetailBackgroundViewController.swift */; };
 		4C537AD026D937170031F9C3 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C537ACF26D937170031F9C3 /* AccountViewController.swift */; };
 		4C537AD226D937590031F9C3 /* DetailGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C537AD126D937590031F9C3 /* DetailGameViewController.swift */; };
+		4C7032D926DE6FB000598FCD /* DetailGameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7032D826DE6FB000598FCD /* DetailGameResponse.swift */; };
+		4CE01F9E26DA0AC4006983B1 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE01F9D26DA0AC4006983B1 /* ApiService.swift */; };
+		4CE01FA026DA0BB4006983B1 /* GamesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE01F9F26DA0BB4006983B1 /* GamesResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,9 +61,11 @@
 		4C1E545926D9312500F57BDF /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		4C1E545D26D931C500F57BDF /* GamesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesTableViewCell.swift; sourceTree = "<group>"; };
 		4C1E545E26D931C500F57BDF /* GamesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GamesTableViewCell.xib; sourceTree = "<group>"; };
-		4C537ACD26D936CA0031F9C3 /* DetailBackgroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBackgroundViewController.swift; sourceTree = "<group>"; };
 		4C537ACF26D937170031F9C3 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		4C537AD126D937590031F9C3 /* DetailGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGameViewController.swift; sourceTree = "<group>"; };
+		4C7032D826DE6FB000598FCD /* DetailGameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGameResponse.swift; sourceTree = "<group>"; };
+		4CE01F9D26DA0AC4006983B1 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		4CE01F9F26DA0BB4006983B1 /* GamesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +159,6 @@
 			children = (
 				4C1E542526D92E4B00F57BDF /* ViewController.swift */,
 				4C1E545D26D931C500F57BDF /* GamesTableViewCell.swift */,
-				4C537ACD26D936CA0031F9C3 /* DetailBackgroundViewController.swift */,
 				4C537ACF26D937170031F9C3 /* AccountViewController.swift */,
 				4C537AD126D937590031F9C3 /* DetailGameViewController.swift */,
 			);
@@ -175,6 +178,9 @@
 		4C1E545726D92F6C00F57BDF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4CE01F9D26DA0AC4006983B1 /* ApiService.swift */,
+				4CE01F9F26DA0BB4006983B1 /* GamesResponse.swift */,
+				4C7032D826DE6FB000598FCD /* DetailGameResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -326,13 +332,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C1E542626D92E4B00F57BDF /* ViewController.swift in Sources */,
-				4C537ACE26D936CA0031F9C3 /* DetailBackgroundViewController.swift in Sources */,
 				4C537AD026D937170031F9C3 /* AccountViewController.swift in Sources */,
 				4C1E542226D92E4B00F57BDF /* AppDelegate.swift in Sources */,
 				4C1E542426D92E4B00F57BDF /* SceneDelegate.swift in Sources */,
+				4CE01F9E26DA0AC4006983B1 /* ApiService.swift in Sources */,
+				4CE01FA026DA0BB4006983B1 /* GamesResponse.swift in Sources */,
 				4C537AD226D937590031F9C3 /* DetailGameViewController.swift in Sources */,
 				4C1E545F26D931C500F57BDF /* GamesTableViewCell.swift in Sources */,
 				4C1E545A26D9312500F57BDF /* Extension.swift in Sources */,
+				4C7032D926DE6FB000598FCD /* DetailGameResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

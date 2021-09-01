@@ -14,7 +14,7 @@ class GamesTableViewCell: UITableViewCell {
     @IBOutlet weak var viewGenre: UIView!
     @IBOutlet weak var labelGenre: UILabel!
     @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var labelDesc: UILabel!
+    @IBOutlet weak var labelPlatform: UILabel!
     @IBOutlet weak var labelReleaseDate: UILabel!
     
     override func awakeFromNib() {
@@ -37,8 +37,9 @@ class GamesTableViewCell: UITableViewCell {
         
         labelTitle.font = UIFont.preferredFont(forTextStyle: .title3).bold()
         labelTitle.sizeToFit()
-        labelDesc.sizeToFit()
-        labelReleaseDate.font = UIFont.preferredFont(forTextStyle: .body).bold()
+        labelPlatform.sizeToFit()
+        labelReleaseDate.font = UIFont.preferredFont(forTextStyle: .caption2).bold()
+        labelReleaseDate.sizeToFit()
     }
     
     override func layoutSubviews() {

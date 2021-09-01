@@ -47,3 +47,12 @@ extension UIView {
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
+
+extension DateFormatter {
+    func outputReleaseDateString(date: String) -> String {
+        self.dateFormat = "yyyy-MM-dd"
+        let firstDate = self.date(from: date)!
+        self.dateFormat = "dd MMMM yyyy"
+        return self.string(from: firstDate)
+    }
+}
