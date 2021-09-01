@@ -187,6 +187,4 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.navigationController?.pushViewController(detail, animated: true)
         }
     }
-
 }
-

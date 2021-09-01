@@ -61,9 +61,7 @@ class DetailGameViewController: UIViewController {
             location: [0, 1])
         
         ivDetailGame.sd_setImage(with: URL(string: detailGame.backgroundImage), placeholderImage: UIImage(named: "brokenimage"))
-        ivDetailGame.mainImage()
         
-        viewGenre.layer.cornerRadius = 8
         var listGenre = [String]()
         let genres = detailGame.genres
         if genres.count > 2 {
@@ -79,8 +77,6 @@ class DetailGameViewController: UIViewController {
         }
         
         labelTitle.text = detailGame.name
-        labelTitle.font = UIFont.preferredFont(forTextStyle: .title2).bold()
-        labelTitle.sizeToFit()
         
         var listPublishers = [String]()
         let publisher = detailGame.publishers
@@ -88,24 +84,37 @@ class DetailGameViewController: UIViewController {
             listPublishers.append(publish.name)
         }
         labelPublisher.text = listPublishers.joined(separator: ", ")
-        
         labelReleaseDate.text = detailGame.released
         
-        overview.font = UIFont.preferredFont(forTextStyle: .title1).bold()
-        let descOverview = Data(detailGame.description.utf8)
-        if let attributedString = try? NSAttributedString(data: descOverview, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
-            labelDesc.text = attributedString.string
+        let desc = Data(detailGame.description.utf8)
+        if let atrStr = try? NSAttributedString(data: desc, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+            labelDesc.text = atrStr.string
         }
-        labelDesc.sizeToFit()
         
-        platform.font = UIFont.preferredFont(forTextStyle: .title1).bold()
         var listPlatform = [String]()
         let platforms = detailGame.platforms
         platforms.forEach { platform in
             listPlatform.append(platform.platform.name)
         }
-        labelPlatform.font = UIFont.preferredFont(forTextStyle: .body).bold()
         labelPlatform.text = listPlatform.joined(separator: ", ")
+        
+        showFormatUI()
+    }
+    
+    private func showFormatUI() {
+        ivDetailGame.mainImage()
+        
+        viewGenre.layer.cornerRadius = 8
+        
+        labelTitle.font = UIFont.preferredFont(forTextStyle: .title2).bold()
+        labelTitle.sizeToFit()
+        
+        overview.font = UIFont.preferredFont(forTextStyle: .title1).bold()
+        labelDesc.sizeToFit()
+        
+        platform.font = UIFont.preferredFont(forTextStyle: .title1).bold()
+        
+        labelPlatform.font = UIFont.preferredFont(forTextStyle: .body).bold()
         labelPlatform.sizeToFit()
     }
 }
