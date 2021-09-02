@@ -20,7 +20,7 @@ struct DetailGameResponse: Codable {
     let tba: Bool
     let updated: String
     let backgroundImage: String
-    let backgroundImageAdditional: String
+    let backgroundImageAdditional: String?
     let website: String
     let rating: Double
     let ratingTop: Int
@@ -128,7 +128,7 @@ struct DetailGameResponse: Codable {
         tba = try values.decode(Bool.self, forKey: .tba)
         updated = try values.decode(String.self, forKey: .updated)
         backgroundImage = try values.decode(String.self, forKey: .backgroundImage)
-        backgroundImageAdditional = try values.decode(String.self, forKey: .backgroundImageAdditional)
+        backgroundImageAdditional = try? values.decode(String.self, forKey: .backgroundImageAdditional)
         website = try values.decode(String.self, forKey: .website)
         rating = try values.decode(Double.self, forKey: .rating)
         ratingTop = try values.decode(Int.self, forKey: .ratingTop)

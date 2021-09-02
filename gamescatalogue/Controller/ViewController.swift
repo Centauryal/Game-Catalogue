@@ -147,17 +147,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             game = listGames[indexPath.row]
             
             cell.ivGame.sd_setImage(with: URL(string: game.backgroundImage), placeholderImage: UIImage(named: "brokenimage"))
-            cell.labelTitle.text = game.name
-            
-            let formatter = DateFormatter()
-            cell.labelReleaseDate.text = formatter.outputReleaseDateString(date: game.released)
-            
-            var listPlatform = [String]()
-            let platforms = game.platforms
-            platforms.forEach { platform in
-                listPlatform.append(platform.platform.name)
-            }
-            cell.labelPlatform.text = listPlatform.joined(separator: ", ")
             
             var listGenre = [String]()
             let genres = game.genres
@@ -172,6 +161,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     cell.labelGenre.text = genre.name
                 }
             }
+            
+            cell.labelTitle.text = game.name
+            
+            var listPlatform = [String]()
+            let platforms = game.platforms
+            platforms.forEach { platform in
+                listPlatform.append(platform.platform.name)
+            }
+            cell.labelPlatform.text = listPlatform.joined(separator: ", ")
+            
+            cell.labelRatingBar.text = String(game.rating)
+            
+            let formatter = DateFormatter()
+            cell.labelReleaseDate.text = formatter.outputReleaseDateString(date: game.released)
             
             return cell
         } else {

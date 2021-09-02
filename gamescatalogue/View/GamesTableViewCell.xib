@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -69,18 +70,36 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7 October 2021" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9e-35-IFD" userLabel="Release Game Label">
-                        <rect key="frame" x="136" y="131" width="204" height="13.5"/>
+                        <rect key="frame" x="136" y="131" width="81.5" height="13.5"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ap2-a6-Mi4" userLabel="Rating Label">
+                        <rect key="frame" x="240.5" y="131" width="17" height="13.5"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                        <color key="textColor" systemColor="systemOrangeColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eMW-rZ-SZl" userLabel="Star Image View">
+                        <rect key="frame" x="227.5" y="132.5" width="10" height="10"/>
+                        <color key="tintColor" systemColor="systemOrangeColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="P96-dt-brB"/>
+                            <constraint firstAttribute="width" constant="10" id="cJM-50-2vX"/>
+                        </constraints>
+                        <imageReference key="image" image="star.fill" catalog="system" symbolScale="medium"/>
+                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="j1E-K7-K3r" secondAttribute="trailing" id="6E0-3C-b6d"/>
                     <constraint firstItem="iSC-8y-dBa" firstAttribute="leading" secondItem="Chy-Ck-wDu" secondAttribute="leading" id="6Pm-AV-Aaw"/>
                     <constraint firstItem="j1E-K7-K3r" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="8lc-yy-Kuh"/>
                     <constraint firstItem="Chy-Ck-wDu" firstAttribute="leading" secondItem="4Qf-zi-n3g" secondAttribute="trailing" constant="15" id="Dy0-aH-y4F"/>
+                    <constraint firstItem="eMW-rZ-SZl" firstAttribute="centerY" secondItem="C9e-35-IFD" secondAttribute="centerY" id="Gbw-Db-7qU"/>
                     <constraint firstItem="4Qf-zi-n3g" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ItW-IA-txp"/>
+                    <constraint firstItem="eMW-rZ-SZl" firstAttribute="leading" secondItem="C9e-35-IFD" secondAttribute="trailing" constant="10" id="LzO-w5-pc8"/>
                     <constraint firstItem="C9e-35-IFD" firstAttribute="leading" secondItem="rWq-D7-El6" secondAttribute="leading" id="N4C-g7-cAe"/>
                     <constraint firstItem="j1E-K7-K3r" firstAttribute="trailing" secondItem="rWq-D7-El6" secondAttribute="trailing" constant="10" id="Nx3-SQ-bk2"/>
                     <constraint firstItem="C9e-35-IFD" firstAttribute="top" secondItem="iSC-8y-dBa" secondAttribute="bottom" constant="10" id="Ohb-UG-vbK"/>
@@ -89,8 +108,9 @@
                     <constraint firstItem="j1E-K7-K3r" firstAttribute="trailing" secondItem="iSC-8y-dBa" secondAttribute="trailing" constant="10" id="RJg-t7-CXw"/>
                     <constraint firstItem="rWq-D7-El6" firstAttribute="top" secondItem="Chy-Ck-wDu" secondAttribute="bottom" constant="5" id="SVz-7W-A5n"/>
                     <constraint firstItem="Chy-Ck-wDu" firstAttribute="top" secondItem="j1E-K7-K3r" secondAttribute="top" constant="15" id="TUf-5M-Bg8"/>
-                    <constraint firstItem="j1E-K7-K3r" firstAttribute="trailing" secondItem="C9e-35-IFD" secondAttribute="trailing" constant="10" id="Wzy-Hn-uTs"/>
                     <constraint firstAttribute="bottom" secondItem="j1E-K7-K3r" secondAttribute="bottom" id="doa-Xe-Vtn"/>
+                    <constraint firstItem="Ap2-a6-Mi4" firstAttribute="leading" secondItem="eMW-rZ-SZl" secondAttribute="trailing" constant="3" id="etQ-9M-eMn"/>
+                    <constraint firstItem="Ap2-a6-Mi4" firstAttribute="centerY" secondItem="C9e-35-IFD" secondAttribute="centerY" id="hKP-Lp-Q05"/>
                     <constraint firstItem="rWq-D7-El6" firstAttribute="leading" secondItem="Chy-Ck-wDu" secondAttribute="leading" id="ioJ-RG-bSX"/>
                     <constraint firstItem="4Qf-zi-n3g" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zPg-Qu-gPW"/>
                 </constraints>
@@ -101,20 +121,25 @@
                 <outlet property="ivGame" destination="4Qf-zi-n3g" id="uBh-d8-IPm"/>
                 <outlet property="labelGenre" destination="nVB-BH-Vvp" id="73t-03-jZE"/>
                 <outlet property="labelPlatform" destination="iSC-8y-dBa" id="Drq-tH-kve"/>
+                <outlet property="labelRatingBar" destination="Ap2-a6-Mi4" id="lY9-ih-eSx"/>
                 <outlet property="labelReleaseDate" destination="C9e-35-IFD" id="p41-7z-InD"/>
                 <outlet property="labelTitle" destination="rWq-D7-El6" id="WKJ-Jd-Mkj"/>
                 <outlet property="viewGenre" destination="Chy-Ck-wDu" id="cFR-q1-zns"/>
             </connections>
-            <point key="canvasLocation" x="20" y="109"/>
+            <point key="canvasLocation" x="18.840579710144929" y="108.48214285714285"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="brokenimage" width="170.5" height="170.5"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <namedColor name="AccentColor">
             <color red="0.23899999260902405" green="0.69800001382827759" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

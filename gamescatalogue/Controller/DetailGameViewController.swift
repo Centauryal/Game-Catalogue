@@ -16,6 +16,8 @@ class DetailGameViewController: UIViewController {
     @IBOutlet weak var labelGenre: UILabel!
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var labelPublisher: UILabel!
+    @IBOutlet weak var viewRatingBar: UIView!
+    @IBOutlet weak var labelRatingBar: UILabel!
     @IBOutlet weak var labelReleaseDate: UILabel!
     @IBOutlet weak var overview: UILabel!
     @IBOutlet weak var labelDesc: UILabel!
@@ -52,13 +54,8 @@ class DetailGameViewController: UIViewController {
     
     private func showUI(detailGame: DetailGameResponse) {
         ivBackgroundDetailGame.sd_setImage(
-            with: URL(string: detailGame.backgroundImageAdditional),
+            with: URL(string: detailGame.backgroundImageAdditional ?? detailGame.backgroundImage),
             placeholderImage: UIImage(named: "brokenimage"))
-        
-        viewGradient.addGradientBackground(
-            firstColor: .white,
-            secondColor: UIColor(red: 61/255, green: 178/255, blue: 255/255, alpha: 1),
-            location: [0, 1])
         
         ivDetailGame.sd_setImage(with: URL(string: detailGame.backgroundImage), placeholderImage: UIImage(named: "brokenimage"))
         
@@ -84,7 +81,17 @@ class DetailGameViewController: UIViewController {
             listPublishers.append(publish.name)
         }
         labelPublisher.text = listPublishers.joined(separator: ", ")
-        labelReleaseDate.text = detailGame.released
+        
+        let starRating = StarRatingView(
+            frame: CGRect(origin: .zero, size: CGSize(width: viewRatingBar.bounds.width, height: viewRatingBar.bounds.height)),
+            rating: Float(detailGame.rating),
+            color: .systemOrange,
+            starRounding: .roundToHalfStar)
+        viewRatingBar.addSubview(starRating)
+        labelRatingBar.text = String(detailGame.rating)
+        
+        let formatter = DateFormatter()
+        labelReleaseDate.text = formatter.outputReleaseDateString(date: detailGame.released)
         
         let desc = Data(detailGame.description.utf8)
         if let atrStr = try? NSAttributedString(data: desc, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
@@ -102,12 +109,19 @@ class DetailGameViewController: UIViewController {
     }
     
     private func showFormatUI() {
+        viewGradient.addGradientBackground(
+            firstColor: .white,
+            secondColor: UIColor(red: 61/255, green: 178/255, blue: 255/255, alpha: 1),
+            location: [0, 1])
+        
         ivDetailGame.mainImage()
         
         viewGenre.layer.cornerRadius = 8
         
         labelTitle.font = UIFont.preferredFont(forTextStyle: .title2).bold()
         labelTitle.sizeToFit()
+        
+        labelRatingBar.font = UIFont.preferredFont(forTextStyle: .subheadline).bold()
         
         overview.font = UIFont.preferredFont(forTextStyle: .title1).bold()
         labelDesc.sizeToFit()
