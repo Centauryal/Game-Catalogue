@@ -8,8 +8,25 @@
 import Foundation
 
 class ApiService {
-    private let apiKey = "7af81184a1914691b6e48abafd1223d2"
     private let baseUrl = "https://api.rawg.io/api/"
+    
+    private var apiKey: String {
+        get {
+            guard let filePath = Bundle.main.path(forResource: "GamesCatalogue-Info", ofType: "plist") else {
+                fatalError("Couldn't find file 'GamesCatalogue-Info.plist'.")
+            }
+            
+            let plist = NSDictionary(contentsOfFile: filePath)
+            guard let value = plist?.object(forKey: "API_KEY") as? String else {
+                fatalError("Couldn't find key 'API_KEY' in 'GamesCatalogue-Info.plist'.")
+            }
+            
+            if (value.starts(with: "_")) {
+                fatalError("Register for a RAWG.IO Developer Account")
+            }
+            return value
+        }
+    }
     
     func getListGames(completion: @escaping ([ResultsGames]) -> Void) {
         var urlListGames = URLComponents(string: baseUrl + "games")!
