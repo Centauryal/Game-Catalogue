@@ -56,3 +56,35 @@ extension DateFormatter {
         return self.string(from: firstDate)
     }
 }
+
+extension UIViewController {
+    func showToast(_ message: String) {
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width / 2 - 115, y: self.view.frame.size.height - 100, width: 210, height: 35))
+        toastLabel.clipsToBounds  =  true
+        toastLabel.backgroundColor = .darkGray
+        toastLabel.textColor = .white
+        toastLabel.textAlignment = .center
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10
+        self.view.addSubview(toastLabel)
+        
+        UIView.animate(withDuration: 5.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(_) in
+            toastLabel.removeFromSuperview()
+        })
+    }
+}
+
+func showViewLoading(_ view: UIView, _ show: Bool) {
+    DispatchQueue.main.async {
+        view.isHidden = show ? false : true
+    }
+}
+
+func showViewEmptyState (_ view: UIView, _ show: Bool) {
+    DispatchQueue.main.async {
+        view.isHidden = show ? false : true
+    }
+}

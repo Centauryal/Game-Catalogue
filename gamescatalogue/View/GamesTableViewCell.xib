@@ -112,7 +112,7 @@
                     <constraint firstItem="Ap2-a6-Mi4" firstAttribute="leading" secondItem="eMW-rZ-SZl" secondAttribute="trailing" constant="3" id="etQ-9M-eMn"/>
                     <constraint firstItem="Ap2-a6-Mi4" firstAttribute="centerY" secondItem="C9e-35-IFD" secondAttribute="centerY" id="hKP-Lp-Q05"/>
                     <constraint firstItem="rWq-D7-El6" firstAttribute="leading" secondItem="Chy-Ck-wDu" secondAttribute="leading" id="ioJ-RG-bSX"/>
-                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Ap2-a6-Mi4" secondAttribute="trailing" constant="92" id="vf8-AD-WRe"/>
+                    <constraint firstItem="j1E-K7-K3r" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Ap2-a6-Mi4" secondAttribute="trailing" constant="92" id="vf8-AD-WRe"/>
                     <constraint firstItem="4Qf-zi-n3g" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zPg-Qu-gPW"/>
                 </constraints>
             </tableViewCellContentView>

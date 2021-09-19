@@ -9,6 +9,91 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Game Favorite-->
+        <scene sceneID="IwT-Ql-uoZ">
+            <objects>
+                <viewController id="Kc0-aB-cap" customClass="FavoriteViewController" customModule="gamescatalogue" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BY2-cg-e3g">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eLT-cD-jRb" userLabel="Favorite Table View">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="C3F-oj-eSA" userLabel="Loading View">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="VuN-oI-M7N">
+                                            <rect key="frame" x="187" y="2" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Q4m-LK-63T"/>
+                                                <constraint firstAttribute="width" constant="40" id="lzO-PJ-atu"/>
+                                            </constraints>
+                                            <color key="color" name="PrimaryColor"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="VuN-oI-M7N" firstAttribute="centerY" secondItem="C3F-oj-eSA" secondAttribute="centerY" id="MAE-ZC-IaN"/>
+                                        <constraint firstItem="VuN-oI-M7N" firstAttribute="centerX" secondItem="C3F-oj-eSA" secondAttribute="centerX" id="eqX-rD-gPD"/>
+                                    </constraints>
+                                </view>
+                            </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tud-1m-AR9" userLabel="Favorite Empty">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptystate" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cvy-7j-Aor" userLabel="Empty State Image">
+                                        <rect key="frame" x="0.0" y="248.5" width="414" height="277"/>
+                                        <accessibility key="accessibilityConfiguration" label="Empty State">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="414" id="Xg4-V9-rNR"/>
+                                            <constraint firstAttribute="height" constant="277" id="pzn-Zb-ERA"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have any favorites" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEq-vO-tMc" userLabel="Empty State Label">
+                                        <rect key="frame" x="88.5" y="482.5" width="237" height="23"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="Cvy-7j-Aor" firstAttribute="centerX" secondItem="tud-1m-AR9" secondAttribute="centerX" id="YVc-zt-1xy"/>
+                                    <constraint firstItem="lEq-vO-tMc" firstAttribute="centerX" secondItem="Cvy-7j-Aor" secondAttribute="centerX" id="nhb-bu-NW7"/>
+                                    <constraint firstItem="lEq-vO-tMc" firstAttribute="bottom" secondItem="Cvy-7j-Aor" secondAttribute="bottom" constant="-20" id="sEH-Rd-DAe"/>
+                                    <constraint firstItem="Cvy-7j-Aor" firstAttribute="centerY" secondItem="tud-1m-AR9" secondAttribute="centerY" id="xCa-jk-ey0"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="3Ac-XY-Hhu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3Ac-XY-Hhu" firstAttribute="bottom" secondItem="eLT-cD-jRb" secondAttribute="bottom" id="IYe-sL-Hmc"/>
+                            <constraint firstItem="eLT-cD-jRb" firstAttribute="leading" secondItem="3Ac-XY-Hhu" secondAttribute="leading" id="Sd2-qN-tfh"/>
+                            <constraint firstItem="tud-1m-AR9" firstAttribute="top" secondItem="3Ac-XY-Hhu" secondAttribute="top" id="Un8-Zj-vJF"/>
+                            <constraint firstItem="3Ac-XY-Hhu" firstAttribute="trailing" secondItem="tud-1m-AR9" secondAttribute="trailing" id="Z85-yf-sc9"/>
+                            <constraint firstItem="tud-1m-AR9" firstAttribute="leading" secondItem="3Ac-XY-Hhu" secondAttribute="leading" id="akF-Vv-dbg"/>
+                            <constraint firstItem="eLT-cD-jRb" firstAttribute="top" secondItem="3Ac-XY-Hhu" secondAttribute="top" id="cVt-jH-Sif"/>
+                            <constraint firstItem="eLT-cD-jRb" firstAttribute="trailing" secondItem="3Ac-XY-Hhu" secondAttribute="trailing" id="hZi-b6-t7F"/>
+                            <constraint firstItem="3Ac-XY-Hhu" firstAttribute="bottom" secondItem="tud-1m-AR9" secondAttribute="bottom" id="iah-u6-FRj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Game Favorite" id="eVh-hG-Io8"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="labelEmptyState" destination="lEq-vO-tMc" id="1E3-ej-8pa"/>
+                        <outlet property="tbFavorite" destination="eLT-cD-jRb" id="9Yc-kx-IHi"/>
+                        <outlet property="viewEmptyState" destination="tud-1m-AR9" id="DME-vc-JnW"/>
+                        <outlet property="viewLoading" destination="C3F-oj-eSA" id="0IU-cg-g4Z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YAa-g1-lh1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2034.7826086956522" y="850.44642857142856"/>
+        </scene>
         <!--Account View Controller-->
         <scene sceneID="yua-hP-eBz">
             <objects>
@@ -62,6 +147,7 @@
                             <constraint firstItem="ecg-EL-KCE" firstAttribute="centerX" secondItem="Y15-GI-LEx" secondAttribute="centerX" id="wMi-od-lFJ"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="qWB-6F-cwz"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gs8-Lg-gpb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -70,7 +156,7 @@
         <!--Detail Game View Controller-->
         <scene sceneID="K6J-mu-bT5">
             <objects>
-                <viewController storyboardIdentifier="DetailGameViewController" modalPresentationStyle="fullScreen" id="PwI-Ok-Th0" userLabel="Detail Game View Controller" customClass="DetailGameViewController" customModule="gamescatalogue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailGameViewController" modalPresentationStyle="fullScreen" interfaceStyle="light" id="PwI-Ok-Th0" userLabel="Detail Game View Controller" customClass="DetailGameViewController" customModule="gamescatalogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="apP-Ib-W1h">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -297,7 +383,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v9p-XT-WdD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2034.7826086956522" y="93.75"/>
+            <point key="canvasLocation" x="2035" y="110"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="19Z-ze-rRE">
@@ -347,26 +433,77 @@
                                     </constraints>
                                 </view>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kP2-Q8-00h" userLabel="Games Empty">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptystate" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="swu-Hb-UC0" userLabel="Empty State Image">
+                                        <rect key="frame" x="0.0" y="292.5" width="414" height="277"/>
+                                        <accessibility key="accessibilityConfiguration" label="Empty State">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="277" id="rFg-lC-0xM"/>
+                                            <constraint firstAttribute="width" constant="414" id="sZw-us-Pik"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have any games" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKm-5Z-6vL" userLabel="Empty State Label">
+                                        <rect key="frame" x="96.5" y="526.5" width="221" height="23"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="cKm-5Z-6vL" firstAttribute="centerX" secondItem="swu-Hb-UC0" secondAttribute="centerX" id="MLc-qu-OSg"/>
+                                    <constraint firstItem="swu-Hb-UC0" firstAttribute="centerY" secondItem="kP2-Q8-00h" secondAttribute="centerY" constant="44" id="UAN-Ee-qdj"/>
+                                    <constraint firstItem="swu-Hb-UC0" firstAttribute="centerX" secondItem="kP2-Q8-00h" secondAttribute="centerX" id="WIX-iX-jIN"/>
+                                    <constraint firstItem="cKm-5Z-6vL" firstAttribute="bottom" secondItem="swu-Hb-UC0" secondAttribute="bottom" constant="-20" id="b4L-EW-xgr"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qdF-Ug-2Q2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="XMZ-45-C65" firstAttribute="leading" secondItem="qdF-Ug-2Q2" secondAttribute="leading" id="8zz-wR-78Q"/>
+                            <constraint firstItem="kP2-Q8-00h" firstAttribute="trailing" secondItem="qdF-Ug-2Q2" secondAttribute="trailing" id="GqA-KA-nBj"/>
                             <constraint firstItem="XMZ-45-C65" firstAttribute="bottom" secondItem="qdF-Ug-2Q2" secondAttribute="bottom" id="JfB-F2-wSZ"/>
+                            <constraint firstItem="kP2-Q8-00h" firstAttribute="leading" secondItem="qdF-Ug-2Q2" secondAttribute="leading" id="NwC-HF-Nof"/>
+                            <constraint firstItem="kP2-Q8-00h" firstAttribute="top" secondItem="kF5-Zv-HJr" secondAttribute="top" constant="88" id="eQG-VD-uMd"/>
                             <constraint firstItem="XMZ-45-C65" firstAttribute="top" secondItem="qdF-Ug-2Q2" secondAttribute="top" id="gue-Nz-sBD"/>
+                            <constraint firstItem="qdF-Ug-2Q2" firstAttribute="bottom" secondItem="kP2-Q8-00h" secondAttribute="bottom" id="n1z-nZ-qTt"/>
                             <constraint firstItem="XMZ-45-C65" firstAttribute="trailing" secondItem="qdF-Ug-2Q2" secondAttribute="trailing" id="ySp-EQ-XDc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Game Catalogue" id="Gct-Iq-mgz"/>
+                    <navigationItem key="navigationItem" title="Game Catalogue" id="Gct-Iq-mgz">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Account" image="person.crop.circle.fill" catalog="system" landscapeImage="person.crop.circle.fill" largeContentSizeImage="person.crop.circle.fill" id="Wat-jn-QxH">
+                                <color key="tintColor" name="PrimaryColor"/>
+                                <connections>
+                                    <segue destination="OBh-a6-Wkq" kind="show" id="3Bd-8E-TUz"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Favorite" image="heart.fill" catalog="system" landscapeImage="heart.fill" largeContentSizeImage="heart.fill" id="2rm-hG-H2A">
+                                <inset key="imageInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <color key="tintColor" name="PrimaryColor"/>
+                                <connections>
+                                    <segue destination="Kc0-aB-cap" kind="show" id="nQE-id-XAQ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="labelEmptyState" destination="cKm-5Z-6vL" id="Zj0-Q1-cZu"/>
                         <outlet property="tbGames" destination="XMZ-45-C65" id="1sR-8u-Xri"/>
+                        <outlet property="viewEmptyState" destination="kP2-Q8-00h" id="i2y-Ez-1zq"/>
                         <outlet property="viewLoading" destination="gaC-KI-oWE" id="ncv-HL-Qxy"/>
                         <segue destination="PwI-Ok-Th0" kind="show" identifier="detailGameViewController" id="m4z-7X-zJD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ow-q6-wGk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1057" y="94"/>
+            <point key="canvasLocation" x="1056.5217391304348" y="93.75"/>
         </scene>
     </scenes>
     <color key="tintColor" name="PrimaryColor"/>
@@ -374,12 +511,15 @@
         <image name="alfa" width="1384" height="911"/>
         <image name="background" width="375" height="310"/>
         <image name="brokenimage" width="170.5" height="170.5"/>
+        <image name="emptystate" width="250" height="200"/>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="person.crop.circle.fill" catalog="system" width="128" height="121"/>
         <image name="wave" width="666.5" height="145.5"/>
         <namedColor name="AccentColor">
             <color red="0.23899999260902405" green="0.69800001382827759" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="PrimaryColor">
-            <color red="1" green="0.72200000286102295" blue="0.18799999356269836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.14117647058823529" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
