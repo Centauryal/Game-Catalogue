@@ -105,7 +105,8 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
         tbFavorite.deselectRow(at: indexPath, animated: true)
         
         if let detail = self.storyboard?.instantiateViewController(identifier: "DetailGameViewController") as? DetailGameViewController {
-            detail.idDetailFavorite = Int("\(listFavorite[indexPath.row].id!)")
+            guard let id = listFavorite[indexPath.row].id else { return }
+            detail.idDetailFavorite = Int("\(id)")!
             self.navigationController?.pushViewController(detail, animated: true)
         }
     }

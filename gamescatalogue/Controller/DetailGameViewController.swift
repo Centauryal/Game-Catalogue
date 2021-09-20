@@ -25,8 +25,8 @@ class DetailGameViewController: UIViewController {
     @IBOutlet weak var labelPlatform: UILabel!
     @IBOutlet weak var viewLoading: UIView!
     
-    var idDetailGame: Int?
-    var idDetailFavorite: Int?
+    var idDetailGame: Int = 0
+    var idDetailFavorite: Int = 0
     private var detailGame: DetailGameResponse?
     private var detailFavoriteGame: GameModel?
     private var isFavorited: Bool = false
@@ -42,11 +42,11 @@ class DetailGameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
-        if idDetailGame != nil {
-            getDetailGame(id: String(idDetailGame!))
-            loadIDFavorite(idDetailGame!)
+        if idDetailGame != 0 {
+            getDetailGame(id: String(idDetailGame))
+            loadIDFavorite(idDetailGame)
         } else {
-            loadIDFavorite(idDetailFavorite!)
+            loadIDFavorite(idDetailFavorite)
         }
     }
     
@@ -80,13 +80,13 @@ class DetailGameViewController: UIViewController {
     
     @objc func favoriteTapped(tapGesture: UITapGestureRecognizer) {
         if isFavorited {
-            if idDetailGame != nil {
-                deleteFavorite(idDetailGame!)
+            if idDetailGame != 0 {
+                deleteFavorite(idDetailGame)
             } else {
-                deleteFavorite(idDetailFavorite!)
+                deleteFavorite(idDetailFavorite)
             }
-        } else {
-            if idDetailGame != nil {
+        } else {            
+            if idDetailGame != 0 {
                 addFavorite(detailGame!)
             } else {
                 addFavorite(detailFavoriteGame!)
@@ -151,11 +151,13 @@ class DetailGameViewController: UIViewController {
     }
     
     private func showFavoriteUI(detailGame: GameModel) {
+        guard let imageFav = detailGame.image, let ratingFav = detailGame.rating, let desc = detailGame.desc?.utf8 else { return }
+        
         ivBackgroundDetailGame.sd_setImage(
-            with: URL(string: detailGame.imageBackground ?? detailGame.image!),
+            with: URL(string: detailGame.imageBackground ?? imageFav),
             placeholderImage: UIImage(named: "brokenimage"))
         
-        ivDetailGame.sd_setImage(with: URL(string: detailGame.image!), placeholderImage: UIImage(named: "brokenimage"))
+        ivDetailGame.sd_setImage(with: URL(string: imageFav), placeholderImage: UIImage(named: "brokenimage"))
         
         labelGenre.text = detailGame.genre
         labelTitle.text = detailGame.name
@@ -165,14 +167,14 @@ class DetailGameViewController: UIViewController {
         
         let starRating = StarRatingView(
             frame: CGRect(origin: .zero, size: CGSize(width: viewRatingBar.bounds.width, height: viewRatingBar.bounds.height)),
-            rating: Float(detailGame.rating!),
+            rating: Float(ratingFav),
             color: .systemOrange,
             starRounding: .roundToHalfStar)
         viewRatingBar.addSubview(starRating)
-        labelRatingBar.text = String(detailGame.rating!) == "0.0" ? "No Rating" : String(detailGame.rating ?? 0.0)
+        labelRatingBar.text = String(ratingFav) == "0.0" ? "No Rating" : String(detailGame.rating ?? 0.0)
         
-        let desc = Data(detailGame.desc!.utf8)
-        if let atrStr = try? NSAttributedString(data: desc, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+        let html = NSAttributedString.DocumentType.html
+        if let atrStr = try? NSAttributedString(data: Data(desc), options: [.documentType: html], documentAttributes: nil) {
             labelDesc.text = atrStr.string
         }
         
@@ -209,7 +211,7 @@ class DetailGameViewController: UIViewController {
                 self.isFavorited = true
                 self.setupNavigationView(self.isFavorited)
                 
-                if self.idDetailGame == nil {
+                if self.idDetailGame == 0 {
                     self.detailFavoriteGame = game
                     self.showFavoriteUI(detailGame: game)
                 }
@@ -218,6 +220,8 @@ class DetailGameViewController: UIViewController {
     }
     
     private func addFavorite(_ detail: DetailGameResponse) {
+        guard let genre = labelGenre.text, let platform = labelPlatform.text, let publisher = labelPublisher.text else { return }
+        
         gameProvider.setFavoriteGame(
             detail.id,
             detail.name,
@@ -225,9 +229,9 @@ class DetailGameViewController: UIViewController {
             detail.backgroundImageAdditional ?? detail.backgroundImage,
             detail.description,
             detail.released,
-            "\(labelGenre.text!)",
-            "\(labelPlatform.text!)",
-            "\(labelPublisher.text!)",
+            "\(genre)",
+            "\(platform)",
+            "\(publisher)",
             detail.rating) {
             DispatchQueue.main.async {
                 self.setupNavigationView(self.isFavorited)
@@ -237,6 +241,8 @@ class DetailGameViewController: UIViewController {
     }
     
     private func addFavorite(_ detail: GameModel) {
+        guard let genre = labelGenre.text, let platform = labelPlatform.text, let publisher = labelPublisher.text else { return }
+        
         gameProvider.setFavoriteGame(
             Int(detail.id!),
             detail.name!,
@@ -244,9 +250,9 @@ class DetailGameViewController: UIViewController {
             detail.imageBackground ?? detail.image!,
             detail.desc!,
             detail.releaseDate!,
-            "\(labelGenre.text!)",
-            "\(labelPlatform.text!)",
-            "\(labelPublisher.text!)",
+            "\(genre)",
+            "\(platform)",
+            "\(publisher)",
             detail.rating!) {
             DispatchQueue.main.async {
                 self.setupNavigationView(self.isFavorited)

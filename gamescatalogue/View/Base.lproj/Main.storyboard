@@ -116,18 +116,35 @@
                                     <constraint firstAttribute="width" constant="250" id="WRx-a9-lyb"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alfa Centaury" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y15-GI-LEx" userLabel="Label Name Account">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.pencil" catalog="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FXg-en-neN" userLabel="Edit ImageView">
+                                <rect key="frame" x="302" y="299" width="30" height="28.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5tp-Oc-NrI"/>
+                                    <constraint firstAttribute="width" constant="30" id="xlf-YX-laB"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alfa Centaury" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y15-GI-LEx" userLabel="Name Account Label">
                                 <rect key="frame" x="134" y="395" width="146" height="30"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://alfacentaury.azurewebsites.net" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecg-EL-KCE" userLabel="Label Desc Account">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://alfacentaury.azurewebsites.net" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecg-EL-KCE" userLabel="Desc Account Label">
                                 <rect key="frame" x="62" y="440" width="290" height="21"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <color key="textColor" name="PrimaryColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kKT-uB-1Ht" userLabel="Name Account Text Field">
+                                <rect key="frame" x="20" y="390.5" width="374" height="39.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ezX-bJ-SNd" userLabel="Desc Account Text Field">
+                                <rect key="frame" x="20" y="433.5" width="374" height="34"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Xw0-Ey-01s"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -135,19 +152,37 @@
                             <constraint firstItem="kAg-Xd-C41" firstAttribute="centerX" secondItem="Y15-GI-LEx" secondAttribute="centerX" id="4yM-cU-jhB"/>
                             <constraint firstItem="L4G-zt-R0k" firstAttribute="leading" secondItem="Xw0-Ey-01s" secondAttribute="leading" id="4yZ-wA-SCY"/>
                             <constraint firstItem="Y15-GI-LEx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Xw0-Ey-01s" secondAttribute="leading" id="5J9-Ed-DCL"/>
+                            <constraint firstItem="kAg-Xd-C41" firstAttribute="bottom" secondItem="FXg-en-neN" secondAttribute="bottom" id="8f4-A0-NDG"/>
+                            <constraint firstItem="kKT-uB-1Ht" firstAttribute="leading" secondItem="Xw0-Ey-01s" secondAttribute="leading" constant="20" id="Ac9-ua-RHa"/>
                             <constraint firstItem="ecg-EL-KCE" firstAttribute="top" secondItem="Y15-GI-LEx" secondAttribute="bottom" constant="15" id="C2f-cy-Y1N"/>
                             <constraint firstItem="L4G-zt-R0k" firstAttribute="trailing" secondItem="Xw0-Ey-01s" secondAttribute="trailing" id="CEh-se-dTZ"/>
                             <constraint firstItem="kAg-Xd-C41" firstAttribute="top" secondItem="L4G-zt-R0k" secondAttribute="top" constant="35" id="F5Q-e4-EPs"/>
                             <constraint firstItem="Y15-GI-LEx" firstAttribute="top" secondItem="kAg-Xd-C41" secondAttribute="bottom" constant="66" id="NqZ-Nv-QQo"/>
                             <constraint firstItem="Xw0-Ey-01s" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Y15-GI-LEx" secondAttribute="trailing" id="aNZ-pK-qle"/>
+                            <constraint firstItem="Xw0-Ey-01s" firstAttribute="trailing" secondItem="kKT-uB-1Ht" secondAttribute="trailing" constant="20" id="dZK-Fd-iI9"/>
+                            <constraint firstItem="kKT-uB-1Ht" firstAttribute="centerX" secondItem="kAg-Xd-C41" secondAttribute="centerX" id="gbz-YA-2jh"/>
+                            <constraint firstItem="kAg-Xd-C41" firstAttribute="trailing" secondItem="FXg-en-neN" secondAttribute="trailing" id="ghN-Ni-tGk"/>
+                            <constraint firstItem="ezX-bJ-SNd" firstAttribute="centerY" secondItem="ecg-EL-KCE" secondAttribute="centerY" id="hBp-za-kru"/>
+                            <constraint firstItem="Xw0-Ey-01s" firstAttribute="trailing" secondItem="ezX-bJ-SNd" secondAttribute="trailing" constant="20" id="ih0-Pa-5sw"/>
+                            <constraint firstItem="ezX-bJ-SNd" firstAttribute="centerX" secondItem="kAg-Xd-C41" secondAttribute="centerX" id="m45-Bq-sEH"/>
                             <constraint firstItem="kAg-Xd-C41" firstAttribute="centerX" secondItem="L4G-zt-R0k" secondAttribute="centerX" id="mYm-hi-Syt"/>
                             <constraint firstItem="Xw0-Ey-01s" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ecg-EL-KCE" secondAttribute="trailing" id="qIg-a2-Zw8"/>
                             <constraint firstItem="ecg-EL-KCE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Xw0-Ey-01s" secondAttribute="leading" id="rzi-ig-Qde"/>
+                            <constraint firstItem="ezX-bJ-SNd" firstAttribute="leading" secondItem="Xw0-Ey-01s" secondAttribute="leading" constant="20" id="tDs-si-YU0"/>
                             <constraint firstItem="L4G-zt-R0k" firstAttribute="top" secondItem="Qvh-6k-G1m" secondAttribute="top" constant="44" id="vs8-eB-tP7"/>
                             <constraint firstItem="ecg-EL-KCE" firstAttribute="centerX" secondItem="Y15-GI-LEx" secondAttribute="centerX" id="wMi-od-lFJ"/>
+                            <constraint firstItem="kKT-uB-1Ht" firstAttribute="centerY" secondItem="Y15-GI-LEx" secondAttribute="centerY" id="ygz-cL-8hK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qWB-6F-cwz"/>
+                    <connections>
+                        <outlet property="btnEditImage" destination="FXg-en-neN" id="Vtw-ts-nbq"/>
+                        <outlet property="ivAccount" destination="kAg-Xd-C41" id="GwT-7f-MAP"/>
+                        <outlet property="labelDesc" destination="ecg-EL-KCE" id="JfK-n8-up7"/>
+                        <outlet property="labelName" destination="Y15-GI-LEx" id="VyL-Tw-Hk9"/>
+                        <outlet property="txtFieldDesc" destination="ezX-bJ-SNd" id="TF1-Du-uI9"/>
+                        <outlet property="txtFieldName" destination="kKT-uB-1Ht" id="Psl-ho-gAF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gs8-Lg-gpb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -514,6 +549,7 @@
         <image name="emptystate" width="250" height="200"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="person.crop.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <image name="wave" width="666.5" height="145.5"/>
         <namedColor name="AccentColor">
             <color red="0.23899999260902405" green="0.69800001382827759" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
