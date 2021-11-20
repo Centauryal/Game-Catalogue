@@ -16,7 +16,7 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Carthage
   - Pods
   - SwiftLint/Common/3rdPartyLib
-  - gamescatalogue/Model
+  - gamescatalogue/Data/Source/Remote/Result
 analyzer_rules: # Rules run by `swiftlint analyze` (experimental)
   - explicit_self
 # configurable rules can be customized from this configuration file
