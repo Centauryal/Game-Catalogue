@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class DetailPresenter: ObservableObject {
     private let detailUseCase: DetailUseCase
@@ -14,27 +15,19 @@ class DetailPresenter: ObservableObject {
         self.detailUseCase = detailUseCase
     }
     
-    func getDetailGame(completion: @escaping (Result<Detail, Error>) -> Void) {
-        return detailUseCase.getDetailGame { result in
-            completion(result)
-        }
+    func getDetailGame() -> Observable<Detail> {
+        return detailUseCase.getDetailGame()
     }
     
-    func getFavorite(completion: @escaping(Result<GameDB, Error>) -> Void) {
-        return detailUseCase.getFavorite { result in
-            completion(result)
-        }
+    func getFavorite() -> Observable<GameDB> {
+        return detailUseCase.getFavorite()
     }
     
-    func setFavorite(_ gameEntity: GameDB, completion: @escaping(Result<Bool, Error>) -> Void) {
-        return detailUseCase.setFavorite(gameEntity) { result in
-            completion(result)
-        }
+    func setFavorite(_ gameEntity: GameDB) -> Observable<Bool> {
+        return detailUseCase.setFavorite(gameEntity)
     }
     
-    func deleteFavorite(completion: @escaping(Result<Bool, Error>) -> Void) {
-        return detailUseCase.deleteFavorite { result in
-            completion(result)
-        }
+    func deleteFavorite() -> Observable<Bool> {
+        return detailUseCase.deleteFavorite()
     }
 }

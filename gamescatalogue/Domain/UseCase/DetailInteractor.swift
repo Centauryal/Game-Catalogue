@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol DetailUseCase {
-    func getDetailGame(completion: @escaping (Result<Detail, Error>) -> Void)
+    func getDetailGame() -> Observable<Detail>
     
-    func getFavorite(completion: @escaping(Result<GameDB, Error>) -> Void)
+    func getFavorite() -> Observable<GameDB>
     
-    func setFavorite(_ gameEntity: GameDB, completion: @escaping(Result<Bool, Error>) -> Void)
+    func setFavorite(_ gameEntity: GameDB) -> Observable<Bool>
     
-    func deleteFavorite(completion: @escaping(Result<Bool, Error>) -> Void)
+    func deleteFavorite() -> Observable<Bool>
 }
 
 class DetailInteractor: DetailUseCase {
@@ -26,27 +27,19 @@ class DetailInteractor: DetailUseCase {
         self.id = id
     }
     
-    func getDetailGame(completion: @escaping (Result<Detail, Error>) -> Void) {
-        repository.getDetailGame(idDetail: id) { result in
-            completion(result)
-        }
+    func getDetailGame() -> Observable<Detail> {
+        return repository.getDetailGame(idDetail: id)
     }
     
-    func getFavorite(completion: @escaping (Result<GameDB, Error>) -> Void) {
-        repository.getFavorite(Int(id)!) { result in
-            completion(result)
-        }
+    func getFavorite() -> Observable<GameDB> {
+        return repository.getFavorite(Int(id)!)
     }
     
-    func setFavorite(_ gameEntity: GameDB, completion: @escaping (Result<Bool, Error>) -> Void) {
-        repository.setFavorite(gameEntity) { result in
-            completion(result)
-        }
+    func setFavorite(_ gameEntity: GameDB) -> Observable<Bool> {
+        return repository.setFavorite(gameEntity)
     }
     
-    func deleteFavorite(completion: @escaping (Result<Bool, Error>) -> Void) {
-        repository.deleteFavorite(Int(id)!) { result in
-            completion(result)
-        }
+    func deleteFavorite() -> Observable<Bool> {
+        return repository.deleteFavorite(Int(id)!)
     }
 }

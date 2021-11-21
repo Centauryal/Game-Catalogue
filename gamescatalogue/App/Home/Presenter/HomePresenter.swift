@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class HomePresenter: ObservableObject {
     private let homeUseCase: HomeUseCase
@@ -18,10 +19,8 @@ class HomePresenter: ObservableObject {
         self.router = router
     }
     
-    func getListGames(completion: @escaping (Result<[Game], Error>) -> Void) {
-        return homeUseCase.getListGames { result in
-            completion(result)
-        }
+    func getListGames() -> Observable<[Game]> {
+        return homeUseCase.getListGames()
     }
     
     func toDetail(view: UIViewController, detailId: String) {

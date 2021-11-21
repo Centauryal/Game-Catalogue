@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class FavoritePresenter: ObservableObject {
     private let favoriteUseCase: FavoriteUseCase
@@ -17,16 +18,12 @@ class FavoritePresenter: ObservableObject {
         self.routerFavorite = router
     }
     
-    func getAllFavorite(completion: @escaping(Result<[GameDB], Error>) -> Void) {
-        return favoriteUseCase.getAllFavorite { result in
-            completion(result)
-        }
+    func getAllFavorite() -> Observable<[GameDB]> {
+        return favoriteUseCase.getAllFavorite()
     }
     
-    func deleteFavorite(_ id: Int, completion: @escaping(Result<Bool, Error>) -> Void) {
-        return favoriteUseCase.deleteFavorite(id) { result in
-            completion(result)
-        }
+    func deleteFavorite(_ id: Int) -> Observable<Bool> {
+        return favoriteUseCase.deleteFavorite(id)
     }
     
     func favoriteToDetail(view: UIViewController, detailId: Int) {

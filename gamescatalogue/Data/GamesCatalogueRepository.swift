@@ -6,25 +6,26 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol GamesCatalogueRepositoryProtocol {
-    func getListGames(completion: @escaping (Result<[Game], Error>) -> Void)
+    func getListGames() -> Observable<[Game]>
     
-    func getDetailGame(idDetail id: String, completion: @escaping (Result<Detail, Error>) -> Void)
+    func getDetailGame(idDetail id: String) -> Observable<Detail>
     
-    func getAllFavorite(completion: @escaping(Result<[GameDB], Error>) -> Void)
+    func getAllFavorite() -> Observable<[GameDB]>
     
-    func getFavorite(_ id: Int, completion: @escaping(Result<GameDB, Error>) -> Void)
+    func getFavorite(_ id: Int) -> Observable<GameDB>
     
-    func setFavorite(_ gameEntity: GameDB, completion: @escaping(Result<Bool, Error>) -> Void)
+    func setFavorite(_ gameEntity: GameDB) -> Observable<Bool>
     
-    func deleteAllFavorite(completion: @escaping(Result<Bool, Error>) -> Void)
+    func deleteAllFavorite() -> Observable<Bool>
     
-    func deleteFavorite(_ id: Int, completion: @escaping(Result<Bool, Error>) -> Void)
+    func deleteFavorite(_ id: Int) -> Observable<Bool>
     
-    func loadUserAccount(completion: @escaping(Result<Account, LocaleError>) -> Void)
+    func loadUserAccount() -> Observable<Account>
     
-    func addUserAccount(_ accountEntity: Account, completion: @escaping(Result<Bool, LocaleError>) -> Void)
+    func addUserAccount(_ accountEntity: Account) -> Observable<Bool>
 }
 
 final class GamesCatalogueRepository: NSObject {
@@ -44,107 +45,44 @@ final class GamesCatalogueRepository: NSObject {
 }
 
 extension GamesCatalogueRepository: GamesCatalogueRepositoryProtocol {
-    func getListGames(completion: @escaping (Result<[Game], Error>) -> Void) {
-        self.remote.getListGames { remoteResponses in
-            switch remoteResponses {
-            case .success(let resultGame):
-                let resultList = GameResultMapper.transformGameResult(input: resultGame)
-                completion(.success(resultList))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func getListGames() -> Observable<[Game]> {
+        self.remote.getListGames()
+            .map { GameResultMapper.transformGameResult(input: $0) }
     }
     
-    func getDetailGame(idDetail id: String, completion: @escaping (Result<Detail, Error>) -> Void) {
-        self.remote.getDetailGame(idDetail: id) { detailResponse in
-            switch detailResponse {
-            case .success(let detailGame):
-                let resultDetail = GameResultMapper.transformDetailResult(input: detailGame)
-                completion(.success(resultDetail))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func getDetailGame(idDetail id: String) -> Observable<Detail> {
+        self.remote.getDetailGame(idDetail: id)
+            .map { GameResultMapper.transformDetailResult(input: $0) }
     }
     
-    func getAllFavorite(completion: @escaping (Result<[GameDB], Error>) -> Void) {
-        self.locale.getAllFavorite { favorites in
-            switch favorites {
-            case .success(let favorite):
-                let favoriteDB = GameEntityMapper.transformGamesEntity(input: favorite)
-                completion(.success(favoriteDB))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func getAllFavorite() -> Observable<[GameDB]> {
+        self.locale.getAllFavorite()
+            .map { GameEntityMapper.transformGamesEntity(input: $0) }
     }
     
-    func getFavorite(_ id: Int, completion: @escaping (Result<GameDB, Error>) -> Void) {
-        self.locale.getFavorite(id) { favorite in
-            switch favorite {
-            case .success(let detailFavorite):
-                let favoriteDB = GameEntityMapper.transformDetailEntity(input: detailFavorite)
-                completion(.success(favoriteDB))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func getFavorite(_ id: Int) -> Observable<GameDB> {
+        self.locale.getFavorite(id)
+            .map { GameEntityMapper.transformDetailEntity(input: $0) }
     }
     
-    func setFavorite(_ gameEntity: GameDB, completion: @escaping (Result<Bool, Error>) -> Void) {
-        self.locale.setFavorite(GameEntityMapper.transformGameDB(input: gameEntity)) { favorite in
-            switch favorite {
-            case .success(_):
-                completion(.success(true))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func setFavorite(_ gameEntity: GameDB) -> Observable<Bool> {
+        self.locale.setFavorite(GameEntityMapper.transformGameDB(input: gameEntity))
     }
     
-    func deleteAllFavorite(completion: @escaping (Result<Bool, Error>) -> Void) {
-        self.locale.deleteAllFavorite { favorite in
-            switch favorite {
-            case .success(_):
-                completion(.success(true))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func deleteAllFavorite() -> Observable<Bool> {
+        self.locale.deleteAllFavorite()
     }
     
-    func deleteFavorite(_ id: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
-        self.locale.deleteFavorite(id) { favorite in
-            switch favorite {
-            case .success(_):
-                completion(.success(true))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func deleteFavorite(_ id: Int) -> Observable<Bool> {
+        self.locale.deleteFavorite(id)
     }
     
-    func loadUserAccount(completion: @escaping (Result<Account, LocaleError>) -> Void) {
-        self.locale.loadUserAccount { account in
-            switch account {
-            case .success(let user):
-                let userAccount = GameEntityMapper.transformAccountEntity(input: user)
-                completion(.success(userAccount))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func loadUserAccount() -> Observable<Account> {
+        self.locale.loadUserAccount()
+            .map { GameEntityMapper.transformAccountEntity(input: $0) }
     }
     
-    func addUserAccount(_ accountEntity: Account, completion: @escaping (Result<Bool, LocaleError>) -> Void) {
-        self.locale.addUserAccount(GameEntityMapper.transformAccount(input: accountEntity)) { account in
-            switch account {
-            case .success(_):
-                completion(.success(true))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func addUserAccount(_ accountEntity: Account) -> Observable<Bool> {
+        self.locale.addUserAccount(GameEntityMapper.transformAccount(input: accountEntity))
     }
 }

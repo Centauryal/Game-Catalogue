@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol HomeUseCase {
-    func getListGames(completion: @escaping (Result<[Game], Error>) -> Void)
+    func getListGames() -> Observable<[Game]>
 }
 
 class HomeInteractor: HomeUseCase {
@@ -18,9 +19,7 @@ class HomeInteractor: HomeUseCase {
         self.repository = repository
     }
     
-    func getListGames(completion: @escaping (Result<[Game], Error>) -> Void) {
-        repository.getListGames { result in
-            completion(result)
-        }
+    func getListGames() -> Observable<[Game]> {
+        return repository.getListGames()
     }
 }

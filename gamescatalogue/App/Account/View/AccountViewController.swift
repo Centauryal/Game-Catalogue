@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class AccountViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class AccountViewController: UIViewController {
     
     private let imagePicker = UIImagePickerController()
     private var changeImage: UIImage?
+    private let disposeBag = DisposeBag()
     
     var accountPresenter: AccountPresenter?
     
@@ -34,21 +36,16 @@ class AccountViewController: UIViewController {
     }
     
     private func loadUserDefaultAccount() {
-        accountPresenter?.loadUserAccount { result in
-            switch result {
-            case .success(let account):
-                DispatchQueue.main.async {
-                    self.ivAccount.image = UIImage(data: account.image)
-                    self.labelName.text = account.name
-                    self.labelDesc.text = account.desc
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    print(error.localizedDescription)
-                    self.showToast("Set up your profile first!")
-                }
-            }
-        }
+        accountPresenter?.loadUserAccount()
+            .observe(on: MainScheduler.instance)
+            .subscribe { result in
+                self.ivAccount.image = UIImage(data: result.image)
+                self.labelName.text = result.name
+                self.labelDesc.text = result.desc
+            } onError: { error in
+                print(error.localizedDescription)
+                self.showToast("Set up your profile first!")
+            }.disposed(by: disposeBag)
     }
     
     private func setupNavigationView(_ isEdited: Bool) {
@@ -73,20 +70,16 @@ class AccountViewController: UIViewController {
     }
     
     private func addToUserAccount(_ account: Account) {
-        accountPresenter?.addUserAccount(account) { result in
-            switch result {
-            case .success(_):
-                DispatchQueue.main.async {
-                    self.showToast("Saved successfully")
-                    self.editShowHiddenItems(false, true)
-                    self.setupNavigationView(false)
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showToast(error.localizedDescription)
-                }
-            }
-        }
+        accountPresenter?.addUserAccount(account)
+            .observe(on: MainScheduler.instance)
+            .subscribe {_ in
+                self.editShowHiddenItems(false, true)
+                self.setupNavigationView(false)
+            } onError: { error in
+                self.showToast(error.localizedDescription)
+            } onCompleted: {
+                self.showToast("Saved successfully")
+            }.disposed(by: disposeBag)
     }
     
     @objc func editAccountTapped(tapGesture: UITapGestureRecognizer) {

@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol AccountUseCase {
-    func loadUserAccount(completion: @escaping(Result<Account, LocaleError>) -> Void)
+    func loadUserAccount() -> Observable<Account>
     
-    func addUserAccount(_ accountEntity: Account, completion: @escaping(Result<Bool, LocaleError>) -> Void)
+    func addUserAccount(_ accountEntity: Account) -> Observable<Bool>
 }
 
 class AccountInteractor: AccountUseCase {
@@ -20,15 +21,11 @@ class AccountInteractor: AccountUseCase {
         self.repository = repository
     }
     
-    func loadUserAccount(completion: @escaping(Result<Account, LocaleError>) -> Void) {
-        repository.loadUserAccount { result in
-            completion(result)
-        }
+    func loadUserAccount() -> Observable<Account> {
+        return repository.loadUserAccount()
     }
     
-    func addUserAccount(_ accountEntity: Account, completion: @escaping(Result<Bool, LocaleError>) -> Void) {
-        repository.addUserAccount(accountEntity) { result in
-            completion(result)
-        }
+    func addUserAccount(_ accountEntity: Account) -> Observable<Bool> {
+        return repository.addUserAccount(accountEntity)
     }
 }

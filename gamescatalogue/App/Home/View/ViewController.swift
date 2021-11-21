@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import RxSwift
 
 class ViewController: UIViewController {
 
@@ -16,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelEmptyState: UILabel!
     
     private var listGames: [Game] = []
+    private let disposeBag = DisposeBag()
     var presenter: HomePresenter?
     
     override func viewDidLoad() {
@@ -53,26 +55,20 @@ class ViewController: UIViewController {
     private func getListTeams() {
         showViewLoading(viewLoading, true)
         
-        presenter?.getListGames { result in
-            switch result {
-            case .success(let games):
-                DispatchQueue.main.async {
-                    if games.isEmpty {
-                        showViewLoading(self.viewLoading, false)
-                        showViewEmptyState(self.viewEmptyState, false)
-                    } else {
-                        showViewLoading(self.viewLoading, false)
-                        self.listGames = games
-                        self.tbGames.reloadData()
-                    }
+        presenter?.getListGames()
+            .observe(on: MainScheduler.instance)
+            .subscribe { result in
+                if result.isEmpty {
+                    showViewEmptyState(self.viewEmptyState, false)
+                } else {
+                    self.listGames = result
+                    self.tbGames.reloadData()
                 }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    showViewLoading(self.viewLoading, false)
-                    self.showToast(error.localizedDescription)
-                }
-            }
-        }
+            } onError: { error in
+                self.showToast(error.localizedDescription)
+            } onCompleted: {
+                showViewLoading(self.viewLoading, false)
+            }.disposed(by: disposeBag)
     }
 }
 

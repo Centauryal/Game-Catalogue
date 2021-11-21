@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class AccountPresenter: ObservableObject {
     private let accountUseCase: AccountUseCase
@@ -14,15 +15,11 @@ class AccountPresenter: ObservableObject {
         self.accountUseCase = accountUseCase
     }
     
-    func loadUserAccount(completion: @escaping(Result<Account, LocaleError>) -> Void) {
-        return accountUseCase.loadUserAccount { result in
-            completion(result)
-        }
+    func loadUserAccount() -> Observable<Account> {
+        return accountUseCase.loadUserAccount()
     }
     
-    func addUserAccount(_ accountEntity: Account, completion: @escaping(Result<Bool, LocaleError>) -> Void) {
-        return accountUseCase.addUserAccount(accountEntity) { result in
-            completion(result)
-        }
+    func addUserAccount(_ accountEntity: Account) -> Observable<Bool> {
+        return accountUseCase.addUserAccount(accountEntity)
     }
 }

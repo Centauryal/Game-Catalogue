@@ -7,11 +7,12 @@
 
 import Foundation
 import Alamofire
+import RxSwift
 
 protocol RemoteDataSourceProtocol: AnyObject {
-    func getListGames(completion: @escaping (Result<[ResultsGames], URLError>) -> Void)
+    func getListGames() -> Observable<[ResultsGames]>
     
-    func getDetailGame(idDetail id: String, completion: @escaping (Result<DetailGameResponse, URLError>) -> Void)
+    func getDetailGame(idDetail id: String) -> Observable<DetailGameResponse>
 }
 
 final class RemoteDataSource: NSObject {
@@ -21,42 +22,54 @@ final class RemoteDataSource: NSObject {
 }
 
 extension RemoteDataSource: RemoteDataSourceProtocol {
-    func getListGames(completion: @escaping (Result<[ResultsGames], URLError>) -> Void) {
-        var urlListGames = URLComponents(string: Endpoints.Gets.listGames.urlEndpoint)
-        urlListGames?.queryItems = [
-            URLQueryItem(name: "key", value: ApiService.apiKey)
-        ]
-        
-        guard let urlRequest = urlListGames?.url else { return }
-        let request = URLRequest(url: urlRequest)
-        
-        AF.request(request).validate().responseDecodable(of: GamesResponse.self) { response in
-            switch response.result {
-            case .success(let value):
-                completion(.success(value.results))
-            case .failure:
-                completion(.failure(.invalidResponse))
+    func getListGames() -> Observable<[ResultsGames]> {
+        return Observable<[ResultsGames]>.create { observer in
+            var urlListGames = URLComponents(string: Endpoints.Gets.listGames.urlEndpoint)
+            urlListGames?.queryItems = [
+                URLQueryItem(name: "key", value: ApiService.apiKey)
+            ]
+            
+            if let urlRequest = urlListGames?.url {
+                let request = URLRequest(url: urlRequest)
+                
+                AF.request(request).validate().responseDecodable(of: GamesResponse.self) { response in
+                    switch response.result {
+                    case .success(let value):
+                        observer.onNext(value.results)
+                        observer.onCompleted()
+                    case .failure:
+                        observer.onError(URLError.invalidResponse)
+                    }
+                }
             }
+            
+            return Disposables.create()
         }
     }
     
-    func getDetailGame(idDetail id: String, completion: @escaping (Result<DetailGameResponse, URLError>) -> Void) {
-        var urlDetailGame = URLComponents(string: Endpoints.Gets.detailGame.urlEndpoint + id)
-        
-        urlDetailGame?.queryItems = [
-            URLQueryItem(name: "key", value: ApiService.apiKey)
-        ]
-        
-        guard let urlRequest = urlDetailGame?.url else { return }
-        let request = URLRequest(url: urlRequest)
-        
-        AF.request(request).validate().responseDecodable(of: DetailGameResponse.self) { response in
-            switch response.result {
-            case .success(let value):
-                completion(.success(value))
-            case .failure:
-                completion(.failure(.invalidResponse))
+    func getDetailGame(idDetail id: String) -> Observable<DetailGameResponse> {
+        return Observable<DetailGameResponse>.create { observer in
+            var urlDetailGame = URLComponents(string: Endpoints.Gets.detailGame.urlEndpoint + id)
+            
+            urlDetailGame?.queryItems = [
+                URLQueryItem(name: "key", value: ApiService.apiKey)
+            ]
+            
+            if let urlRequest = urlDetailGame?.url {
+                let request = URLRequest(url: urlRequest)
+                
+                AF.request(request).validate().responseDecodable(of: DetailGameResponse.self) { response in
+                    switch response.result {
+                    case .success(let value):
+                        observer.onNext(value)
+                        observer.onCompleted()
+                    case .failure:
+                        observer.onError(URLError.invalidResponse)
+                    }
+                }
             }
+            
+            return Disposables.create()
         }
     }
 }

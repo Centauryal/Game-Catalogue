@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class FavoriteViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class FavoriteViewController: UIViewController {
     @IBOutlet weak var labelEmptyState: UILabel!
     
     private var listFavorite: [GameDB] = []
+    private let disposeBag = DisposeBag()
     var presenter: FavoritePresenter?
     
     override func viewDidLoad() {
@@ -40,26 +42,22 @@ class FavoriteViewController: UIViewController {
     private func loadAllFavorites() {
         showViewLoading(self.viewLoading, true)
         
-        presenter?.getAllFavorite { result in
-            switch result {
-            case .success(let favorites):
-                DispatchQueue.main.async {
-                    if favorites.isEmpty {
-                        showViewLoading(self.viewLoading, false)
-                        showViewEmptyState(self.viewEmptyState, true)
-                    } else {
-                        showViewLoading(self.viewLoading, false)
-                        self.listFavorite = favorites
-                        self.tbFavorite.reloadData()
-                    }
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
+        presenter?.getAllFavorite()
+            .observe(on: MainScheduler.instance)
+            .subscribe { result in
+                if result.isEmpty {
                     showViewLoading(self.viewLoading, false)
-                    self.showToast(error.localizedDescription)
+                    showViewEmptyState(self.viewEmptyState, true)
+                } else {
+                    showViewLoading(self.viewLoading, false)
+                    self.listFavorite = result
+                    self.tbFavorite.reloadData()
                 }
-            }
-        }
+            } onError: { error in
+                self.showToast(error.localizedDescription)
+            } onCompleted: {
+                showViewLoading(self.viewLoading, false)
+            }.disposed(by: disposeBag)
     }
     
     @objc func deleteFavoriteTapped(_ sender: UIButton, tapGesture: UITapGestureRecognizer) {
@@ -75,20 +73,15 @@ class FavoriteViewController: UIViewController {
     }
     
     private func deleteFavorite(_ id: Int) {
-        presenter?.deleteFavorite(id) { result in
-            switch result {
-            case .success(_):
-                DispatchQueue.main.async {
-                    self.loadAllFavorites()
-                    self.showToast("Removed from favorite")
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    showViewLoading(self.viewLoading, false)
-                    self.showToast(error.localizedDescription)
-                }
-            }
-        }
+        presenter?.deleteFavorite(id)
+            .observe(on: MainScheduler.instance)
+            .subscribe {_ in
+                self.loadAllFavorites()
+            } onError: { error in
+                self.showToast(error.localizedDescription)
+            } onCompleted: {
+                self.showToast("Removed from favorite")
+            }.disposed(by: disposeBag)
     }
 }
 

@@ -7,21 +7,22 @@
 
 import Foundation
 import CoreData
+import RxSwift
 
 protocol LocaleDataSourceProtocol: AnyObject {
-    func getAllFavorite(completion: @escaping(Result<[GameEntity], LocaleError>) -> Void)
+    func getAllFavorite() -> Observable<[GameEntity]>
     
-    func getFavorite(_ id: Int, completion: @escaping(Result<GameEntity, LocaleError>) -> Void)
+    func getFavorite(_ id: Int) -> Observable<GameEntity>
     
-    func setFavorite(_ gameEntity: GameEntity, completion: @escaping(Result<Bool, LocaleError>) -> Void)
+    func setFavorite(_ gameEntity: GameEntity) -> Observable<Bool>
     
-    func deleteAllFavorite(completion: @escaping(Result<Bool, LocaleError>) -> Void)
+    func deleteAllFavorite() -> Observable<Bool>
     
-    func deleteFavorite(_ id: Int, completion: @escaping(Result<Bool, LocaleError>) -> Void)
+    func deleteFavorite(_ id: Int) -> Observable<Bool>
     
-    func loadUserAccount(completion: @escaping(Result<AccountEntity, LocaleError>) -> Void)
+    func loadUserAccount() -> Observable<AccountEntity>
     
-    func addUserAccount(_ accountEntity: AccountEntity, completion: @escaping(Result<Bool, LocaleError>) -> Void)
+    func addUserAccount(_ accountEntity: AccountEntity) -> Observable<Bool>
 }
 
 final class LocaleDataSource: NSObject {
@@ -39,142 +40,181 @@ final class LocaleDataSource: NSObject {
 }
 
 extension LocaleDataSource: LocaleDataSourceProtocol {
-    func getAllFavorite(completion: @escaping (Result<[GameEntity], LocaleError>) -> Void) {
-        let  taskContext = newTaskContext
-        taskContext.perform {
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Games")
-            do {
-                let results = try taskContext.fetch(fetchRequest)
-                var games: [GameEntity] = []
-                for result in results {
-                    let game = GameEntity(
-                        id: result.value(forKey: "id") as? Int32,
-                        name: result.value(forKey: "name") as? String,
-                        image: result.value(forKey: "image") as? String,
-                        imageBackground: result.value(forKey: "imagebackground") as? String,
-                        desc: result.value(forKey: "desc") as? String,
-                        releaseDate: result.value(forKey: "releasedate") as? String,
-                        genre: result.value(forKey: "genre") as? String,
-                        platform: result.value(forKey: "platform") as? String,
-                        publisher: result.value(forKey: "publisher") as? String,
-                        rating: result.value(forKey: "rating") as? Double
-                    )
-                    
-                    games.append(game)
-                }
-                completion(.success(games))
-            } catch {
-                completion(.failure(.requestFailed))
-            }
-        }
-    }
-    
-    func getFavorite(_ id: Int, completion: @escaping (Result<GameEntity, LocaleError>) -> Void) {
-        let taskContext = newTaskContext
-        taskContext.perform {
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Games")
-            fetchRequest.fetchLimit = 1
-            fetchRequest.predicate = NSPredicate(format: "id == \(id)")
-            do {
-                if let result = try taskContext.fetch(fetchRequest).first {
-                    let game = GameEntity(
-                        id: result.value(forKey: "id") as? Int32,
-                        name: result.value(forKey: "name") as? String,
-                        image: result.value(forKey: "image") as? String,
-                        imageBackground: result.value(forKey: "imagebackground") as? String,
-                        desc: result.value(forKey: "desc") as? String,
-                        releaseDate: result.value(forKey: "releasedate") as? String,
-                        genre: result.value(forKey: "genre") as? String,
-                        platform: result.value(forKey: "platform") as? String,
-                        publisher: result.value(forKey: "publisher") as? String,
-                        rating: result.value(forKey: "rating") as? Double
-                    )
-                    
-                    completion(.success(game))
-                }
-            } catch {
-                completion(.failure(.requestFailed))
-            }
-        }
-    }
-    
-    func setFavorite(_ gameEntity: GameEntity, completion: @escaping (Result<Bool, LocaleError>) -> Void) {
-        let taskContext = newTaskContext
-        taskContext.perform {
-            if let entity = NSEntityDescription.entity(forEntityName: "Games", in: taskContext) {
-                let game = NSManagedObject(entity: entity, insertInto: taskContext)
-                game.setValue(Int(gameEntity.id!), forKey: "id")
-                game.setValue(gameEntity.name, forKey: "name")
-                game.setValue(gameEntity.image, forKey: "image")
-                game.setValue(gameEntity.imageBackground, forKey: "imagebackground")
-                game.setValue(gameEntity.desc, forKey: "desc")
-                game.setValue(gameEntity.releaseDate, forKey: "releasedate")
-                game.setValue(gameEntity.genre, forKey: "genre")
-                game.setValue(gameEntity.platform, forKey: "platform")
-                game.setValue(gameEntity.publisher, forKey: "publisher")
-                game.setValue(gameEntity.rating, forKey: "rating")
-                
+    func getAllFavorite() -> Observable<[GameEntity]> {
+        return Observable<[GameEntity]>.create { observer in
+            let  taskContext = self.newTaskContext
+            taskContext.perform {
+                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Games")
                 do {
-                    try taskContext.save()
-                    completion(.success(true))
+                    let results = try taskContext.fetch(fetchRequest)
+                    var games: [GameEntity] = []
+                    for result in results {
+                        let game = GameEntity(
+                            id: result.value(forKey: "id") as? Int32,
+                            name: result.value(forKey: "name") as? String,
+                            image: result.value(forKey: "image") as? String,
+                            imageBackground: result.value(forKey: "imagebackground") as? String,
+                            desc: result.value(forKey: "desc") as? String,
+                            releaseDate: result.value(forKey: "releasedate") as? String,
+                            genre: result.value(forKey: "genre") as? String,
+                            platform: result.value(forKey: "platform") as? String,
+                            publisher: result.value(forKey: "publisher") as? String,
+                            rating: result.value(forKey: "rating") as? Double
+                        )
+                        
+                        games.append(game)
+                    }
+                    observer.onNext(games)
+                    observer.onCompleted()
                 } catch {
-                    completion(.failure(.requestFailed))
+                    observer.onError(LocaleError.invalidInstance)
                 }
             }
-        }
-    }
-    
-    func deleteAllFavorite(completion: @escaping (Result<Bool, LocaleError>) -> Void) {
-        let taskContext = newTaskContext
-        taskContext.perform {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Games")
-            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            batchDeleteRequest.resultType = .resultTypeCount
             
-            if let batchDeleteResult = try? taskContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
-                if batchDeleteResult.result != nil {
-                    completion(.success(true))
-                }
-            }
+            return Disposables.create()
         }
     }
     
-    func deleteFavorite(_ id: Int, completion: @escaping (Result<Bool, LocaleError>) -> Void) {
-        let taskContext = newTaskContext
-        taskContext.perform {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Games")
-            fetchRequest.fetchLimit = 1
-            fetchRequest.predicate = NSPredicate(format: "id == \(id)")
-            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            batchDeleteRequest.resultType = .resultTypeCount
+    func getFavorite(_ id: Int) -> Observable<GameEntity> {
+        return Observable<GameEntity>.create { observer in
+            let taskContext = self.newTaskContext
+            taskContext.perform {
+                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Games")
+                fetchRequest.fetchLimit = 1
+                fetchRequest.predicate = NSPredicate(format: "id == \(id)")
+                do {
+                    if let result = try taskContext.fetch(fetchRequest).first {
+                        let game = GameEntity(
+                            id: result.value(forKey: "id") as? Int32,
+                            name: result.value(forKey: "name") as? String,
+                            image: result.value(forKey: "image") as? String,
+                            imageBackground: result.value(forKey: "imagebackground") as? String,
+                            desc: result.value(forKey: "desc") as? String,
+                            releaseDate: result.value(forKey: "releasedate") as? String,
+                            genre: result.value(forKey: "genre") as? String,
+                            platform: result.value(forKey: "platform") as? String,
+                            publisher: result.value(forKey: "publisher") as? String,
+                            rating: result.value(forKey: "rating") as? Double
+                        )
+                        
+                        observer.onNext(game)
+                        observer.onCompleted()
+                    }
+                } catch {
+                    observer.onError(LocaleError.invalidInstance)
+                }
+            }
             
-            if let batchDeleteResult = try? taskContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
-                if batchDeleteResult.result != nil {
-                    completion(.success(true))
+            return Disposables.create()
+        }
+    }
+    
+    func setFavorite(_ gameEntity: GameEntity) -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let taskContext = self.newTaskContext
+            taskContext.perform {
+                if let entity = NSEntityDescription.entity(forEntityName: "Games", in: taskContext) {
+                    let game = NSManagedObject(entity: entity, insertInto: taskContext)
+                    game.setValue(Int(gameEntity.id!), forKey: "id")
+                    game.setValue(gameEntity.name, forKey: "name")
+                    game.setValue(gameEntity.image, forKey: "image")
+                    game.setValue(gameEntity.imageBackground, forKey: "imagebackground")
+                    game.setValue(gameEntity.desc, forKey: "desc")
+                    game.setValue(gameEntity.releaseDate, forKey: "releasedate")
+                    game.setValue(gameEntity.genre, forKey: "genre")
+                    game.setValue(gameEntity.platform, forKey: "platform")
+                    game.setValue(gameEntity.publisher, forKey: "publisher")
+                    game.setValue(gameEntity.rating, forKey: "rating")
+                    
+                    do {
+                        try taskContext.save()
+                        observer.onNext(true)
+                        observer.onCompleted()
+                    } catch {
+                        observer.onError(LocaleError.requestFailed)
+                    }
                 }
             }
+            
+            return Disposables.create()
         }
     }
     
-    func loadUserAccount(completion: @escaping (Result<AccountEntity, LocaleError>) -> Void) {
-        let user = userDefault
-        
-        do {
-            let account = try user.getObject(forKey: "Account", castTo: AccountEntity.self)
-            completion(.success(account))
-        } catch {
-            completion(.failure(.requestFailed))
+    func deleteAllFavorite() -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let taskContext = self.newTaskContext
+            taskContext.perform {
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Games")
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                batchDeleteRequest.resultType = .resultTypeCount
+                
+                if let batchDeleteResult = try? taskContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
+                    if batchDeleteResult.result != nil {
+                        observer.onNext(true)
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(LocaleError.requestFailed)
+                    }
+                }
+            }
+            
+            return Disposables.create()
         }
     }
     
-    func addUserAccount(_ accountEntity: AccountEntity, completion: @escaping (Result<Bool, LocaleError>) -> Void) {
-        let user = userDefault
-        
-        do {
-            try user.setObject(accountEntity, forKey: "Account")
-            completion(.success(true))
-        } catch {
-            completion(.failure(.requestFailed))
+    func deleteFavorite(_ id: Int) -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let taskContext = self.newTaskContext
+            taskContext.perform {
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Games")
+                fetchRequest.fetchLimit = 1
+                fetchRequest.predicate = NSPredicate(format: "id == \(id)")
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                batchDeleteRequest.resultType = .resultTypeCount
+                
+                if let batchDeleteResult = try? taskContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
+                    if batchDeleteResult.result != nil {
+                        observer.onNext(true)
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(LocaleError.requestFailed)
+                    }
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    func loadUserAccount() -> Observable<AccountEntity> {
+        return Observable<AccountEntity>.create { observer in
+            let user = self.userDefault
+            
+            do {
+                let account = try user.getObject(forKey: "Account", castTo: AccountEntity.self)
+                observer.onNext(account)
+                observer.onCompleted()
+            } catch {
+                observer.onError(LocaleError.requestFailed)
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    func addUserAccount(_ accountEntity: AccountEntity) -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let user = self.userDefault
+            
+            do {
+                try user.setObject(accountEntity, forKey: "Account")
+                observer.onNext(true)
+                observer.onCompleted()
+            } catch {
+                observer.onError(LocaleError.requestFailed)
+            }
+            
+            return Disposables.create()
         }
     }
 }

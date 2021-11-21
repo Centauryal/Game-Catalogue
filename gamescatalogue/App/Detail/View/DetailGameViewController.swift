@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class DetailGameViewController: UIViewController {
 
@@ -28,6 +29,7 @@ class DetailGameViewController: UIViewController {
     private var detailGame: Detail?
     private var detailFavoriteGame: GameDB?
     private var isFavorited: Bool = false
+    private let disposeBag = DisposeBag()
     
     var detailPresenter: DetailPresenter?
     var fromFavorite: Int = 0
@@ -42,7 +44,6 @@ class DetailGameViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
         if fromFavorite == 0 {
             getDetailGame()
-            loadIDFavorite()
         } else {
             loadIDFavorite()
         }
@@ -53,21 +54,18 @@ class DetailGameViewController: UIViewController {
     }
     
     private func getDetailGame() {
-        detailPresenter?.getDetailGame { result in
-            switch result {
-            case .success(let detail):
-                DispatchQueue.main.async {
-                    self.viewLoading.isHidden = true
-                    self.setupNavigationView(self.isFavorited)
-                    self.detailGame = detail
-                    self.showUI(detailGame: detail)
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showToast(error.localizedDescription)
-                }
-            }
-        }
+        detailPresenter?.getDetailGame()
+            .observe(on: MainScheduler.instance)
+            .subscribe { result in
+                self.setupNavigationView(self.isFavorited)
+                self.detailGame = result
+                self.showUI(detailGame: result)
+                self.loadIDFavorite()
+            } onError: { error in
+                self.showToast(error.localizedDescription)
+            } onCompleted: {
+                self.viewLoading.isHidden = true
+            }.disposed(by: disposeBag)
     }
     
     private func setupNavigationView(_ isFavorited: Bool) {
@@ -195,24 +193,20 @@ class DetailGameViewController: UIViewController {
     }
     
     private func loadIDFavorite() {
-        detailPresenter?.getFavorite { result in
-            switch result {
-            case .success(let favorite):
-                DispatchQueue.main.async {
-                    self.viewLoading.isHidden = true
-                    self.isFavorited = true
-                    self.setupNavigationView(self.isFavorited)
-                    if self.detailGame == nil {
-                        self.detailFavoriteGame = favorite
-                        self.showFavoriteUI(detailGame: favorite)
-                    }
+        detailPresenter?.getFavorite()
+            .observe(on: MainScheduler.instance)
+            .subscribe { result in
+                self.isFavorited = true
+                self.setupNavigationView(self.isFavorited)
+                if self.detailGame == nil {
+                    self.detailFavoriteGame = result
+                    self.showFavoriteUI(detailGame: result)
                 }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showToast(error.localizedDescription)
-                }
-            }
-        }
+            } onError: { error in
+                self.showToast(error.localizedDescription)
+            } onCompleted: {
+                self.viewLoading.isHidden = true
+            }.disposed(by: disposeBag)
     }
     
     private func addFavorite(_ detail: Detail) {
@@ -230,50 +224,38 @@ class DetailGameViewController: UIViewController {
             publisher: publisher,
             rating: detail.rating)
         
-        detailPresenter?.setFavorite(favorite) { result in
-            switch result {
-            case .success(_):
-                DispatchQueue.main.async {
-                    self.setupNavigationView(self.isFavorited)
-                    self.showToast("Added to favorite")
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showToast(error.localizedDescription)
-                }
-            }
-        }
+        detailPresenter?.setFavorite(favorite)
+            .observe(on: MainScheduler.instance)
+            .subscribe {_ in
+                self.setupNavigationView(self.isFavorited)
+            } onError: { error in
+                self.showToast(error.localizedDescription)
+            } onCompleted: {
+                self.showToast("Added to favorite")
+            }.disposed(by: disposeBag)
     }
     
     private func addFavorite(_ detail: GameDB) {
-        detailPresenter?.setFavorite(detail) { result in
-            switch result {
-            case .success(_):
-                DispatchQueue.main.async {
-                    self.setupNavigationView(self.isFavorited)
-                    self.showToast("Added to favorite")
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showToast(error.localizedDescription)
-                }
-            }
-        }
+        detailPresenter?.setFavorite(detail)
+            .observe(on: MainScheduler.instance)
+            .subscribe {_ in
+                self.setupNavigationView(self.isFavorited)
+            } onError: { error in
+                self.showToast(error.localizedDescription)
+            } onCompleted: {
+                self.showToast("Added to favorite")
+            }.disposed(by: disposeBag)
     }
     
     private func deleteFavorite() {
-        detailPresenter?.deleteFavorite { result in
-            switch result {
-            case .success(_):
-                DispatchQueue.main.async {
-                    self.setupNavigationView(self.isFavorited)
-                    self.showToast("Removed from favorite")
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showToast(error.localizedDescription)
-                }
-            }
-        }
+        detailPresenter?.deleteFavorite()
+            .observe(on: MainScheduler.instance)
+            .subscribe {_ in
+                self.setupNavigationView(self.isFavorited)
+            } onError: { error in
+                self.showToast(error.localizedDescription)
+            } onCompleted: {
+                self.showToast("Removed from favorite")
+            }.disposed(by: disposeBag)
     }
 }

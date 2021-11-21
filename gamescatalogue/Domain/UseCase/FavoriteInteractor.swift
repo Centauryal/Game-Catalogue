@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol FavoriteUseCase {
-    func getAllFavorite(completion: @escaping(Result<[GameDB], Error>) -> Void)
+    func getAllFavorite() -> Observable<[GameDB]>
     
-    func deleteFavorite(_ id: Int, completion: @escaping(Result<Bool, Error>) -> Void)
+    func deleteFavorite(_ id: Int) -> Observable<Bool>
 }
 
 class FavoriteInteractor: FavoriteUseCase {
@@ -20,15 +21,11 @@ class FavoriteInteractor: FavoriteUseCase {
         self.repository = repository
     }
     
-    func getAllFavorite(completion: @escaping (Result<[GameDB], Error>) -> Void) {
-        repository.getAllFavorite { result in
-            completion(result)
-        }
+    func getAllFavorite() -> Observable<[GameDB]> {
+        return repository.getAllFavorite()
     }
     
-    func deleteFavorite(_ id: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
-        repository.deleteFavorite(id) { result in
-            completion(result)
-        }
+    func deleteFavorite(_ id: Int) -> Observable<Bool> {
+        return repository.deleteFavorite(id)
     }
 }
