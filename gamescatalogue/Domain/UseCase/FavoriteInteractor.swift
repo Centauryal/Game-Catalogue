@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 protocol FavoriteUseCase {
-    func getAllFavorite() -> Observable<[GameDB]>
+    func getAllFavorite() -> AnyPublisher<[GameDB], Error>
     
-    func deleteFavorite(_ id: Int) -> Observable<Bool>
+    func deleteFavorite(_ id: Int) -> AnyPublisher<Bool, Error>
 }
 
 class FavoriteInteractor: FavoriteUseCase {
@@ -21,11 +21,11 @@ class FavoriteInteractor: FavoriteUseCase {
         self.repository = repository
     }
     
-    func getAllFavorite() -> Observable<[GameDB]> {
+    func getAllFavorite() -> AnyPublisher<[GameDB], Error> {
         return repository.getAllFavorite()
     }
     
-    func deleteFavorite(_ id: Int) -> Observable<Bool> {
+    func deleteFavorite(_ id: Int) -> AnyPublisher<Bool, Error> {
         return repository.deleteFavorite(id)
     }
 }

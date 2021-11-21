@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 class AccountPresenter: ObservableObject {
     private let accountUseCase: AccountUseCase
@@ -15,11 +15,11 @@ class AccountPresenter: ObservableObject {
         self.accountUseCase = accountUseCase
     }
     
-    func loadUserAccount() -> Observable<Account> {
+    func loadUserAccount() -> AnyPublisher<Account, Error> {
         return accountUseCase.loadUserAccount()
     }
     
-    func addUserAccount(_ accountEntity: Account) -> Observable<Bool> {
+    func addUserAccount(_ accountEntity: Account) -> AnyPublisher<Bool, Error> {
         return accountUseCase.addUserAccount(accountEntity)
     }
 }

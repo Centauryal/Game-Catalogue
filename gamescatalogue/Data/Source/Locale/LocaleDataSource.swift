@@ -7,22 +7,22 @@
 
 import Foundation
 import CoreData
-import RxSwift
+import Combine
 
 protocol LocaleDataSourceProtocol: AnyObject {
-    func getAllFavorite() -> Observable<[GameEntity]>
+    func getAllFavorite() -> AnyPublisher<[GameEntity], Error>
     
-    func getFavorite(_ id: Int) -> Observable<GameEntity>
+    func getFavorite(_ id: Int) -> AnyPublisher<GameEntity, Error>
     
-    func setFavorite(_ gameEntity: GameEntity) -> Observable<Bool>
+    func setFavorite(_ gameEntity: GameEntity) -> AnyPublisher<Bool, Error>
     
-    func deleteAllFavorite() -> Observable<Bool>
+    func deleteAllFavorite() -> AnyPublisher<Bool, Error>
     
-    func deleteFavorite(_ id: Int) -> Observable<Bool>
+    func deleteFavorite(_ id: Int) -> AnyPublisher<Bool, Error>
     
-    func loadUserAccount() -> Observable<AccountEntity>
+    func loadUserAccount() -> AnyPublisher<AccountEntity, Error>
     
-    func addUserAccount(_ accountEntity: AccountEntity) -> Observable<Bool>
+    func addUserAccount(_ accountEntity: AccountEntity) -> AnyPublisher<Bool, Error>
 }
 
 final class LocaleDataSource: NSObject {
@@ -40,8 +40,8 @@ final class LocaleDataSource: NSObject {
 }
 
 extension LocaleDataSource: LocaleDataSourceProtocol {
-    func getAllFavorite() -> Observable<[GameEntity]> {
-        return Observable<[GameEntity]>.create { observer in
+    func getAllFavorite() -> AnyPublisher<[GameEntity], Error> {
+        return Future<[GameEntity], Error> { completion in
             let  taskContext = self.newTaskContext
             taskContext.perform {
                 let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Games")
@@ -64,19 +64,16 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
                         
                         games.append(game)
                     }
-                    observer.onNext(games)
-                    observer.onCompleted()
+                    completion(.success(games))
                 } catch {
-                    observer.onError(LocaleError.invalidInstance)
+                    completion(.failure(LocaleError.invalidInstance))
                 }
             }
-            
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
     
-    func getFavorite(_ id: Int) -> Observable<GameEntity> {
-        return Observable<GameEntity>.create { observer in
+    func getFavorite(_ id: Int) -> AnyPublisher<GameEntity, Error> {
+        return Future<GameEntity, Error> { completion in
             let taskContext = self.newTaskContext
             taskContext.perform {
                 let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Games")
@@ -97,20 +94,17 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
                             rating: result.value(forKey: "rating") as? Double
                         )
                         
-                        observer.onNext(game)
-                        observer.onCompleted()
+                        completion(.success(game))
                     }
                 } catch {
-                    observer.onError(LocaleError.invalidInstance)
+                    completion(.failure(LocaleError.invalidInstance))
                 }
             }
-            
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
     
-    func setFavorite(_ gameEntity: GameEntity) -> Observable<Bool> {
-        return Observable<Bool>.create { observer in
+    func setFavorite(_ gameEntity: GameEntity) -> AnyPublisher<Bool, Error> {
+        return Future<Bool, Error> { completion in
             let taskContext = self.newTaskContext
             taskContext.perform {
                 if let entity = NSEntityDescription.entity(forEntityName: "Games", in: taskContext) {
@@ -128,20 +122,17 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
                     
                     do {
                         try taskContext.save()
-                        observer.onNext(true)
-                        observer.onCompleted()
+                        completion(.success(true))
                     } catch {
-                        observer.onError(LocaleError.requestFailed)
+                        completion(.failure(LocaleError.requestFailed))
                     }
                 }
             }
-            
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
     
-    func deleteAllFavorite() -> Observable<Bool> {
-        return Observable<Bool>.create { observer in
+    func deleteAllFavorite() -> AnyPublisher<Bool, Error> {
+        return Future<Bool, Error> { completion in
             let taskContext = self.newTaskContext
             taskContext.perform {
                 let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Games")
@@ -150,20 +141,17 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
                 
                 if let batchDeleteResult = try? taskContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
                     if batchDeleteResult.result != nil {
-                        observer.onNext(true)
-                        observer.onCompleted()
+                        completion(.success(true))
                     } else {
-                        observer.onError(LocaleError.requestFailed)
+                        completion(.failure(LocaleError.requestFailed))
                     }
                 }
             }
-            
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
     
-    func deleteFavorite(_ id: Int) -> Observable<Bool> {
-        return Observable<Bool>.create { observer in
+    func deleteFavorite(_ id: Int) -> AnyPublisher<Bool, Error> {
+        return Future<Bool, Error> { completion in
             let taskContext = self.newTaskContext
             taskContext.perform {
                 let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Games")
@@ -174,47 +162,38 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
                 
                 if let batchDeleteResult = try? taskContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
                     if batchDeleteResult.result != nil {
-                        observer.onNext(true)
-                        observer.onCompleted()
+                        completion(.success(true))
                     } else {
-                        observer.onError(LocaleError.requestFailed)
+                        completion(.failure(LocaleError.requestFailed))
                     }
                 }
             }
-            
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
     
-    func loadUserAccount() -> Observable<AccountEntity> {
-        return Observable<AccountEntity>.create { observer in
+    func loadUserAccount() -> AnyPublisher<AccountEntity, Error> {
+        return Future<AccountEntity, Error> { completion in
             let user = self.userDefault
             
             do {
                 let account = try user.getObject(forKey: "Account", castTo: AccountEntity.self)
-                observer.onNext(account)
-                observer.onCompleted()
+                completion(.success(account))
             } catch {
-                observer.onError(LocaleError.requestFailed)
+                completion(.failure(LocaleError.requestFailed))
             }
-            
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
     
-    func addUserAccount(_ accountEntity: AccountEntity) -> Observable<Bool> {
-        return Observable<Bool>.create { observer in
+    func addUserAccount(_ accountEntity: AccountEntity) -> AnyPublisher<Bool, Error> {
+        return Future<Bool, Error> { completion in
             let user = self.userDefault
             
             do {
                 try user.setObject(accountEntity, forKey: "Account")
-                observer.onNext(true)
-                observer.onCompleted()
+                completion(.success(true))
             } catch {
-                observer.onError(LocaleError.requestFailed)
+                completion(.failure(LocaleError.requestFailed))
             }
-            
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
 }

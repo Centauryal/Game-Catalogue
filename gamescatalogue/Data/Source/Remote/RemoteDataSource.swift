@@ -7,12 +7,12 @@
 
 import Foundation
 import Alamofire
-import RxSwift
+import Combine
 
 protocol RemoteDataSourceProtocol: AnyObject {
-    func getListGames() -> Observable<[ResultsGames]>
+    func getListGames() -> AnyPublisher<[ResultsGames], Error>
     
-    func getDetailGame(idDetail id: String) -> Observable<DetailGameResponse>
+    func getDetailGame(idDetail id: String) -> AnyPublisher<DetailGameResponse, Error>
 }
 
 final class RemoteDataSource: NSObject {
@@ -22,8 +22,8 @@ final class RemoteDataSource: NSObject {
 }
 
 extension RemoteDataSource: RemoteDataSourceProtocol {
-    func getListGames() -> Observable<[ResultsGames]> {
-        return Observable<[ResultsGames]>.create { observer in
+    func getListGames() -> AnyPublisher<[ResultsGames], Error> {
+        return Future<[ResultsGames], Error> { completion in
             var urlListGames = URLComponents(string: Endpoints.Gets.listGames.urlEndpoint)
             urlListGames?.queryItems = [
                 URLQueryItem(name: "key", value: ApiService.apiKey)
@@ -35,20 +35,17 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
                 AF.request(request).validate().responseDecodable(of: GamesResponse.self) { response in
                     switch response.result {
                     case .success(let value):
-                        observer.onNext(value.results)
-                        observer.onCompleted()
+                        completion(.success(value.results))
                     case .failure:
-                        observer.onError(URLError.invalidResponse)
+                        completion(.failure(URLError.invalidResponse))
                     }
                 }
             }
-            
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
     
-    func getDetailGame(idDetail id: String) -> Observable<DetailGameResponse> {
-        return Observable<DetailGameResponse>.create { observer in
+    func getDetailGame(idDetail id: String) -> AnyPublisher<DetailGameResponse, Error> {
+        return Future<DetailGameResponse, Error> { completion in
             var urlDetailGame = URLComponents(string: Endpoints.Gets.detailGame.urlEndpoint + id)
             
             urlDetailGame?.queryItems = [
@@ -61,15 +58,12 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
                 AF.request(request).validate().responseDecodable(of: DetailGameResponse.self) { response in
                     switch response.result {
                     case .success(let value):
-                        observer.onNext(value)
-                        observer.onCompleted()
+                        completion(.success(value))
                     case .failure:
-                        observer.onError(URLError.invalidResponse)
+                        completion(.failure(URLError.invalidResponse))
                     }
                 }
             }
-            
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
 }

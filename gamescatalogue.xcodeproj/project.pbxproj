@@ -30,8 +30,6 @@
 		4C40572226EF7F4200B899F0 /* GameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C40572126EF7F4200B899F0 /* GameEntity.swift */; };
 		4C40572426EF811E00B899F0 /* GameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C40572326EF811E00B899F0 /* GameProvider.swift */; };
 		4C40572626EF8CE200B899F0 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C40572526EF8CE200B899F0 /* FavoriteViewController.swift */; };
-		4C4E2E742749124F00745341 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4C4E2E732749124F00745341 /* RxCocoa */; };
-		4C4E2E762749124F00745341 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4C4E2E752749124F00745341 /* RxSwift */; };
 		4C537AD026D937170031F9C3 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C537ACF26D937170031F9C3 /* AccountViewController.swift */; };
 		4C537AD226D937590031F9C3 /* DetailGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C537AD126D937590031F9C3 /* DetailGameViewController.swift */; };
 		4C641B9A26E11B140074B6DC /* RatingStackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C641B9926E11B140074B6DC /* RatingStackView.xib */; };
@@ -138,9 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C4E2E742749124F00745341 /* RxCocoa in Frameworks */,
 				4C1E545326D92F3100F57BDF /* SDWebImage in Frameworks */,
-				4C4E2E762749124F00745341 /* RxSwift in Frameworks */,
 				4CAA6BAA2748F0EF00245F24 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,8 +516,6 @@
 			packageProductDependencies = (
 				4C1E545226D92F3100F57BDF /* SDWebImage */,
 				4CAA6BA92748F0EF00245F24 /* Alamofire */,
-				4C4E2E732749124F00745341 /* RxCocoa */,
-				4C4E2E752749124F00745341 /* RxSwift */,
 			);
 			productName = gamescatalogue;
 			productReference = 4C1E541E26D92E4B00F57BDF /* gamescatalogue.app */;
@@ -597,7 +591,6 @@
 			packageReferences = (
 				4C1E545126D92F3100F57BDF /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				4CAA6BA82748F0EF00245F24 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				4C4E2E722749124F00745341 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 4C1E541F26D92E4B00F57BDF /* Products */;
 			projectDirPath = "";
@@ -1051,14 +1044,6 @@
 				minimumVersion = 5.12.1;
 			};
 		};
-		4C4E2E722749124F00745341 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.2.0;
-			};
-		};
 		4CAA6BA82748F0EF00245F24 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -1074,16 +1059,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4C1E545126D92F3100F57BDF /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
-		};
-		4C4E2E732749124F00745341 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4C4E2E722749124F00745341 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		4C4E2E752749124F00745341 /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4C4E2E722749124F00745341 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
 		};
 		4CAA6BA92748F0EF00245F24 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

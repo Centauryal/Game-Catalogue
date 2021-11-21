@@ -6,16 +6,16 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 protocol DetailUseCase {
-    func getDetailGame() -> Observable<Detail>
+    func getDetailGame() -> AnyPublisher<Detail, Error>
     
-    func getFavorite() -> Observable<GameDB>
+    func getFavorite() -> AnyPublisher<GameDB, Error>
     
-    func setFavorite(_ gameEntity: GameDB) -> Observable<Bool>
+    func setFavorite(_ gameEntity: GameDB) -> AnyPublisher<Bool, Error>
     
-    func deleteFavorite() -> Observable<Bool>
+    func deleteFavorite() -> AnyPublisher<Bool, Error>
 }
 
 class DetailInteractor: DetailUseCase {
@@ -27,19 +27,19 @@ class DetailInteractor: DetailUseCase {
         self.id = id
     }
     
-    func getDetailGame() -> Observable<Detail> {
+    func getDetailGame() -> AnyPublisher<Detail, Error> {
         return repository.getDetailGame(idDetail: id)
     }
     
-    func getFavorite() -> Observable<GameDB> {
+    func getFavorite() -> AnyPublisher<GameDB, Error> {
         return repository.getFavorite(Int(id)!)
     }
     
-    func setFavorite(_ gameEntity: GameDB) -> Observable<Bool> {
+    func setFavorite(_ gameEntity: GameDB) -> AnyPublisher<Bool, Error> {
         return repository.setFavorite(gameEntity)
     }
     
-    func deleteFavorite() -> Observable<Bool> {
+    func deleteFavorite() -> AnyPublisher<Bool, Error> {
         return repository.deleteFavorite(Int(id)!)
     }
 }

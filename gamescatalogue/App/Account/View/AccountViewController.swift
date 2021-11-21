@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 
 class AccountViewController: UIViewController {
 
@@ -19,7 +19,7 @@ class AccountViewController: UIViewController {
     
     private let imagePicker = UIImagePickerController()
     private var changeImage: UIImage?
-    private let disposeBag = DisposeBag()
+    private var cancellables: Set<AnyCancellable> = []
     
     var accountPresenter: AccountPresenter?
     
@@ -37,15 +37,20 @@ class AccountViewController: UIViewController {
     
     private func loadUserDefaultAccount() {
         accountPresenter?.loadUserAccount()
-            .observe(on: MainScheduler.instance)
-            .subscribe { result in
-                self.ivAccount.image = UIImage(data: result.image)
-                self.labelName.text = result.name
-                self.labelDesc.text = result.desc
-            } onError: { error in
-                print(error.localizedDescription)
-                self.showToast("Set up your profile first!")
-            }.disposed(by: disposeBag)
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished: break
+                case .failure:
+                    print(String(describing: completion))
+                    self.showToast("Set up your profile first!")
+                }
+            }, receiveValue: { account in
+                self.ivAccount.image = UIImage(data: account.image)
+                self.labelName.text = account.name
+                self.labelDesc.text = account.desc
+            })
+            .store(in: &cancellables)
     }
     
     private func setupNavigationView(_ isEdited: Bool) {
@@ -71,15 +76,19 @@ class AccountViewController: UIViewController {
     
     private func addToUserAccount(_ account: Account) {
         accountPresenter?.addUserAccount(account)
-            .observe(on: MainScheduler.instance)
-            .subscribe {_ in
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.showToast("Saved successfully")
+                case .failure:
+                    self.showToast(String(describing: completion))
+                }
+            }, receiveValue: {_ in
                 self.editShowHiddenItems(false, true)
                 self.setupNavigationView(false)
-            } onError: { error in
-                self.showToast(error.localizedDescription)
-            } onCompleted: {
-                self.showToast("Saved successfully")
-            }.disposed(by: disposeBag)
+            })
+            .store(in: &cancellables)
     }
     
     @objc func editAccountTapped(tapGesture: UITapGestureRecognizer) {

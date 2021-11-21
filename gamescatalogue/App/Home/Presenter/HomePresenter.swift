@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import RxSwift
+import Combine
 
 class HomePresenter: ObservableObject {
     private let homeUseCase: HomeUseCase
@@ -19,7 +19,7 @@ class HomePresenter: ObservableObject {
         self.router = router
     }
     
-    func getListGames() -> Observable<[Game]> {
+    func getListGames() -> AnyPublisher<[Game], Error> {
         return homeUseCase.getListGames()
     }
     

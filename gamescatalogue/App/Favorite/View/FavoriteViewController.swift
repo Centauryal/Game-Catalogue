@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 
 class FavoriteViewController: UIViewController {
 
@@ -16,7 +16,7 @@ class FavoriteViewController: UIViewController {
     @IBOutlet weak var labelEmptyState: UILabel!
     
     private var listFavorite: [GameDB] = []
-    private let disposeBag = DisposeBag()
+    private var cancellables: Set<AnyCancellable> = []
     var presenter: FavoritePresenter?
     
     override func viewDidLoad() {
@@ -43,21 +43,23 @@ class FavoriteViewController: UIViewController {
         showViewLoading(self.viewLoading, true)
         
         presenter?.getAllFavorite()
-            .observe(on: MainScheduler.instance)
-            .subscribe { result in
-                if result.isEmpty {
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
                     showViewLoading(self.viewLoading, false)
+                case .failure:
+                    self.showToast(String(describing: completion))
+                }
+            }, receiveValue: { favorites in
+                if favorites.isEmpty {
                     showViewEmptyState(self.viewEmptyState, true)
                 } else {
-                    showViewLoading(self.viewLoading, false)
-                    self.listFavorite = result
+                    self.listFavorite = favorites
                     self.tbFavorite.reloadData()
                 }
-            } onError: { error in
-                self.showToast(error.localizedDescription)
-            } onCompleted: {
-                showViewLoading(self.viewLoading, false)
-            }.disposed(by: disposeBag)
+            })
+            .store(in: &cancellables)
     }
     
     @objc func deleteFavoriteTapped(_ sender: UIButton, tapGesture: UITapGestureRecognizer) {
@@ -74,14 +76,18 @@ class FavoriteViewController: UIViewController {
     
     private func deleteFavorite(_ id: Int) {
         presenter?.deleteFavorite(id)
-            .observe(on: MainScheduler.instance)
-            .subscribe {_ in
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.showToast("Removed from favorite")
+                case .failure:
+                    self.showToast(String(describing: completion))
+                }
+            }, receiveValue: {_ in
                 self.loadAllFavorites()
-            } onError: { error in
-                self.showToast(error.localizedDescription)
-            } onCompleted: {
-                self.showToast("Removed from favorite")
-            }.disposed(by: disposeBag)
+            })
+            .store(in: &cancellables)
     }
 }
 

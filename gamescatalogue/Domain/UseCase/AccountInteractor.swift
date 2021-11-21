@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 protocol AccountUseCase {
-    func loadUserAccount() -> Observable<Account>
+    func loadUserAccount() -> AnyPublisher<Account, Error>
     
-    func addUserAccount(_ accountEntity: Account) -> Observable<Bool>
+    func addUserAccount(_ accountEntity: Account) -> AnyPublisher<Bool, Error>
 }
 
 class AccountInteractor: AccountUseCase {
@@ -21,11 +21,11 @@ class AccountInteractor: AccountUseCase {
         self.repository = repository
     }
     
-    func loadUserAccount() -> Observable<Account> {
+    func loadUserAccount() -> AnyPublisher<Account, Error> {
         return repository.loadUserAccount()
     }
     
-    func addUserAccount(_ accountEntity: Account) -> Observable<Bool> {
+    func addUserAccount(_ accountEntity: Account) -> AnyPublisher<Bool, Error> {
         return repository.addUserAccount(accountEntity)
     }
 }
