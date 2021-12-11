@@ -7,7 +7,7 @@
 
 import UIKit
 import SDWebImage
-import Combine
+import Games
 
 class ViewController: UIViewController {
 
@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelEmptyState: UILabel!
     
     private var listGames: [Game] = []
-    private var cancellables: Set<AnyCancellable> = []
     var presenter: HomePresenter?
     
     override func viewDidLoad() {
@@ -35,11 +34,11 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "favoriteViewController" {
             if let favoriteView = segue.destination as? FavoriteViewController {
-                favoriteView.presenter = self.presenter?.router?.toFavoriteView()
+                //favoriteView.presenter = self.presenter?.router?.toFavoriteView()
             }
         } else if segue.identifier == "accountViewController" {
             if let accountView = segue.destination as? AccountViewController {
-                accountView.accountPresenter = self.presenter?.router?.toAccountView()
+                //accountView.accountPresenter = self.presenter?.router?.toAccountView()
             }
         }
     }
@@ -55,16 +54,16 @@ class ViewController: UIViewController {
     private func getListTeams() {
         showViewLoading(viewLoading, true)
         
-        presenter?.getListGames()
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
+        presenter?.getListGames(
+            receiveCompletion: { completion in
                 switch completion {
                 case .finished:
                     showViewLoading(self.viewLoading, false)
                 case .failure:
                     self.showToast(String(describing: completion))
                 }
-            }, receiveValue: { games in
+            },
+            receiveValue: { games in
                 if games.isEmpty {
                     showViewEmptyState(self.viewEmptyState, false)
                 } else {
@@ -72,7 +71,6 @@ class ViewController: UIViewController {
                     self.tbGames.reloadData()
                 }
             })
-            .store(in: &cancellables)
     }
 }
 

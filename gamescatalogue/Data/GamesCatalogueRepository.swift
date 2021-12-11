@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 protocol GamesCatalogueRepositoryProtocol {
-    func getListGames() -> AnyPublisher<[Game], Error>
-    
-    func getDetailGame(idDetail id: String) -> AnyPublisher<Detail, Error>
+//    func getListGames() -> AnyPublisher<[Game], Error>
+//
+//    func getDetailGame(idDetail id: String) -> AnyPublisher<Detail, Error>
     
     func getAllFavorite() -> AnyPublisher<[GameDB], Error>
     
@@ -45,17 +45,17 @@ final class GamesCatalogueRepository: NSObject {
 }
 
 extension GamesCatalogueRepository: GamesCatalogueRepositoryProtocol {
-    func getListGames() -> AnyPublisher<[Game], Error> {
-        self.remote.getListGames()
-            .map { GameResultMapper.transformGameResult(input: $0) }
-            .eraseToAnyPublisher()
-    }
-    
-    func getDetailGame(idDetail id: String) -> AnyPublisher<Detail, Error> {
-        self.remote.getDetailGame(idDetail: id)
-            .map { GameResultMapper.transformDetailResult(input: $0) }
-            .eraseToAnyPublisher()
-    }
+//    func getListGames() -> AnyPublisher<[Game], Error> {
+//        self.remote.getListGames()
+//            .map { GameResultMapper.transformGameResult(input: $0) }
+//            .eraseToAnyPublisher()
+//    }
+//    
+//    func getDetailGame(idDetail id: String) -> AnyPublisher<Detail, Error> {
+//        self.remote.getDetailGame(idDetail: id)
+//            .map { GameResultMapper.transformDetailResult(input: $0) }
+//            .eraseToAnyPublisher()
+//    }
     
     func getAllFavorite() -> AnyPublisher<[GameDB], Error> {
         self.locale.getAllFavorite()

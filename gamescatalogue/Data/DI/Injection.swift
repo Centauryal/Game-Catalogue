@@ -6,34 +6,37 @@
 //
 
 import Foundation
+import Core
+import Games
 
 final class Injection: NSObject {
-    private func provideRepository() -> GamesCatalogueRepositoryProtocol {
-        let coreData = GameProvider.sharedManager.persistanContainer
+    func provideHome<U: UseCase>() -> U
+    where U.Request == Any, U.Response == [Game] {
+        let remote = GetGamesRemoteData(endpoint: Endpoints.Gets.listGames.urlEndpoint)
+        let mapper = GameResultMapper()
         
-        let remote: RemoteDataSource = RemoteDataSource.sharedInstance
-        let locale: LocaleDataSource = LocaleDataSource.sharedInstance(coreData)
+        let repository = GamesRepository(remoteDataSource: remote, mapper: mapper)
         
-        return GamesCatalogueRepository.sharedInstance(remote, locale)
+        return Interactor(repository: repository) as! U
     }
     
-    func provideHome() -> HomeUseCase {
-        let repository = provideRepository()
-        return HomeInteractor(repository: repository)
+    func provideDetail<U: UseCase>() -> U
+    where U.Request == String, U.Response == Detail {
+        let remote = GetGameDetailRemoteData(endpoint: Endpoints.Gets.detailGame.urlEndpoint)
+        let mapper = DetailResultMapper()
+        
+        let repository = GamesDetailRepository(remoteDataSource: remote, mapper: mapper)
+        
+        return Interactor(repository: repository) as! U
     }
-    
-    func provideDetail(idDetail id: String) -> DetailUseCase {
-        let repository = provideRepository()
-        return DetailInteractor(idDetail: id, repository: repository)
-    }
-    
-    func provideFavorite() -> FavoriteUseCase {
-        let repository = provideRepository()
-        return FavoriteInteractor(repository: repository)
-    }
-    
-    func provideAccount() -> AccountUseCase {
-        let repository = provideRepository()
-        return AccountInteractor(repository: repository)
-    }
+//
+//    func provideFavorite() -> FavoriteUseCase {
+//        let repository = provideRepository()
+//        return FavoriteInteractor(repository: repository)
+//    }
+//
+//    func provideAccount() -> AccountUseCase {
+//        let repository = provideRepository()
+//        return AccountInteractor(repository: repository)
+//    }
 }
