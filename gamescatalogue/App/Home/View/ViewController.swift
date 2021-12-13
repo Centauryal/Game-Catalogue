@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "favoriteViewController" {
             if let favoriteView = segue.destination as? FavoriteViewController {
-                //favoriteView.presenter = self.presenter?.router?.toFavoriteView()
+                favoriteView.presenter = self.presenter?.router?.toFavoriteView()
             }
         } else if segue.identifier == "accountViewController" {
             if let accountView = segue.destination as? AccountViewController {

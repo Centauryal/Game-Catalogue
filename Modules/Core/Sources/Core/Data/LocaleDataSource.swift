@@ -11,7 +11,7 @@ public protocol LocaleDataSource {
     associatedtype Request
     associatedtype Response
     
-    func getAllList(request: Request?) -> AnyPublisher<Response, Error>
+    func getAllList(request: Request?) -> AnyPublisher<[Response], Error>
     
     func getById(_ id: Int) -> AnyPublisher<Response, Error>
     

@@ -9,8 +9,15 @@ import Foundation
 import UIKit
 import Core
 import Games
+import Favorite
 
 class HomeRouter {
+    let deleteFavoriteUseCase: Interactor<Int,
+                                          Bool,
+                                          FavoriteDeleteByIdRepository<
+                                            GetFavoriteLocaleData>
+    > = Injection.init().provideDeleteFavorite()
+    
     func createHome() -> UINavigationController {
         UIView.appearance().tintColor = UIColor(named: "PrimaryColor")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -40,18 +47,43 @@ class HomeRouter {
                                         GetGameDetailRemoteData,
                                         DetailResultMapper>
         > = Injection.init().provideDetail()
-        let presenter = DetailPresenter(idDetail: detailId, detailUseCase: detailUseCase)
+        let getFavoriteUseCase: Interactor<Int,
+                                           GameDB,
+                                           FavoriteGetByIdRepository<
+                                            GetFavoriteLocaleData,
+                                            DetailEntityMapper>
+        > = Injection.init().provideGetFavorite()
+        let setFavoriteUseCase: Interactor<GameDB,
+                                           Bool,
+                                           FavoriteSetRepository<
+                                            GetFavoriteLocaleData,
+                                            DetailEntityMapper>
+        > = Injection.init().provideSetFavorite()
         
+        let presenter = DetailPresenter(idDetail: detailId,
+                                        detailUseCase: detailUseCase,
+                                        getFavoriteUseCase: getFavoriteUseCase,
+                                        setFavoriteUseCase: setFavoriteUseCase,
+                                        deleteFavoriteUseCase: deleteFavoriteUseCase)
+    
         detail.detailPresenter = presenter
         return detail
     }
-//    
-//    func toFavoriteView() -> FavoritePresenter {
-//        let favoriteUseCase = Injection.init().provideFavorite()
-//        let presenter = FavoritePresenter(favoriteUseCase: favoriteUseCase, router: FavoriteRouter())
-//        
-//        return presenter
-//    }
+    
+    func toFavoriteView() -> FavoritePresenter {
+        let favoriteUseCase: Interactor<Any,
+                                        [GameDB],
+                                        FavoriteRepository<
+                                            GetFavoriteLocaleData,
+                                            FavoriteEntityMapper>
+        > = Injection.init().provideFavorite()
+        
+        let presenter = FavoritePresenter(favoriteUseCase: favoriteUseCase,
+                                          deleteFavoriteUseCase: deleteFavoriteUseCase,
+                                          router: FavoriteRouter())
+        
+        return presenter
+    }
 //    
 //    func toAccountView() -> AccountPresenter {
 //        let accountUseCase = Injection.init().provideAccount()

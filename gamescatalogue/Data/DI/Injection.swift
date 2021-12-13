@@ -8,6 +8,7 @@
 import Foundation
 import Core
 import Games
+import Favorite
 
 final class Injection: NSObject {
     func provideHome<U: UseCase>() -> U
@@ -29,11 +30,45 @@ final class Injection: NSObject {
         
         return Interactor(repository: repository) as! U
     }
-//
-//    func provideFavorite() -> FavoriteUseCase {
-//        let repository = provideRepository()
-//        return FavoriteInteractor(repository: repository)
-//    }
+
+    func provideFavorite<U: UseCase>() -> U
+    where U.Request == Any, U.Response == [GameDB] {
+        let locale = GetFavoriteLocaleData(persistenceContainer: ModuleProvider.sharedManager.persistanContainer)
+        let mapper = FavoriteEntityMapper()
+        
+        let repository = FavoriteRepository(localeDataSource: locale, mapper: mapper)
+        
+        return Interactor(repository: repository) as! U
+    }
+    
+    func provideDeleteFavorite<U: UseCase>() -> U
+    where U.Request == Int, U.Response == Bool {
+        let locale = GetFavoriteLocaleData(persistenceContainer: ModuleProvider.sharedManager.persistanContainer)
+        
+        let repository = FavoriteDeleteByIdRepository(localeDataSource: locale)
+        
+        return Interactor(repository: repository) as! U
+    }
+    
+    func provideGetFavorite<U: UseCase>() -> U
+    where U.Request == Int, U.Response == GameDB {
+        let locale = GetFavoriteLocaleData(persistenceContainer: ModuleProvider.sharedManager.persistanContainer)
+        let mapper = DetailEntityMapper()
+        
+        let repository = FavoriteGetByIdRepository(localeDataSource: locale, mapper: mapper)
+        
+        return Interactor(repository: repository) as! U
+    }
+    
+    func provideSetFavorite<U: UseCase>() -> U
+    where U.Request == GameDB, U.Response == Bool {
+        let locale = GetFavoriteLocaleData(persistenceContainer: ModuleProvider.sharedManager.persistanContainer)
+        let mapper = DetailEntityMapper()
+        
+        let repository = FavoriteSetRepository(localeDataSource: locale, mapper: mapper)
+        
+        return Interactor(repository: repository) as! U
+    }
 //
 //    func provideAccount() -> AccountUseCase {
 //        let repository = provideRepository()

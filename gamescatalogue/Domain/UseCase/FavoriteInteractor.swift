@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol FavoriteUseCase {
-    func getAllFavorite() -> AnyPublisher<[GameDB], Error>
+    //func getAllFavorite() -> AnyPublisher<[GameDB], Error>
     
     func deleteFavorite(_ id: Int) -> AnyPublisher<Bool, Error>
 }
@@ -21,9 +21,9 @@ class FavoriteInteractor: FavoriteUseCase {
         self.repository = repository
     }
     
-    func getAllFavorite() -> AnyPublisher<[GameDB], Error> {
-        return repository.getAllFavorite()
-    }
+//    func getAllFavorite() -> AnyPublisher<[GameDB], Error> {
+//        return repository.getAllFavorite()
+//    }
     
     func deleteFavorite(_ id: Int) -> AnyPublisher<Bool, Error> {
         return repository.deleteFavorite(id)

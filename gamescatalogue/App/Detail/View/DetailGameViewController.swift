@@ -7,6 +7,7 @@
 
 import UIKit
 import Games
+import Favorite
 
 class DetailGameViewController: UIViewController {
 
@@ -58,7 +59,7 @@ class DetailGameViewController: UIViewController {
                 switch completion {
                 case .finished:
                     self.viewLoading.isHidden = true
-                case .failure(_):
+                case .failure:
                     self.showToast(String(describing: completion))
                 }
             },
@@ -83,11 +84,11 @@ class DetailGameViewController: UIViewController {
     }
     
     @objc func favoriteTapped(tapGesture: UITapGestureRecognizer) {
-//        if isFavorited {
-//            detailGame?.id != nil ? deleteFavorite() : deleteFavorite()
-//        } else {
-//            detailGame?.id != nil ? addFavorite(detailGame!) : addFavorite(detailFavoriteGame!)
-//        }
+        if isFavorited {
+            detailGame?.id != nil ? deleteFavorite() : deleteFavorite()
+        } else {
+            detailGame?.id != nil ? addFavorite(detailGame!) : addFavorite(detailFavoriteGame!)
+        }
         
         isFavorited = !isFavorited
     }
@@ -142,15 +143,15 @@ class DetailGameViewController: UIViewController {
         ivBackgroundDetailGame.sd_setImage(
             with: URL(string: detailGame.imageBackground == "Unknown" ? detailGame.image : detailGame.imageBackground),
             placeholderImage: UIImage(named: "brokenimage"))
-        
+
         ivDetailGame.sd_setImage(with: URL(string: detailGame.image), placeholderImage: UIImage(named: "brokenimage"))
-        
+
         labelGenre.text = detailGame.genre
         labelTitle.text = detailGame.name
         labelPublisher.text = detailGame.publisher
         labelReleaseDate.text = detailGame.releaseDate
         labelPlatform.text = detailGame.platform
-        
+
         let starRating = StarRatingView(
             frame: CGRect(origin: .zero, size: CGSize(width: viewRatingBar.bounds.width, height: viewRatingBar.bounds.height)),
             rating: Float(detailGame.rating),
@@ -158,16 +159,15 @@ class DetailGameViewController: UIViewController {
             starRounding: .roundToHalfStar)
         viewRatingBar.addSubview(starRating)
         labelRatingBar.text = String(detailGame.rating) == "0.0" ? "No Rating" : String(detailGame.rating)
-        
+
         let html = NSAttributedString.DocumentType.html
         if let atrStr = try? NSAttributedString(
             data: Data(detailGame.desc.utf8),
             options: [.documentType: html],
             documentAttributes: nil) {
-            
+
             labelDesc.text = atrStr.string
         }
-        
     }
     
     private func showFormatUI() {
@@ -195,85 +195,83 @@ class DetailGameViewController: UIViewController {
     }
     
     private func loadIDFavorite() {
-//        detailPresenter?.getFavorite()
-//            .receive(on: RunLoop.main)
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    self.viewLoading.isHidden = true
-//                case .failure:
-//                    self.showToast(String(describing: completion))
-//                }
-//            }, receiveValue: { favorite in
-//                self.isFavorited = true
-//                self.setupNavigationView(self.isFavorited)
-//                if self.detailGame == nil {
-//                    self.detailFavoriteGame = favorite
-//                    self.showFavoriteUI(detailGame: favorite)
-//                }
-//            })
-//            .store(in: &cancellables)
+        detailPresenter?.getFavorite(
+            receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.viewLoading.isHidden = true
+                case .failure:
+                    self.showToast(String(describing: completion))
+                }
+            },
+            receiveValue: { favorite in
+                self.isFavorited = true
+                self.setupNavigationView(self.isFavorited)
+                if self.detailGame == nil {
+                    self.detailFavoriteGame = favorite
+                    self.showFavoriteUI(detailGame: favorite)
+                }
+            })
     }
     
-//    private func addFavorite(_ detail: Detail) {
-//        guard let genre = labelGenre.text, let platform = labelPlatform.text, let publisher = labelPublisher.text else { return }
-//        
-//        let favorite = GameDB(
-//            id: Int32(detail.id),
-//            name: detail.name,
-//            image: detail.backgroundImage,
-//            imageBackground: detail.backgroundImageAdditional == "Unknown" ? detail.backgroundImage : detail.backgroundImageAdditional,
-//            desc: detail.description,
-//            releaseDate: detail.released,
-//            genre: genre,
-//            platform: platform,
-//            publisher: publisher,
-//            rating: detail.rating)
-//        
-//        detailPresenter?.setFavorite(favorite)
-//            .receive(on: RunLoop.main)
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    self.showToast("Added to favorite")
-//                case .failure:
-//                    self.showToast(String(describing: completion))
-//                }
-//            }, receiveValue: {_ in
-//                self.setupNavigationView(self.isFavorited)
-//            })
-//            .store(in: &cancellables)
-//    }
+    private func addFavorite(_ detail: Detail) {
+        guard let genre = labelGenre.text, let platform = labelPlatform.text, let publisher = labelPublisher.text else { return }
+        
+        let favorite = GameDB(
+            id: Int32(detail.id),
+            name: detail.name,
+            image: detail.backgroundImage,
+            imageBackground: detail.backgroundImageAdditional == "Unknown" ? detail.backgroundImage : detail.backgroundImageAdditional,
+            desc: detail.description,
+            releaseDate: detail.released,
+            genre: genre,
+            platform: platform,
+            publisher: publisher,
+            rating: detail.rating)
+        
+        detailPresenter?.setFavorite(
+            favorite,
+            receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.showToast("Added to favorite")
+                case .failure:
+                    self.showToast(String(describing: completion))
+                }
+            },
+            receiveValue: {_ in
+                self.setupNavigationView(self.isFavorited)
+            })
+    }
     
     private func addFavorite(_ detail: GameDB) {
-//        detailPresenter?.setFavorite(detail)
-//            .receive(on: RunLoop.main)
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    self.showToast("Added to favorite")
-//                case .failure:
-//                    self.showToast(String(describing: completion))
-//                }
-//            }, receiveValue: {_ in
-//                self.setupNavigationView(self.isFavorited)
-//            })
-//            .store(in: &cancellables)
+        detailPresenter?.setFavorite(
+            detail,
+            receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.showToast("Added to favorite")
+                case .failure:
+                    self.showToast(String(describing: completion))
+                }
+            },
+            receiveValue: {_ in
+                self.setupNavigationView(self.isFavorited)
+            })
     }
     
     private func deleteFavorite() {
-//        detailPresenter?.deleteFavorite()
-//            .receive(on: RunLoop.main)
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    self.showToast("Removed from favorite")
-//                case .failure:
-//                    self.showToast(String(describing: completion))
-//                }
-//            }, receiveValue: {_ in
-//                self.setupNavigationView(self.isFavorited)
-//            })
-//            .store(in: &cancellables)
+        detailPresenter?.deleteFavorite(
+            receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.showToast("Removed from favorite")
+                case .failure:
+                    self.showToast(String(describing: completion))
+                }
+            },
+            receiveValue: {_ in
+                self.setupNavigationView(self.isFavorited)
+            })
     }
 }

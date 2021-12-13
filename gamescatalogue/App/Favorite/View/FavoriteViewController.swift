@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Combine
+import Favorite
 
 class FavoriteViewController: UIViewController {
 
@@ -16,7 +16,6 @@ class FavoriteViewController: UIViewController {
     @IBOutlet weak var labelEmptyState: UILabel!
     
     private var listFavorite: [GameDB] = []
-    private var cancellables: Set<AnyCancellable> = []
     var presenter: FavoritePresenter?
     
     override func viewDidLoad() {
@@ -42,9 +41,8 @@ class FavoriteViewController: UIViewController {
     private func loadAllFavorites() {
         showViewLoading(self.viewLoading, true)
         
-        presenter?.getAllFavorite()
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
+        presenter?.getAllFavorite(
+            receiveCompletion: { completion in
                 switch completion {
                 case .finished:
                     showViewLoading(self.viewLoading, false)
@@ -59,7 +57,6 @@ class FavoriteViewController: UIViewController {
                     self.tbFavorite.reloadData()
                 }
             })
-            .store(in: &cancellables)
     }
     
     @objc func deleteFavoriteTapped(_ sender: UIButton, tapGesture: UITapGestureRecognizer) {
@@ -75,19 +72,17 @@ class FavoriteViewController: UIViewController {
     }
     
     private func deleteFavorite(_ id: Int) {
-        presenter?.deleteFavorite(id)
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    self.showToast("Removed from favorite")
-                case .failure:
-                    self.showToast(String(describing: completion))
-                }
-            }, receiveValue: {_ in
-                self.loadAllFavorites()
-            })
-            .store(in: &cancellables)
+        presenter?.deleteFavorite(id,
+           receiveCompletion: { completion in
+            switch completion {
+            case .finished:
+                self.showToast("Removed from favorite")
+            case .failure:
+                self.showToast(String(describing: completion))
+            }
+        }, receiveValue: {_ in
+            self.loadAllFavorites()
+        })
     }
 }
 
