@@ -21,4 +21,5 @@ public protocol LocaleDataSource {
     
     func deleteById(_ id: Int) -> AnyPublisher<Bool, Error>
     
+    func loadUserDefault() -> AnyPublisher<Response, Error>
 }

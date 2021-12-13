@@ -1,27 +1,28 @@
 //
-//  UserDefaults.swift
-//  gamescatalogue
+//  File.swift
+//  
 //
-//  Created by Alfa Centaury on 19/09/21.
+//  Created by Alfa Centaury on 13/12/21.
 //
 
 import Foundation
 
-class AccountProvider {
-    static let sharedManager = AccountProvider()
+public class UserDefaultProvider {
+    public static let sharedManager = UserDefaultProvider()
+    
     private init() {}
     
-    func userDefaultsAccount() -> UserDefaults {
+    public func userDefaultsAccount() -> UserDefaults {
         return UserDefaults.standard
     }
 }
 
-protocol ObjectSavable {
+private protocol ObjectSavable {
     func setObject<Object>(_ object: Object, forKey: String) throws where Object: Encodable
     func getObject<Object>(forKey: String, castTo type: Object.Type) throws -> Object where Object: Decodable
 }
 
-enum ObjectSavableError: String, LocalizedError {
+private enum ObjectSavableError: String, LocalizedError {
     case unableToEncode = "Unable to encode object into data"
     case noValue = "No data object found for the given key"
     case unableToDecode = "Unable to decode object into given type"
@@ -32,7 +33,7 @@ enum ObjectSavableError: String, LocalizedError {
 }
 
 extension UserDefaults: ObjectSavable {
-    func setObject<Object>(_ object: Object, forKey: String) throws where Object: Encodable {
+    public func setObject<Object>(_ object: Object, forKey: String) throws where Object: Encodable {
         let encoder = JSONEncoder()
         do {
             let data = try encoder.encode(object)
@@ -42,7 +43,7 @@ extension UserDefaults: ObjectSavable {
         }
     }
     
-    func getObject<Object>(forKey: String, castTo type: Object.Type) throws -> Object where Object: Decodable {
+    public func getObject<Object>(forKey: String, castTo type: Object.Type) throws -> Object where Object: Decodable {
         guard let data = data(forKey: forKey) else { throw ObjectSavableError.noValue }
         let decoder = JSONDecoder()
         do {
@@ -53,7 +54,7 @@ extension UserDefaults: ObjectSavable {
         }
     }
     
-    func resetDefaults() {
+    public func resetDefaults() {
         if let bundleId = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: bundleId)
         }

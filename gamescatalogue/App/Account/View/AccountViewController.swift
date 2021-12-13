@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Combine
+import Account
 
 class AccountViewController: UIViewController {
 
@@ -19,7 +19,6 @@ class AccountViewController: UIViewController {
     
     private let imagePicker = UIImagePickerController()
     private var changeImage: UIImage?
-    private var cancellables: Set<AnyCancellable> = []
     
     var accountPresenter: AccountPresenter?
     
@@ -36,9 +35,8 @@ class AccountViewController: UIViewController {
     }
     
     private func loadUserDefaultAccount() {
-        accountPresenter?.loadUserAccount()
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
+        accountPresenter?.loadUserAccount(
+            receiveCompletion: { completion in
                 switch completion {
                 case .finished: break
                 case .failure:
@@ -50,7 +48,6 @@ class AccountViewController: UIViewController {
                 self.labelName.text = account.name
                 self.labelDesc.text = account.desc
             })
-            .store(in: &cancellables)
     }
     
     private func setupNavigationView(_ isEdited: Bool) {
@@ -75,20 +72,20 @@ class AccountViewController: UIViewController {
     }
     
     private func addToUserAccount(_ account: Account) {
-        accountPresenter?.addUserAccount(account)
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
+        accountPresenter?.addUserAccount(
+            account,
+            receiveCompletion: { completion in
                 switch completion {
                 case .finished:
                     self.showToast("Saved successfully")
                 case .failure:
                     self.showToast(String(describing: completion))
                 }
-            }, receiveValue: {_ in
+            },
+            receiveValue: {_ in
                 self.editShowHiddenItems(false, true)
                 self.setupNavigationView(false)
             })
-            .store(in: &cancellables)
     }
     
     @objc func editAccountTapped(tapGesture: UITapGestureRecognizer) {

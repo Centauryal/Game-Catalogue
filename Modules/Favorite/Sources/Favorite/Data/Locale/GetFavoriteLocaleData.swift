@@ -149,4 +149,8 @@ public struct GetFavoriteLocaleData: LocaleDataSource {
             }
         }.eraseToAnyPublisher()
     }
+    
+    public func loadUserDefault() -> AnyPublisher<FavoriteModuleEntity, Error> {
+        fatalError()
+    }
 }

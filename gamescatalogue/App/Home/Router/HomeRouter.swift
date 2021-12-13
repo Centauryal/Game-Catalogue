@@ -10,6 +10,7 @@ import UIKit
 import Core
 import Games
 import Favorite
+import Account
 
 class HomeRouter {
     let deleteFavoriteUseCase: Interactor<Int,
@@ -84,11 +85,24 @@ class HomeRouter {
         
         return presenter
     }
-//    
-//    func toAccountView() -> AccountPresenter {
-//        let accountUseCase = Injection.init().provideAccount()
-//        let presenter = AccountPresenter(accountUseCase: accountUseCase)
-//        
-//        return presenter
-//    }
+    
+    func toAccountView() -> AccountPresenter {
+        let accountUseCase: Interactor<Any,
+                                       Account,
+                                       AccountGetRepository<
+                                            GetAccountLocaleData,
+                                            AccountEntityMapper>
+        > = Injection.init().provideGetAccount()
+        let accountSetUseCase: Interactor<Account,
+                                          Bool,
+                                          AccountSetRepository<
+                                                GetAccountLocaleData,
+                                                AccountEntityMapper>
+        > = Injection.init().provideSetAccount()
+        
+        let presenter = AccountPresenter(accountUseCase: accountUseCase,
+                                         accountSetUseCase: accountSetUseCase)
+        
+        return presenter
+    }
 }

@@ -38,7 +38,7 @@ class ViewController: UIViewController {
             }
         } else if segue.identifier == "accountViewController" {
             if let accountView = segue.destination as? AccountViewController {
-                //accountView.accountPresenter = self.presenter?.router?.toAccountView()
+                accountView.accountPresenter = self.presenter?.router?.toAccountView()
             }
         }
     }

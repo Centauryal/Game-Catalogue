@@ -2,7 +2,7 @@
 //  File.swift
 //  
 //
-//  Created by Alfa Centaury Hidayatullah on 11/12/21.
+//  Created by Alfa Centaury on 11/12/21.
 //
 
 import Core
