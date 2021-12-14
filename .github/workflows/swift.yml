@@ -8,12 +8,11 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
-     - name: List available Xcode versions
+    - name: List available Xcode versions
        run: ls /Applications | grep Xcode
     - name: Run a one-line script
        run: sudo xcode-select -switch /Applications/Xcode_13.1.app && /usr/bin/xcodebuild -version
