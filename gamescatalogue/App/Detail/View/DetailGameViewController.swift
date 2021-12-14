@@ -95,7 +95,6 @@ class DetailGameViewController: UIViewController {
     }
     
     private func showUI(detailGame: Detail) {
-        print("test \("text_unknown".localized())")
         let background = detailGame.backgroundImageAdditional == "text_unknown".localized()
         ? detailGame.backgroundImage : detailGame.backgroundImageAdditional
         
