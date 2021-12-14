@@ -9,6 +9,7 @@ import Foundation
 import Core
 import CoreData
 import Combine
+import Common
 
 public struct GetFavoriteLocaleData: LocaleDataSource {
     

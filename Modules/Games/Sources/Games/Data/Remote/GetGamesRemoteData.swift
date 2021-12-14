@@ -9,6 +9,7 @@ import Foundation
 import Core
 import Combine
 import Alamofire
+import Common
 
 public struct GetGamesRemoteData: RemoteDataSource {
     public typealias Request = Any

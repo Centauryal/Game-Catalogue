@@ -6,6 +6,7 @@
 //
 
 import Core
+import Common
 
 public struct DetailResultMapper: Mapper {
     public typealias Response = DetailGameResponse
@@ -20,7 +21,7 @@ public struct DetailResultMapper: Mapper {
             description: response.description,
             released: response.released,
             backgroundImage: response.backgroundImage,
-            backgroundImageAdditional: response.backgroundImageAdditional ?? "Unknown",
+            backgroundImageAdditional: response.backgroundImageAdditional ?? "text_unknown".localized(),
             rating: response.rating,
             platforms: response.platforms.map { platform in
                 platform.platform.name

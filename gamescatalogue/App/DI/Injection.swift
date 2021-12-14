@@ -10,6 +10,7 @@ import Core
 import Games
 import Favorite
 import Account
+import Common
 
 final class Injection: NSObject {
     func provideHome<U: UseCase>() -> U

@@ -7,6 +7,7 @@
 
 import UIKit
 import Account
+import Common
 
 class AccountViewController: UIViewController {
 
@@ -41,7 +42,7 @@ class AccountViewController: UIViewController {
                 case .finished: break
                 case .failure:
                     print(String(describing: completion))
-                    self.showToast("Set up your profile first!")
+                    self.showToast("setup_profile".localized())
                 }
             }, receiveValue: { account in
                 self.ivAccount.image = UIImage(data: account.image)
@@ -77,7 +78,7 @@ class AccountViewController: UIViewController {
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    self.showToast("Saved successfully")
+                    self.showToast("text_saved_successfully".localized())
                 case .failure:
                     self.showToast(String(describing: completion))
                 }
@@ -139,8 +140,8 @@ extension AccountViewController: UIImagePickerControllerDelegate, UINavigationCo
             changeImage = result
             dismiss(animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "Failed", message: "Image can't be loaded.", preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+            let alert = UIAlertController(title: "text_failed".localized(), message: "alert_error_image".localized(), preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "text_dismiss".localized(), style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }

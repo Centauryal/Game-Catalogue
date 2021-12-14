@@ -7,6 +7,7 @@
 
 import UIKit
 import Favorite
+import Common
 
 class FavoriteViewController: UIViewController {
 
@@ -20,7 +21,7 @@ class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.backButtonTitle = "Back"
+        self.navigationItem.backButtonTitle = "btn_back".localized()
 
         showUI()
     }
@@ -60,11 +61,11 @@ class FavoriteViewController: UIViewController {
     }
     
     @objc func deleteFavoriteTapped(_ sender: UIButton, tapGesture: UITapGestureRecognizer) {
-        let alert = UIAlertController(title: "Delete Favorite", message: "Are you sure to delete this favorite?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+        let alert = UIAlertController(title: "alert_title_delete".localized(), message: "alert_message_delete".localized(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "btn_delete".localized(), style: .destructive, handler: { _ in
             self.deleteFavorite(sender.tag)
         }))
-        let cancelAlert = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAlert = UIAlertAction(title: "btn_cancel".localized(), style: .cancel, handler: nil)
         cancelAlert.setValue(UIColor(named: "AccentColor"), forKey: "titleTextColor")
         alert.addAction(cancelAlert)
 
@@ -76,7 +77,7 @@ class FavoriteViewController: UIViewController {
            receiveCompletion: { completion in
             switch completion {
             case .finished:
-                self.showToast("Removed from favorite")
+                self.showToast("remove_favorite".localized())
             case .failure:
                 self.showToast(String(describing: completion))
             }

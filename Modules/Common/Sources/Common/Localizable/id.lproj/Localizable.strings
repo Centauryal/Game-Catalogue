@@ -1,0 +1,34 @@
+/* 
+  Localizable.strings
+  gamescatalogue
+
+  Created by Alfa Centaury on 13/12/21.
+  
+*/
+
+"text_unknown" = "Tidak dikenal"
+"text_no_rating" = "Tidak ada rating"
+"text_saved_successfully" = "Berhasil disimpan"
+"text_failed" = "Gagal"
+"text_dismiss" = "Berhenti"
+
+"add_favorite" = "Ditambahkan ke favorit"
+"remove_favorite" = "Dihapus dari favorit"
+"setup_profile" = "Siapkan profil anda terlebih dahulu!"
+
+"alert_title_delete" = "Hapus favorit"
+"alert_message_delete" = "Apakah anda yakin akan menghapus favorit ini?"
+"alert_error_image" = "Gambar tidak dapat dimuat."
+
+"btn_back" = "Kembali"
+"btn_delete" = "Hapus"
+"btn_cancel" = "Batal"
+
+"2rm-hG-H2A.title" = "Favorit"
+"Wat-jn-QxH.title" = "Akun"
+"eVh-hG-Io8.title" = "Favorit Game"
+"K8H-Wv-FTW.text" = "Gambaran Umum"
+"zwc-0o-dEh.text" = "Platform"
+"cKm-5Z-6vL.text" = "Anda tidak memiliki permainan apa pun"
+"lEq-vO-tMc.text" = "Anda tidak memiliki favorit apa pun"
+"5zc-Gg-vJq.title" = "Kembali"

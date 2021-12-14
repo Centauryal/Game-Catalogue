@@ -13,7 +13,8 @@ let package = Package(
             targets: ["Favorite"]),
     ],
     dependencies: [
-        .package(path: "../Core")
+        .package(path: "../Core"),
+        .package(path: "../Common")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -21,7 +22,8 @@ let package = Package(
         .target(
             name: "Favorite",
             dependencies: [
-                "Core"
+                "Core",
+                "Common"
             ]),
         .testTarget(
             name: "FavoriteTests",

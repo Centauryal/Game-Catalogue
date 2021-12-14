@@ -8,6 +8,7 @@
 import UIKit
 import SDWebImage
 import Games
+import Common
 
 class ViewController: UIViewController {
 
@@ -21,7 +22,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.backButtonTitle = "Back"
+        self.navigationItem.backButtonTitle = "btn_back".localized()
         
         showUI()
     }

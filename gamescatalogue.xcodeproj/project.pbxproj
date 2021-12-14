@@ -36,6 +36,7 @@
 		4CAF741F2736D0C8004DF3CC /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAF741E2736D0C8004DF3CC /* HomeRouter.swift */; };
 		4CAF74212736D729004DF3CC /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAF74202736D729004DF3CC /* DetailPresenter.swift */; };
 		4CB735DA2764869C006152DA /* Favorite in Frameworks */ = {isa = PBXBuildFile; productRef = 4CB735D92764869C006152DA /* Favorite */; };
+		4CBBD97B27679E4C0044A728 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 4CBBD97A27679E4C0044A728 /* Common */; };
 		4CC58A4A26F8D16700DEC598 /* GamesCatalogue-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CC58A4926F8D16700DEC598 /* GamesCatalogue-Info.plist */; };
 		4CFCBF6926EEF86100ADABE9 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFCBF6726EEF86100ADABE9 /* FavoriteTableViewCell.swift */; };
 		4CFCBF6A26EEF86100ADABE9 /* FavoriteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCBF6826EEF86100ADABE9 /* FavoriteTableViewCell.xib */; };
@@ -59,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C17958927683E2A0065BFC3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		4C1E541E26D92E4B00F57BDF /* gamescatalogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gamescatalogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C1E542126D92E4B00F57BDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C1E542326D92E4B00F57BDF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,8 @@
 		4CAF74202736D729004DF3CC /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		4CB283AE2759B8430025ED32 /* Core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Core; path = Modules/Core; sourceTree = "<group>"; };
 		4CB283AF2759B8430025ED32 /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = Modules/Common; sourceTree = "<group>"; };
+		4CBBD97C2767A2110044A728 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Main.strings; sourceTree = "<group>"; };
+		4CBBD97D2767A23E0044A728 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4CC58A4926F8D16700DEC598 /* GamesCatalogue-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GamesCatalogue-Info.plist"; sourceTree = "<group>"; };
 		4CFCBF6726EEF86100ADABE9 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		4CFCBF6826EEF86100ADABE9 /* FavoriteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteTableViewCell.xib; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 				4C1E545326D92F3100F57BDF /* SDWebImage in Frameworks */,
 				4CAA6BAA2748F0EF00245F24 /* Alamofire in Frameworks */,
 				4C47DCE627610E2D00D1F465 /* Games in Frameworks */,
+				4CBBD97B27679E4C0044A728 /* Common in Frameworks */,
 				4C47DCE427610E2800D1F465 /* Core in Frameworks */,
 				4CB735DA2764869C006152DA /* Favorite in Frameworks */,
 			);
@@ -384,6 +389,7 @@
 				4C47DCE527610E2D00D1F465 /* Games */,
 				4CB735D92764869C006152DA /* Favorite */,
 				4C6E068E276722EE00FA032D /* Account */,
+				4CBBD97A27679E4C0044A728 /* Common */,
 			);
 			productName = gamescatalogue;
 			productReference = 4C1E541E26D92E4B00F57BDF /* gamescatalogue.app */;
@@ -454,6 +460,7 @@
 			knownRegions = (
 				en,
 				Base,
+				id,
 			);
 			mainGroup = 4C1E541526D92E4B00F57BDF;
 			packageReferences = (
@@ -583,6 +590,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				4C1E542826D92E4B00F57BDF /* Base */,
+				4CBBD97C2767A2110044A728 /* id */,
+				4C17958927683E2A0065BFC3 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -591,6 +600,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4C1E542D26D92E4C00F57BDF /* Base */,
+				4CBBD97D2767A23E0044A728 /* id */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -602,6 +612,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -663,6 +674,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -926,6 +938,10 @@
 		4CB735D92764869C006152DA /* Favorite */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Favorite;
+		};
+		4CBBD97A27679E4C0044A728 /* Common */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Common;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

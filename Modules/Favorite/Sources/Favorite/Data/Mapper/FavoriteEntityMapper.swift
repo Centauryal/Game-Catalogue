@@ -6,6 +6,7 @@
 //
 
 import Core
+import Common
 
 public struct FavoriteEntityMapper: LocaleMapper {
     
@@ -18,14 +19,14 @@ public struct FavoriteEntityMapper: LocaleMapper {
         return entity.map { entity in
             return GameDB(
                 id: entity.id ?? 0,
-                name: entity.name ?? "Unknown",
-                image: entity.image ?? "Unknown",
-                imageBackground: entity.imageBackground ?? "Unknown",
-                desc: entity.desc ?? "Unknown",
-                releaseDate: entity.releaseDate ?? "Unknown",
-                genre: entity.genre ?? "Unknown",
-                platform: entity.platform ?? "Unknown",
-                publisher: entity.publisher ?? "Unknown",
+                name: entity.name ?? "text_unknown".localized(),
+                image: entity.image ?? "text_unknown".localized(),
+                imageBackground: entity.imageBackground ?? "text_unknown".localized(),
+                desc: entity.desc ?? "text_unknown".localized(),
+                releaseDate: entity.releaseDate ?? "text_unknown".localized(),
+                genre: entity.genre ?? "text_unknown".localized(),
+                platform: entity.platform ?? "text_unknown".localized(),
+                publisher: entity.publisher ?? "text_unknown".localized(),
                 rating: entity.rating ?? 0.0
             )
         }

@@ -1,0 +1,42 @@
+
+/* Class = "UIBarButtonItem"; title = "Favorite"; ObjectID = "2rm-hG-H2A"; */
+"2rm-hG-H2A.title" = "Favorite";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "5zc-Gg-vJq"; */
+"5zc-Gg-vJq.title" = "Back";
+
+/* Class = "UIImageView"; accessibilityLabel = "Empty State"; ObjectID = "Cvy-7j-Aor"; */
+"Cvy-7j-Aor.accessibilityLabel" = "Empty State";
+
+/* Class = "UINavigationItem"; title = "Game Catalogue"; ObjectID = "Gct-Iq-mgz"; */
+"Gct-Iq-mgz.title" = "Game Catalogue";
+
+/* Class = "UILabel"; text = "Overview"; ObjectID = "K8H-Wv-FTW"; */
+"K8H-Wv-FTW.text" = "Overview";
+
+/* Class = "UIBarButtonItem"; title = "Account"; ObjectID = "Wat-jn-QxH"; */
+"Wat-jn-QxH.title" = "Account";
+
+/* Class = "UILabel"; text = "Alfa Centaury"; ObjectID = "Y15-GI-LEx"; */
+"Y15-GI-LEx.text" = "Alfa Centaury";
+
+/* Class = "UILabel"; text = "4.5"; ObjectID = "c5J-bY-wH4"; */
+"c5J-bY-wH4.text" = "4.5";
+
+/* Class = "UILabel"; text = "You don't have any games"; ObjectID = "cKm-5Z-6vL"; */
+"cKm-5Z-6vL.text" = "You don't have any games";
+
+/* Class = "UINavigationItem"; title = "Game Favorite"; ObjectID = "eVh-hG-Io8"; */
+"eVh-hG-Io8.title" = "Game Favorite";
+
+/* Class = "UILabel"; text = "https://alfacentaury.azurewebsites.net"; ObjectID = "ecg-EL-KCE"; */
+"ecg-EL-KCE.text" = "https://alfacentaury.azurewebsites.net";
+
+/* Class = "UILabel"; text = "You don't have any favorites"; ObjectID = "lEq-vO-tMc"; */
+"lEq-vO-tMc.text" = "You don't have any favorites";
+
+/* Class = "UIImageView"; accessibilityLabel = "Empty State"; ObjectID = "swu-Hb-UC0"; */
+"swu-Hb-UC0.accessibilityLabel" = "Empty State";
+
+/* Class = "UILabel"; text = "Platform"; ObjectID = "zwc-0o-dEh"; */
+"zwc-0o-dEh.text" = "Platform";

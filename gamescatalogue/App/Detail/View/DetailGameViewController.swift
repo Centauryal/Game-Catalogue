@@ -8,6 +8,7 @@
 import UIKit
 import Games
 import Favorite
+import Common
 
 class DetailGameViewController: UIViewController {
 
@@ -94,9 +95,12 @@ class DetailGameViewController: UIViewController {
     }
     
     private func showUI(detailGame: Detail) {
+        print("test \("text_unknown".localized())")
+        let background = detailGame.backgroundImageAdditional == "text_unknown".localized()
+        ? detailGame.backgroundImage : detailGame.backgroundImageAdditional
+        
         ivBackgroundDetailGame.sd_setImage(
-            with: URL(string:
-                        detailGame.backgroundImageAdditional == "Unknown" ? detailGame.backgroundImage : detailGame.backgroundImageAdditional),
+            with: URL(string: background),
             placeholderImage: UIImage(named: "brokenimage"))
 
         ivDetailGame.sd_setImage(with: URL(string: detailGame.backgroundImage), placeholderImage: UIImage(named: "brokenimage"))
@@ -124,7 +128,7 @@ class DetailGameViewController: UIViewController {
             color: .systemOrange,
             starRounding: .roundToHalfStar)
         viewRatingBar.addSubview(starRating)
-        labelRatingBar.text = String(detailGame.rating) == "0.0" ? "No Rating" : String(detailGame.rating)
+        labelRatingBar.text = String(detailGame.rating) == "0.0" ? "text_no_rating".localized() : String(detailGame.rating)
 
         labelReleaseDate.text = outputReleaseDateString(date: detailGame.released)
 
@@ -141,7 +145,7 @@ class DetailGameViewController: UIViewController {
     
     private func showFavoriteUI(detailGame: GameDB) {
         ivBackgroundDetailGame.sd_setImage(
-            with: URL(string: detailGame.imageBackground == "Unknown" ? detailGame.image : detailGame.imageBackground),
+            with: URL(string: detailGame.imageBackground == "text_unknown".localized() ? detailGame.image : detailGame.imageBackground),
             placeholderImage: UIImage(named: "brokenimage"))
 
         ivDetailGame.sd_setImage(with: URL(string: detailGame.image), placeholderImage: UIImage(named: "brokenimage"))
@@ -158,7 +162,7 @@ class DetailGameViewController: UIViewController {
             color: .systemOrange,
             starRounding: .roundToHalfStar)
         viewRatingBar.addSubview(starRating)
-        labelRatingBar.text = String(detailGame.rating) == "0.0" ? "No Rating" : String(detailGame.rating)
+        labelRatingBar.text = String(detailGame.rating) == "0.0" ? "text_no_rating".localized() : String(detailGame.rating)
 
         let html = NSAttributedString.DocumentType.html
         if let atrStr = try? NSAttributedString(
@@ -217,11 +221,13 @@ class DetailGameViewController: UIViewController {
     private func addFavorite(_ detail: Detail) {
         guard let genre = labelGenre.text, let platform = labelPlatform.text, let publisher = labelPublisher.text else { return }
         
+        let background = detail.backgroundImageAdditional == "text_unknown".localized() ? detail.backgroundImage : detail.backgroundImageAdditional
+        
         let favorite = GameDB(
             id: Int32(detail.id),
             name: detail.name,
             image: detail.backgroundImage,
-            imageBackground: detail.backgroundImageAdditional == "Unknown" ? detail.backgroundImage : detail.backgroundImageAdditional,
+            imageBackground: background,
             desc: detail.description,
             releaseDate: detail.released,
             genre: genre,
@@ -234,7 +240,7 @@ class DetailGameViewController: UIViewController {
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    self.showToast("Added to favorite")
+                    self.showToast("add_favorite".localized())
                 case .failure:
                     self.showToast(String(describing: completion))
                 }
@@ -250,7 +256,7 @@ class DetailGameViewController: UIViewController {
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    self.showToast("Added to favorite")
+                    self.showToast("add_favorite".localized())
                 case .failure:
                     self.showToast(String(describing: completion))
                 }
@@ -265,7 +271,7 @@ class DetailGameViewController: UIViewController {
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    self.showToast("Removed from favorite")
+                    self.showToast("remove_favorite".localized())
                 case .failure:
                     self.showToast(String(describing: completion))
                 }
