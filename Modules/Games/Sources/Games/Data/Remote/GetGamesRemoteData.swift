@@ -25,7 +25,8 @@ public struct GetGamesRemoteData: RemoteDataSource {
         return Future<[ResultsGames], Error> { completion in
             var urlListGames = URLComponents(string: _endpoint)
             urlListGames?.queryItems = [
-                URLQueryItem(name: "key", value: ApiService.apiKey)
+                URLQueryItem(name: "key", value: ApiService.apiKey),
+                URLQueryItem(name: "page", value: (request ?? "1") as? String)
             ]
             
             if let urlRequest = urlListGames?.url {

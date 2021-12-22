@@ -189,9 +189,11 @@ class DetailGameViewController: UIViewController {
         labelRatingBar.font = UIFont.preferredFont(forTextStyle: .subheadline).bold()
         
         overview.font = UIFont.preferredFont(forTextStyle: .title1).bold()
+        overview.text = "text_overview".localized()
         labelDesc.sizeToFit()
         
         platform.font = UIFont.preferredFont(forTextStyle: .title1).bold()
+        platform.text = "text_platform".localized()
         
         labelPlatform.font = UIFont.preferredFont(forTextStyle: .body).bold()
         labelPlatform.sizeToFit()

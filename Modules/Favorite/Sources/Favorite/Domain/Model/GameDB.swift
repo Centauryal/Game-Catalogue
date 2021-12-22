@@ -5,8 +5,6 @@
 //  Created by Alfa Centaury on 05/11/21.
 //
 
-import Foundation
-
 public struct GameDB: Equatable, Identifiable {
     public init(id: Int32,
                 name: String,

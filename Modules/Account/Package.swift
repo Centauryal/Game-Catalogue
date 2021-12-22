@@ -13,7 +13,7 @@ let package = Package(
             targets: ["Account"]),
     ],
     dependencies: [
-        .package(path: "../Core"),
+        .package(url: "https://github.com/Centauryal/Core-GamesCatalogue.git", .upToNextMajor(from: "1.0.0")),
         .package(path: "../Common")
     ],
     targets: [
@@ -22,7 +22,7 @@ let package = Package(
         .target(
             name: "Account",
             dependencies: [
-                "Core",
+                .product(name: "Core", package: "Core-GamesCatalogue"),
                 "Common"
             ]),
         .testTarget(

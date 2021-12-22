@@ -11,13 +11,15 @@ import Games
 import Common
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var tbGames: UITableView!
     @IBOutlet weak var viewLoading: UIView!
     @IBOutlet weak var viewEmptyState: UIView!
     @IBOutlet weak var labelEmptyState: UILabel!
     
     private var listGames: [Game] = []
+    private var currentPage = 1
+    
     var presenter: HomePresenter?
     
     override func viewDidLoad() {
@@ -50,12 +52,14 @@ class ViewController: UIViewController {
         tbGames.register(UINib(nibName: "GamesTableViewCell", bundle: nil), forCellReuseIdentifier: "gamesTableViewCell")
         
         labelEmptyState.font = UIFont.preferredFont(forTextStyle: .title2).bold()
+        labelEmptyState.text = "text_no_games".localized()
     }
     
     private func getListTeams() {
         showViewLoading(viewLoading, true)
         
         presenter?.getListGames(
+            page: String(currentPage),
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
@@ -68,10 +72,22 @@ class ViewController: UIViewController {
                 if games.isEmpty {
                     showViewEmptyState(self.viewEmptyState, false)
                 } else {
-                    self.listGames = games
+                    self.listGames.append(contentsOf: games)
                     self.tbGames.reloadData()
+                    
+                    if self.currentPage > 1 {
+                        let indexPathReload = self.calculateIndexPathsToReload(from: games)
+                        self.tbGames.reloadRows(at: indexPathReload, with: .automatic)
+                    }
                 }
             })
+        currentPage += 1
+    }
+    
+    private func calculateIndexPathsToReload(from newListGames: [Game]) -> [IndexPath] {
+        let startIndex = listGames.count - newListGames.count
+        let endIndex = startIndex + newListGames.count
+        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
 }
 
@@ -87,7 +103,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             game = listGames[indexPath.row]
             
             cell.ivGame.sd_setImage(with: URL(string: game.backgroundImage), placeholderImage: UIImage(named: "brokenimage"))
-
+            
             var listGenre = [String]()
             let genres = game.genres
             if genres.count > 2 {
@@ -97,16 +113,16 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 genres.forEach { cell.labelGenre.text = $0 }
             }
-
+            
             cell.labelTitle.text = game.name
-
+            
             var listPlatform = [String]()
             let platforms = game.platforms
             platforms.forEach { listPlatform.append($0) }
             cell.labelPlatform.text = listPlatform.joined(separator: ", ")
-
+            
             cell.labelRatingBar.text = String(game.rating)
-
+            
             cell.labelReleaseDate.text = outputReleaseDateString(date: game.released)
             
             return cell
@@ -118,5 +134,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tbGames.deselectRow(at: indexPath, animated: true)
         presenter?.toDetail(view: self, detailId: String(listGames[indexPath.row].id))
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        
+        if maximumOffset - currentOffset <= 10.0 {
+            getListTeams()
+        }
     }
 }

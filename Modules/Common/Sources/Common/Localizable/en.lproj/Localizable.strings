@@ -6,30 +6,30 @@
   
 */
 
-"text_unknown" = "Unknown"
-"text_no_rating" = "No Rating"
-"text_saved_successfully" = "Saved successfully"
-"text_failed" = "Failed"
-"text_dismiss" = "Dismiss"
+"text_unknown" = "Unknown";
+"text_no_rating" = "No Rating";
+"text_saved_successfully" = "Saved successfully";
+"text_failed" = "Failed";
+"text_dismiss" = "Dismiss";
+"text_overview" = "Overview";
+"text_platform" = "Platform";
+"text_no_games" = "You don't have any games";
+"text_no_favorite" = "You don't have any favorites";
 
-"add_favorite" = "Added to favorite"
-"remove_favorite" = "Removed from favorite"
-"setup_profile" = "Set up your profile first!"
+"add_favorite" = "Added to favorite";
+"remove_favorite" = "Removed from favorite";
+"setup_profile" = "Set up your profile first!";
 
-"alert_title_delete" = "Delete Favorite"
-"alert_message_delete" = "Are you sure to delete this favorite?"
-"alert_error_image" = "Image can't be loaded."
+"alert_title_delete" = "Delete Favorite";
+"alert_message_delete" = "Are you sure to delete this favorite?";
+"alert_error_image" = "Image can't be loaded.";
 
-"btn_back" = "Back"
-"btn_delete" = "Delete"
-"btn_cancel" = "Cancel"
+"btn_back" = "Back";
+"btn_delete" = "Delete";
+"btn_cancel" = "Cancel";
 
-"2rm-hG-H2A.title" = "Favorite"
-"Wat-jn-QxH.title" = "Account"
-"eVh-hG-Io8.title" = "Game Favorite"
-"K8H-Wv-FTW.text" = "Overview"
-"zwc-0o-dEh.text" = "Platform"
-"cKm-5Z-6vL.text" = "You don't have any games"
-"lEq-vO-tMc.text" = "You don't have any favorites"
-"5zc-Gg-vJq.title" = "Back"
+"2rm-hG-H2A.title" = "Favorite";
+"Wat-jn-QxH.title" = "Account";
+"eVh-hG-Io8.title" = "Game Favorite";
+"5zc-Gg-vJq.title" = "Back";
 

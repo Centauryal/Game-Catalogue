@@ -37,6 +37,7 @@ class FavoriteViewController: UIViewController {
         tbFavorite.register(UINib(nibName: "FavoriteTableViewCell", bundle: nil), forCellReuseIdentifier: "favoriteTableViewCell")
         
         labelEmptyState.font = UIFont.preferredFont(forTextStyle: .title2).bold()
+        labelEmptyState.text = "text_no_favorite".localized()
     }
     
     private func loadAllFavorites() {

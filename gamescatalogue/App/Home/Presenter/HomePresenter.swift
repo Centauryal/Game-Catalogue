@@ -26,9 +26,10 @@ class HomePresenter: ObservableObject {
         self.router = router
     }
     
-    func getListGames(receiveCompletion: @escaping (Subscribers.Completion<Error>) -> Void,
+    func getListGames(page: String,
+                      receiveCompletion: @escaping (Subscribers.Completion<Error>) -> Void,
                       receiveValue: @escaping ([Game]) -> Void) {
-        return homeUseCase.getPresenter(request: nil,
+        return homeUseCase.getPresenter(request: page,
            receiveCompletion: { completion in
             receiveCompletion(completion)
         }, receiveValue: { result in

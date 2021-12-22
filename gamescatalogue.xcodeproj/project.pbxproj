@@ -20,7 +20,6 @@
 		4C1E546026D931C500F57BDF /* GamesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1E545E26D931C500F57BDF /* GamesTableViewCell.xib */; };
 		4C359E4A27355F4B007E4AA3 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C359E4927355F4B007E4AA3 /* Injection.swift */; };
 		4C40572626EF8CE200B899F0 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C40572526EF8CE200B899F0 /* FavoriteViewController.swift */; };
-		4C47DCE427610E2800D1F465 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 4C47DCE327610E2800D1F465 /* Core */; };
 		4C47DCE627610E2D00D1F465 /* Games in Frameworks */ = {isa = PBXBuildFile; productRef = 4C47DCE527610E2D00D1F465 /* Games */; };
 		4C537AD026D937170031F9C3 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C537ACF26D937170031F9C3 /* AccountViewController.swift */; };
 		4C537AD226D937590031F9C3 /* DetailGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C537AD126D937590031F9C3 /* DetailGameViewController.swift */; };
@@ -32,6 +31,7 @@
 		4C75E0CA2741354D00B81828 /* FavoriteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75E0C92741354D00B81828 /* FavoriteRouter.swift */; };
 		4C816DF52748DF7C00B75ABB /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C816DF42748DF7C00B75ABB /* AccountPresenter.swift */; };
 		4C82B0DF26DFDFFE0093B988 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4C82B0DE26DFDFFE0093B988 /* .swiftlint.yml */; };
+		4C890E4D277036C800B38E95 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 4C890E4C277036C800B38E95 /* Core */; };
 		4CAA6BAA2748F0EF00245F24 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4CAA6BA92748F0EF00245F24 /* Alamofire */; };
 		4CAF741D2736D035004DF3CC /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAF741C2736D035004DF3CC /* HomePresenter.swift */; };
 		4CAF741F2736D0C8004DF3CC /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAF741E2736D0C8004DF3CC /* HomeRouter.swift */; };
@@ -81,10 +81,10 @@
 		4C816DF42748DF7C00B75ABB /* AccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPresenter.swift; sourceTree = "<group>"; };
 		4C82B0DE26DFDFFE0093B988 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		4C8420BF275F06EF00C82182 /* Favorite */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Favorite; path = Modules/Favorite; sourceTree = "<group>"; };
+		4C890E4E27705D5000B38E95 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4CAF741C2736D035004DF3CC /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		4CAF741E2736D0C8004DF3CC /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		4CAF74202736D729004DF3CC /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
-		4CB283AE2759B8430025ED32 /* Core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Core; path = Modules/Core; sourceTree = "<group>"; };
 		4CB283AF2759B8430025ED32 /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = Modules/Common; sourceTree = "<group>"; };
 		4CBBD97C2767A2110044A728 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Main.strings; sourceTree = "<group>"; };
 		4CBBD97D2767A23E0044A728 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -111,7 +111,7 @@
 				4CAA6BAA2748F0EF00245F24 /* Alamofire in Frameworks */,
 				4C47DCE627610E2D00D1F465 /* Games in Frameworks */,
 				4CBBD97B27679E4C0044A728 /* Common in Frameworks */,
-				4C47DCE427610E2800D1F465 /* Core in Frameworks */,
+				4C890E4D277036C800B38E95 /* Core in Frameworks */,
 				4CB735DA2764869C006152DA /* Favorite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,11 +130,11 @@
 		4C1E541526D92E4B00F57BDF = {
 			isa = PBXGroup;
 			children = (
+				4C890E4E27705D5000B38E95 /* README.md */,
 				4C82B0DE26DFDFFE0093B988 /* .swiftlint.yml */,
 				4CFF87F4275DE7BF008046BD /* Games */,
 				4C8420BF275F06EF00C82182 /* Favorite */,
 				4C6E068D276722D200FA032D /* Account */,
-				4CB283AE2759B8430025ED32 /* Core */,
 				4CB283AF2759B8430025ED32 /* Common */,
 				4C1E542026D92E4B00F57BDF /* gamescatalogue */,
 				4C17958F27686AEB0065BFC3 /* gamescatalogueTests */,
@@ -398,11 +398,11 @@
 			packageProductDependencies = (
 				4C1E545226D92F3100F57BDF /* SDWebImage */,
 				4CAA6BA92748F0EF00245F24 /* Alamofire */,
-				4C47DCE327610E2800D1F465 /* Core */,
 				4C47DCE527610E2D00D1F465 /* Games */,
 				4CB735D92764869C006152DA /* Favorite */,
 				4C6E068E276722EE00FA032D /* Account */,
 				4CBBD97A27679E4C0044A728 /* Common */,
+				4C890E4C277036C800B38E95 /* Core */,
 			);
 			productName = gamescatalogue;
 			productReference = 4C1E541E26D92E4B00F57BDF /* gamescatalogue.app */;
@@ -439,6 +439,7 @@
 			packageReferences = (
 				4C1E545126D92F3100F57BDF /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				4CAA6BA82748F0EF00245F24 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4C890E4B277036C800B38E95 /* XCRemoteSwiftPackageReference "Core-GamesCatalogue" */,
 			);
 			productRefGroup = 4C1E541F26D92E4B00F57BDF /* Products */;
 			projectDirPath = "";
@@ -664,7 +665,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -720,7 +721,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -747,7 +748,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.centaury.gamescatalogue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -768,7 +769,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.centaury.gamescatalogue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -813,6 +814,14 @@
 				minimumVersion = 5.12.1;
 			};
 		};
+		4C890E4B277036C800B38E95 /* XCRemoteSwiftPackageReference "Core-GamesCatalogue" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Centauryal/Core-GamesCatalogue.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		4CAA6BA82748F0EF00245F24 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -829,10 +838,6 @@
 			package = 4C1E545126D92F3100F57BDF /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
 		};
-		4C47DCE327610E2800D1F465 /* Core */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Core;
-		};
 		4C47DCE527610E2D00D1F465 /* Games */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Games;
@@ -840,6 +845,11 @@
 		4C6E068E276722EE00FA032D /* Account */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Account;
+		};
+		4C890E4C277036C800B38E95 /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C890E4B277036C800B38E95 /* XCRemoteSwiftPackageReference "Core-GamesCatalogue" */;
+			productName = Core;
 		};
 		4CAA6BA92748F0EF00245F24 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fK9-ep-v91">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fK9-ep-v91">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -447,7 +447,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XMZ-45-C65" userLabel="Games Table View">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="gaC-KI-oWE" userLabel="Loading View">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -469,31 +469,42 @@
                                 </view>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kP2-Q8-00h" userLabel="Games Empty">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptystate" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="swu-Hb-UC0" userLabel="Empty State Image">
-                                        <rect key="frame" x="0.0" y="292.5" width="414" height="277"/>
-                                        <accessibility key="accessibilityConfiguration" label="Empty State">
-                                            <bool key="isElement" value="YES"/>
-                                        </accessibility>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L1D-5f-TPd" userLabel="View Empty">
+                                        <rect key="frame" x="0.0" y="265.5" width="414" height="277"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptystate" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="swu-Hb-UC0" userLabel="Empty State Image">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="277"/>
+                                                <accessibility key="accessibilityConfiguration" label="Empty State">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="277" id="rFg-lC-0xM"/>
+                                                    <constraint firstAttribute="width" constant="414" id="sZw-us-Pik"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have any games" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKm-5Z-6vL" userLabel="Empty State Label">
+                                                <rect key="frame" x="96.5" y="234" width="221" height="23"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="277" id="rFg-lC-0xM"/>
-                                            <constraint firstAttribute="width" constant="414" id="sZw-us-Pik"/>
+                                            <constraint firstItem="swu-Hb-UC0" firstAttribute="top" secondItem="L1D-5f-TPd" secondAttribute="top" id="1c1-hM-AYk"/>
+                                            <constraint firstItem="swu-Hb-UC0" firstAttribute="centerY" secondItem="L1D-5f-TPd" secondAttribute="centerY" id="7yC-tZ-nfz"/>
+                                            <constraint firstItem="cKm-5Z-6vL" firstAttribute="centerX" secondItem="swu-Hb-UC0" secondAttribute="centerX" id="MeY-2f-nr1"/>
+                                            <constraint firstItem="swu-Hb-UC0" firstAttribute="centerX" secondItem="L1D-5f-TPd" secondAttribute="centerX" id="f9N-ps-CbD"/>
+                                            <constraint firstItem="cKm-5Z-6vL" firstAttribute="bottom" secondItem="swu-Hb-UC0" secondAttribute="bottom" constant="-20" id="nZ0-CW-PuN"/>
                                         </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have any games" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKm-5Z-6vL" userLabel="Empty State Label">
-                                        <rect key="frame" x="96.5" y="526.5" width="221" height="23"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="cKm-5Z-6vL" firstAttribute="centerX" secondItem="swu-Hb-UC0" secondAttribute="centerX" id="MLc-qu-OSg"/>
-                                    <constraint firstItem="swu-Hb-UC0" firstAttribute="centerY" secondItem="kP2-Q8-00h" secondAttribute="centerY" constant="44" id="UAN-Ee-qdj"/>
-                                    <constraint firstItem="swu-Hb-UC0" firstAttribute="centerX" secondItem="kP2-Q8-00h" secondAttribute="centerX" id="WIX-iX-jIN"/>
-                                    <constraint firstItem="cKm-5Z-6vL" firstAttribute="bottom" secondItem="swu-Hb-UC0" secondAttribute="bottom" constant="-20" id="b4L-EW-xgr"/>
+                                    <constraint firstItem="L1D-5f-TPd" firstAttribute="leading" secondItem="kP2-Q8-00h" secondAttribute="leading" id="4YS-kM-bHf"/>
+                                    <constraint firstItem="L1D-5f-TPd" firstAttribute="centerX" secondItem="kP2-Q8-00h" secondAttribute="centerX" id="70h-tu-fTT"/>
+                                    <constraint firstItem="L1D-5f-TPd" firstAttribute="centerY" secondItem="kP2-Q8-00h" secondAttribute="centerY" id="Ijh-Wu-fyr"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -502,11 +513,11 @@
                         <constraints>
                             <constraint firstItem="XMZ-45-C65" firstAttribute="leading" secondItem="qdF-Ug-2Q2" secondAttribute="leading" id="8zz-wR-78Q"/>
                             <constraint firstItem="kP2-Q8-00h" firstAttribute="trailing" secondItem="qdF-Ug-2Q2" secondAttribute="trailing" id="GqA-KA-nBj"/>
-                            <constraint firstItem="XMZ-45-C65" firstAttribute="bottom" secondItem="qdF-Ug-2Q2" secondAttribute="bottom" id="JfB-F2-wSZ"/>
+                            <constraint firstItem="XMZ-45-C65" firstAttribute="bottom" secondItem="kF5-Zv-HJr" secondAttribute="bottom" id="JfB-F2-wSZ"/>
                             <constraint firstItem="kP2-Q8-00h" firstAttribute="leading" secondItem="qdF-Ug-2Q2" secondAttribute="leading" id="NwC-HF-Nof"/>
                             <constraint firstItem="kP2-Q8-00h" firstAttribute="top" secondItem="kF5-Zv-HJr" secondAttribute="top" constant="88" id="eQG-VD-uMd"/>
                             <constraint firstItem="XMZ-45-C65" firstAttribute="top" secondItem="qdF-Ug-2Q2" secondAttribute="top" id="gue-Nz-sBD"/>
-                            <constraint firstItem="qdF-Ug-2Q2" firstAttribute="bottom" secondItem="kP2-Q8-00h" secondAttribute="bottom" id="n1z-nZ-qTt"/>
+                            <constraint firstAttribute="bottom" secondItem="kP2-Q8-00h" secondAttribute="bottom" id="n1z-nZ-qTt"/>
                             <constraint firstItem="XMZ-45-C65" firstAttribute="trailing" secondItem="qdF-Ug-2Q2" secondAttribute="trailing" id="ySp-EQ-XDc"/>
                         </constraints>
                     </view>
