@@ -2,17 +2,8 @@
   "object": {
     "pins": [
       {
-        "package": "Alamofire",
-        "repositoryURL": "https://github.com/Alamofire/Alamofire",
-        "state": {
-          "branch": null,
-          "revision": "f82c23a8a7ef8dc1a49a8bfc6a96883e79121864",
-          "version": "5.5.0"
-        }
-      },
-      {
         "package": "Core",
-        "repositoryURL": "https://github.com/Centauryal/Core-GamesCatalogue.git",
+        "repositoryURL": "https://github.com/Centauryal/Core-Codebase.git",
         "state": {
           "branch": null,
           "revision": "c7355e32857cdff42c0e117c3ef6a2aef1ca4244",
@@ -24,8 +15,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "a72df4849408da7e5d3c1b586797b7c601c41d1b",
-          "version": "5.12.1"
+          "revision": "0fff0d7505b5306348263ea64fcc561253bbeb21",
+          "version": "5.12.2"
         }
       }
     ]

@@ -14,7 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.4.4")),
-        .package(url: "https://github.com/Centauryal/Core-GamesCatalogue.git", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/Centauryal/Core-Codebase.git", .upToNextMajor(from: "1.0.0")),
         .package(path: "../Common")
     ],
     targets: [
@@ -23,7 +23,7 @@ let package = Package(
         .target(
             name: "Games",
             dependencies: [
-                .product(name: "Core", package: "Core-GamesCatalogue"),
+                .product(name: "Core", package: "Core-Codebase"),
                 "Alamofire",
                 "Common"
             ]),
