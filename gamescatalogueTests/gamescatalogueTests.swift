@@ -2,7 +2,7 @@
 //  gamescatalogueTests.swift
 //  gamescatalogueTests
 //
-//  Created by Alfa Centaury Hidayatullah on 14/12/21.
+//  Created by Alfa Centaury on 14/12/21.
 //
 
 import XCTest

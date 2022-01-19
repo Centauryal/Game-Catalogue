@@ -17,12 +17,24 @@ class HomePresenter: ObservableObject {
                                                    [Game],
                                                    GamesRepository<GetGamesRemoteData,
                                                                    GameResultMapper>>>
+    
+    private let searchUseCase: GetPresenter<String,
+                                            [Game],
+                                            Interactor<String,
+                                                       [Game],
+                                                       GamesSearchRepository<GetGameSearchRemoteData,
+                                                                             GameResultMapper>>>
+    
     var homeView: UIViewController?
     var router: HomeRouter?
     
-    init(homeUseCase: Interactor<Any, [Game], GamesRepository<GetGamesRemoteData, GameResultMapper>>,
+    init(homeUseCase: Interactor<Any, [Game],
+         GamesRepository<GetGamesRemoteData, GameResultMapper>>,
+         searchUseCase: Interactor<String, [Game],
+         GamesSearchRepository<GetGameSearchRemoteData, GameResultMapper>>,
          router: HomeRouter) {
         self.homeUseCase = GetPresenter(useCase: homeUseCase)
+        self.searchUseCase = GetPresenter(useCase: searchUseCase)
         self.router = router
     }
     
@@ -30,6 +42,17 @@ class HomePresenter: ObservableObject {
                       receiveCompletion: @escaping (Subscribers.Completion<Error>) -> Void,
                       receiveValue: @escaping ([Game]) -> Void) {
         return homeUseCase.getPresenter(request: page,
+           receiveCompletion: { completion in
+            receiveCompletion(completion)
+        }, receiveValue: { result in
+            receiveValue(result)
+        })
+    }
+    
+    func getSearchGames(text: String,
+                        receiveCompletion: @escaping (Subscribers.Completion<Error>) -> Void,
+                        receiveValue: @escaping ([Game]) -> Void) {
+        return searchUseCase.getPresenter(request: text,
            receiveCompletion: { completion in
             receiveCompletion(completion)
         }, receiveValue: { result in

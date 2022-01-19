@@ -41,7 +41,6 @@ class AccountViewController: UIViewController {
                 switch completion {
                 case .finished: break
                 case .failure:
-                    print(String(describing: completion))
                     self.showToast("setup_profile".localized())
                 }
             }, receiveValue: { account in

@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var viewEmptyState: UIView!
     @IBOutlet weak var labelEmptyState: UILabel!
     
+    private var searchResultTableViewController: SearchResultTableViewController!
+    private var searchController: UISearchController!
     private var listGames: [Game] = []
     private var currentPage = 1
     
@@ -24,14 +26,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.backButtonTitle = "btn_back".localized()
-        
+        searchUI()
         showUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getListTeams()
+        getListGames()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -55,7 +63,28 @@ class ViewController: UIViewController {
         labelEmptyState.text = "text_no_games".localized()
     }
     
-    private func getListTeams() {
+    private func searchUI() {
+        searchResultTableViewController = storyboard?.instantiateViewController(
+            withIdentifier: "SearchResultTableViewController") as? SearchResultTableViewController
+        let presenter = SearchPresenter(router: SearchRouter())
+        
+        searchResultTableViewController.viewSearchController = self
+        searchResultTableViewController.searchPresenter = presenter
+        
+        searchController = UISearchController(searchResultsController: searchResultTableViewController)
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationItem.searchController = searchController
+        
+        searchController.searchBar.placeholder = "Game"
+        searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
+        
+        definesPresentationContext = true
+    }
+    
+    private func getListGames() {
         showViewLoading(viewLoading, true)
         
         presenter?.getListGames(
@@ -82,6 +111,32 @@ class ViewController: UIViewController {
                 }
             })
         currentPage += 1
+    }
+    
+    @objc private func searchFor(_ searchBar: UISearchBar) {
+        guard searchController.isActive else { return }
+        guard let searchText = searchBar.text, searchText.trimmingCharacters(in: .whitespaces) != "" else {
+            searchResultTableViewController.resultSearch = nil
+            return
+        }
+
+        getSearchGames(searchText)
+    }
+    
+    private func getSearchGames(_ text: String) {
+        presenter?.getSearchGames(
+            text: text,
+            receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure:
+                    self.showToast(String(describing: completion))
+                }
+            },
+            receiveValue: { games in
+                self.searchResultTableViewController.resultSearch = games.isEmpty ? nil : games
+            })
     }
     
     private func calculateIndexPathsToReload(from newListGames: [Game]) -> [IndexPath] {
@@ -141,7 +196,28 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         
         if maximumOffset - currentOffset <= 10.0 {
-            getListTeams()
+            getListGames()
         }
+    }
+}
+
+extension ViewController: UISearchBarDelegate, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if searchController.searchBar.searchTextField.isFirstResponder {
+            searchController.showsSearchResultsController = true
+            searchController.searchBar.searchTextField.backgroundColor = .white.withAlphaComponent(0.1)
+        } else {
+            searchController.searchBar.searchTextField.backgroundColor = nil
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.searchFor(_:)), object: searchBar)
+        perform(#selector(self.searchFor(_:)), with: searchBar, afterDelay: 0.5)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchResultTableViewController.resultSearch = nil
+        searchController.searchBar.searchTextField.backgroundColor = nil
     }
 }

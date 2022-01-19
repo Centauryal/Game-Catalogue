@@ -24,6 +24,17 @@ final class Injection: NSObject {
         return interactor
     }
     
+    func provideSearch<U: UseCase>() -> U
+    where U.Request == String, U.Response == [Game] {
+        let remote = GetGameSearchRemoteData(endpoint: Endpoints.Gets.listGames.urlEndpoint)
+        let mapper = GameResultMapper()
+        
+        let repository = GamesSearchRepository(remoteDataSource: remote, mapper: mapper)
+        
+        guard let interactor = Interactor(repository: repository) as? U else { fatalError("Check Injection") }
+        return interactor
+    }
+    
     func provideDetail<U: UseCase>() -> U
     where U.Request == String, U.Response == Detail {
         let remote = GetGameDetailRemoteData(endpoint: Endpoints.Gets.detailGame.urlEndpoint)

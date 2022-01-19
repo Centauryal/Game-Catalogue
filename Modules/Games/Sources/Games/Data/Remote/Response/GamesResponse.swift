@@ -44,9 +44,9 @@ public struct ResultsGames: Codable {
     let id: Int
     let name: String
     let released: String
-    let backgroundImage: String
+    let backgroundImage: String?
     let rating: Double
-    let platforms: [Platforms]
+    let platforms: [Platforms]?
     let genres: [Genres]
 
     private enum CodingKeys: String, CodingKey {
@@ -64,9 +64,9 @@ public struct ResultsGames: Codable {
         id = try values.decode(Int.self, forKey: .id)
         name = try values.decode(String.self, forKey: .name)
         released = try values.decode(String.self, forKey: .released)
-        backgroundImage = try values.decode(String.self, forKey: .backgroundImage)
+        backgroundImage = try? values.decode(String.self, forKey: .backgroundImage)
         rating = try values.decode(Double.self, forKey: .rating)
-        platforms = try values.decode([Platforms].self, forKey: .platforms)
+        platforms = try? values.decode([Platforms].self, forKey: .platforms)
         genres = try values.decode([Genres].self, forKey: .genres)
     }
 
@@ -168,8 +168,8 @@ public struct Genres: Codable {
     let id: Int
     let name: String
     let slug: String
-    let gamesCount: Int
-    let imageBackground: String
+    let gamesCount: Int?
+    let imageBackground: String?
 
     private enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -184,8 +184,8 @@ public struct Genres: Codable {
         id = try values.decode(Int.self, forKey: .id)
         name = try values.decode(String.self, forKey: .name)
         slug = try values.decode(String.self, forKey: .slug)
-        gamesCount = try values.decode(Int.self, forKey: .gamesCount)
-        imageBackground = try values.decode(String.self, forKey: .imageBackground)
+        gamesCount = try? values.decode(Int.self, forKey: .gamesCount)
+        imageBackground = try? values.decode(String.self, forKey: .imageBackground)
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -29,7 +29,15 @@ class HomeRouter {
                                         GetGamesRemoteData,
                                         GameResultMapper>
         > = Injection.init().provideHome()
-        let presenter = HomePresenter(homeUseCase: homeUseCase, router: HomeRouter())
+        let searchUseCase: Interactor<String,
+                                      [Game],
+                                      GamesSearchRepository<
+                                        GetGameSearchRemoteData,
+                                        GameResultMapper>
+        > = Injection.init().provideSearch()
+        let presenter = HomePresenter(homeUseCase: homeUseCase,
+                                      searchUseCase: searchUseCase,
+                                      router: HomeRouter())
         
         home.presenter = presenter
         home.presenter?.homeView = home

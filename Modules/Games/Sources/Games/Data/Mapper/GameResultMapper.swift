@@ -6,6 +6,7 @@
 //
 
 import Core
+import Common
 
 public struct GameResultMapper: Mapper {
     public typealias Response = [ResultsGames]
@@ -19,11 +20,11 @@ public struct GameResultMapper: Mapper {
                 id: result.id,
                 name: result.name,
                 released: result.released,
-                backgroundImage: result.backgroundImage,
+                backgroundImage: result.backgroundImage ?? "text_unknown".localized(),
                 rating: result.rating,
-                platforms: result.platforms.map { platform in
+                platforms: result.platforms?.map { platform in
                     platform.platform.name
-                },
+                } ?? [],
                 genres: result.genres.map { genre in
                     genre.name
                 }

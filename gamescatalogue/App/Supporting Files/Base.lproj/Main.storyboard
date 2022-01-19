@@ -420,6 +420,27 @@
             </objects>
             <point key="canvasLocation" x="2035" y="110"/>
         </scene>
+        <!--Search Result Table View Controller-->
+        <scene sceneID="Ml7-Ga-NRB">
+            <objects>
+                <tableViewController storyboardIdentifier="SearchResultTableViewController" id="ZQa-Kj-FGO" customClass="SearchResultTableViewController" customModule="gamescatalogue" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="l7J-0D-uhW" userLabel="Search Result Table View">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="ZQa-Kj-FGO" id="dlE-At-o8h"/>
+                            <outlet property="delegate" destination="ZQa-Kj-FGO" id="i08-z2-eGy"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="tbSearchResult" destination="l7J-0D-uhW" id="DjZ-iJ-D7z"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N2q-p3-p9G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3141" y="110"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="19Z-ze-rRE">
             <objects>
@@ -447,7 +468,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XMZ-45-C65" userLabel="Games Table View">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="gaC-KI-oWE" userLabel="Loading View">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -508,17 +529,16 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="qdF-Ug-2Q2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="XMZ-45-C65" firstAttribute="leading" secondItem="qdF-Ug-2Q2" secondAttribute="leading" id="8zz-wR-78Q"/>
-                            <constraint firstItem="kP2-Q8-00h" firstAttribute="trailing" secondItem="qdF-Ug-2Q2" secondAttribute="trailing" id="GqA-KA-nBj"/>
+                            <constraint firstItem="XMZ-45-C65" firstAttribute="leading" secondItem="kF5-Zv-HJr" secondAttribute="leading" id="8zz-wR-78Q"/>
+                            <constraint firstItem="kP2-Q8-00h" firstAttribute="trailing" secondItem="kF5-Zv-HJr" secondAttribute="trailing" id="GqA-KA-nBj"/>
                             <constraint firstItem="XMZ-45-C65" firstAttribute="bottom" secondItem="kF5-Zv-HJr" secondAttribute="bottom" id="JfB-F2-wSZ"/>
-                            <constraint firstItem="kP2-Q8-00h" firstAttribute="leading" secondItem="qdF-Ug-2Q2" secondAttribute="leading" id="NwC-HF-Nof"/>
+                            <constraint firstItem="kP2-Q8-00h" firstAttribute="leading" secondItem="kF5-Zv-HJr" secondAttribute="leading" id="NwC-HF-Nof"/>
                             <constraint firstItem="kP2-Q8-00h" firstAttribute="top" secondItem="kF5-Zv-HJr" secondAttribute="top" constant="88" id="eQG-VD-uMd"/>
-                            <constraint firstItem="XMZ-45-C65" firstAttribute="top" secondItem="qdF-Ug-2Q2" secondAttribute="top" id="gue-Nz-sBD"/>
+                            <constraint firstItem="XMZ-45-C65" firstAttribute="top" secondItem="kF5-Zv-HJr" secondAttribute="top" id="gue-Nz-sBD"/>
                             <constraint firstAttribute="bottom" secondItem="kP2-Q8-00h" secondAttribute="bottom" id="n1z-nZ-qTt"/>
-                            <constraint firstItem="XMZ-45-C65" firstAttribute="trailing" secondItem="qdF-Ug-2Q2" secondAttribute="trailing" id="ySp-EQ-XDc"/>
+                            <constraint firstItem="XMZ-45-C65" firstAttribute="trailing" secondItem="kF5-Zv-HJr" secondAttribute="trailing" id="ySp-EQ-XDc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Game Catalogue" id="Gct-Iq-mgz">
