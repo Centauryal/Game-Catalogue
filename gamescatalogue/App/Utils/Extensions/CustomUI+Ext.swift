@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 extension UIFont {
     func withTraits(traits:UIFontDescriptor.SymbolicTraits) -> UIFont {
@@ -74,16 +75,22 @@ extension UIViewController {
         formatter.dateFormat = "dd MMMM yyyy"
         return formatter.string(from: firstDate)
     }
-}
-
-func showViewLoading(_ view: UIView, _ show: Bool) {
-    DispatchQueue.main.async {
-        view.isHidden = show ? false : true
+    
+    func showViewLoading(_ view: UIView, _ show: Bool) {
+        if show {
+            view.isSkeletonable = true
+            view.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        } else {
+            DispatchQueue.main.async {
+                view.stopSkeletonAnimation()
+                self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+            }
+        }
     }
-}
 
-func showViewEmptyState (_ view: UIView, _ show: Bool) {
-    DispatchQueue.main.async {
-        view.isHidden = show ? false : true
+    func showViewEmptyState (_ view: UIView, _ show: Bool) {
+        DispatchQueue.main.async {
+            view.isHidden = show ? false : true
+        }
     }
 }

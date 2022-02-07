@@ -58,6 +58,7 @@ Libraries Used
 * [SwiftLint][4] - A tool to enforce Swift style and conventions, loosely based on the now archived GitHub Swift Style Guide.
 * [Core][5] - Custom built libraries for modularization.
 * [Manual Injection][6] - Dependency injection means giving an object its instance variables.
+* [SkeletonView][7] - An elegant way to show users that something is happening and also prepare them to which contents they are awaiting.
 
 [0]: https://developer.apple.com/documentation/uikit
 [1]: https://developer.apple.com/documentation/coredata
@@ -66,6 +67,7 @@ Libraries Used
 [4]: https://github.com/realm/SwiftLint
 [5]: https://github.com/Centauryal/Core-GamesCatalogue
 [6]: https://www.dicoding.com/academies/209/tutorials/11537
+[7]: https://github.com/Juanpe/SkeletonView
 
 Additional resources
 --------------------

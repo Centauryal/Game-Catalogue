@@ -9,11 +9,11 @@ import UIKit
 import SDWebImage
 import Games
 import Common
+import SkeletonView
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var tbGames: UITableView!
-    @IBOutlet weak var viewLoading: UIView!
     @IBOutlet weak var viewEmptyState: UIView!
     @IBOutlet weak var labelEmptyState: UILabel!
     
@@ -40,6 +40,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.hidesSearchBarWhenScrolling = true
+        showViewLoading(tbGames, true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -55,6 +56,8 @@ class ViewController: UIViewController {
     }
     
     private func showUI() {
+        tbGames.rowHeight = UITableView.automaticDimension
+        tbGames.estimatedRowHeight = 200
         tbGames.dataSource = self
         tbGames.delegate = self
         tbGames.register(UINib(nibName: "GamesTableViewCell", bundle: nil), forCellReuseIdentifier: "gamesTableViewCell")
@@ -85,21 +88,19 @@ class ViewController: UIViewController {
     }
     
     private func getListGames() {
-        showViewLoading(viewLoading, true)
-        
         presenter?.getListGames(
             page: String(currentPage),
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    showViewLoading(self.viewLoading, false)
+                    self.showViewLoading(self.tbGames, false)
                 case .failure:
                     self.showToast(String(describing: completion))
                 }
             },
             receiveValue: { games in
                 if games.isEmpty {
-                    showViewEmptyState(self.viewEmptyState, false)
+                    self.showViewEmptyState(self.viewEmptyState, false)
                 } else {
                     self.listGames.append(contentsOf: games)
                     self.tbGames.reloadData()
@@ -146,9 +147,13 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension ViewController: SkeletonTableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listGames.count
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "gamesTableViewCell"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

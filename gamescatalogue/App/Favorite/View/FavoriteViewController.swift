@@ -8,11 +8,11 @@
 import UIKit
 import Favorite
 import Common
+import SkeletonView
 
 class FavoriteViewController: UIViewController {
 
     @IBOutlet weak var tbFavorite: UITableView!
-    @IBOutlet weak var viewLoading: UIView!
     @IBOutlet weak var viewEmptyState: UIView!
     @IBOutlet weak var labelEmptyState: UILabel!
     
@@ -31,7 +31,14 @@ class FavoriteViewController: UIViewController {
         loadAllFavorites()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showViewLoading(tbFavorite, true)
+    }
+    
     private func showUI() {
+        tbFavorite.rowHeight = UITableView.automaticDimension
+        tbFavorite.estimatedRowHeight = 200
         tbFavorite.dataSource = self
         tbFavorite.delegate = self
         tbFavorite.register(UINib(nibName: "FavoriteTableViewCell", bundle: nil), forCellReuseIdentifier: "favoriteTableViewCell")
@@ -41,19 +48,17 @@ class FavoriteViewController: UIViewController {
     }
     
     private func loadAllFavorites() {
-        showViewLoading(self.viewLoading, true)
-        
         presenter?.getAllFavorite(
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    showViewLoading(self.viewLoading, false)
+                    self.showViewLoading(self.tbFavorite, false)
                 case .failure:
                     self.showToast(String(describing: completion))
                 }
             }, receiveValue: { favorites in
                 if favorites.isEmpty {
-                    showViewEmptyState(self.viewEmptyState, true)
+                    self.showViewEmptyState(self.viewEmptyState, true)
                 } else {
                     self.listFavorite = favorites
                     self.tbFavorite.reloadData()
@@ -88,9 +93,13 @@ class FavoriteViewController: UIViewController {
     }
 }
 
-extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
+extension FavoriteViewController: SkeletonTableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listFavorite.count
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "favoriteTableViewCell"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
