@@ -18,32 +18,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eLT-cD-jRb" userLabel="Favorite Table View">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="C3F-oj-eSA" userLabel="Loading View">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="VuN-oI-M7N">
-                                            <rect key="frame" x="187" y="2" width="40" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="Q4m-LK-63T"/>
-                                                <constraint firstAttribute="width" constant="40" id="lzO-PJ-atu"/>
-                                            </constraints>
-                                            <color key="color" name="PrimaryColor"/>
-                                        </activityIndicatorView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="VuN-oI-M7N" firstAttribute="centerY" secondItem="C3F-oj-eSA" secondAttribute="centerY" id="MAE-ZC-IaN"/>
-                                        <constraint firstItem="VuN-oI-M7N" firstAttribute="centerX" secondItem="C3F-oj-eSA" secondAttribute="centerX" id="eqX-rD-gPD"/>
-                                    </constraints>
-                                </view>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tud-1m-AR9" userLabel="Favorite Empty">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptystate" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cvy-7j-Aor" userLabel="Empty State Image">
-                                        <rect key="frame" x="0.0" y="248.5" width="414" height="277"/>
+                                        <rect key="frame" x="0.0" y="309.5" width="414" height="277"/>
                                         <accessibility key="accessibilityConfiguration" label="Empty State">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
@@ -53,7 +35,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have any favorites" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEq-vO-tMc" userLabel="Empty State Label">
-                                        <rect key="frame" x="88.5" y="482.5" width="237" height="23"/>
+                                        <rect key="frame" x="88.5" y="543.5" width="237" height="23"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -68,17 +50,16 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="3Ac-XY-Hhu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="3Ac-XY-Hhu" firstAttribute="bottom" secondItem="eLT-cD-jRb" secondAttribute="bottom" id="IYe-sL-Hmc"/>
-                            <constraint firstItem="eLT-cD-jRb" firstAttribute="leading" secondItem="3Ac-XY-Hhu" secondAttribute="leading" id="Sd2-qN-tfh"/>
-                            <constraint firstItem="tud-1m-AR9" firstAttribute="top" secondItem="3Ac-XY-Hhu" secondAttribute="top" id="Un8-Zj-vJF"/>
-                            <constraint firstItem="3Ac-XY-Hhu" firstAttribute="trailing" secondItem="tud-1m-AR9" secondAttribute="trailing" id="Z85-yf-sc9"/>
-                            <constraint firstItem="tud-1m-AR9" firstAttribute="leading" secondItem="3Ac-XY-Hhu" secondAttribute="leading" id="akF-Vv-dbg"/>
-                            <constraint firstItem="eLT-cD-jRb" firstAttribute="top" secondItem="3Ac-XY-Hhu" secondAttribute="top" id="cVt-jH-Sif"/>
-                            <constraint firstItem="eLT-cD-jRb" firstAttribute="trailing" secondItem="3Ac-XY-Hhu" secondAttribute="trailing" id="hZi-b6-t7F"/>
-                            <constraint firstItem="3Ac-XY-Hhu" firstAttribute="bottom" secondItem="tud-1m-AR9" secondAttribute="bottom" id="iah-u6-FRj"/>
+                            <constraint firstAttribute="bottom" secondItem="eLT-cD-jRb" secondAttribute="bottom" id="IYe-sL-Hmc"/>
+                            <constraint firstItem="eLT-cD-jRb" firstAttribute="leading" secondItem="BY2-cg-e3g" secondAttribute="leading" id="Sd2-qN-tfh"/>
+                            <constraint firstItem="tud-1m-AR9" firstAttribute="top" secondItem="BY2-cg-e3g" secondAttribute="top" id="Un8-Zj-vJF"/>
+                            <constraint firstAttribute="trailing" secondItem="tud-1m-AR9" secondAttribute="trailing" id="Z85-yf-sc9"/>
+                            <constraint firstItem="tud-1m-AR9" firstAttribute="leading" secondItem="BY2-cg-e3g" secondAttribute="leading" id="akF-Vv-dbg"/>
+                            <constraint firstItem="eLT-cD-jRb" firstAttribute="top" secondItem="BY2-cg-e3g" secondAttribute="top" id="cVt-jH-Sif"/>
+                            <constraint firstItem="eLT-cD-jRb" firstAttribute="trailing" secondItem="BY2-cg-e3g" secondAttribute="trailing" id="hZi-b6-t7F"/>
+                            <constraint firstAttribute="bottom" secondItem="tud-1m-AR9" secondAttribute="bottom" id="iah-u6-FRj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Game Favorite" id="eVh-hG-Io8"/>
@@ -87,7 +68,6 @@
                         <outlet property="labelEmptyState" destination="lEq-vO-tMc" id="1E3-ej-8pa"/>
                         <outlet property="tbFavorite" destination="eLT-cD-jRb" id="9Yc-kx-IHi"/>
                         <outlet property="viewEmptyState" destination="tud-1m-AR9" id="DME-vc-JnW"/>
-                        <outlet property="viewLoading" destination="C3F-oj-eSA" id="0IU-cg-g4Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YAa-g1-lh1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -470,24 +450,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XMZ-45-C65" userLabel="Games Table View">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="gaC-KI-oWE" userLabel="Loading View">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="hEc-KR-42q">
-                                            <rect key="frame" x="187" y="2" width="40" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="40" id="MWu-DK-8xQ"/>
-                                                <constraint firstAttribute="height" constant="40" id="k0a-kc-qx5"/>
-                                            </constraints>
-                                            <color key="color" name="PrimaryColor"/>
-                                        </activityIndicatorView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="hEc-KR-42q" firstAttribute="centerY" secondItem="gaC-KI-oWE" secondAttribute="centerY" id="bIg-mo-D6M"/>
-                                        <constraint firstItem="hEc-KR-42q" firstAttribute="centerX" secondItem="gaC-KI-oWE" secondAttribute="centerX" id="cEp-6u-6Vi"/>
-                                    </constraints>
-                                </view>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kP2-Q8-00h" userLabel="Games Empty">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
@@ -563,7 +525,6 @@
                         <outlet property="labelEmptyState" destination="cKm-5Z-6vL" id="Zj0-Q1-cZu"/>
                         <outlet property="tbGames" destination="XMZ-45-C65" id="1sR-8u-Xri"/>
                         <outlet property="viewEmptyState" destination="kP2-Q8-00h" id="i2y-Ez-1zq"/>
-                        <outlet property="viewLoading" destination="gaC-KI-oWE" id="ncv-HL-Qxy"/>
                         <segue destination="PwI-Ok-Th0" kind="show" identifier="detailGameViewController" id="m4z-7X-zJD"/>
                     </connections>
                 </viewController>
@@ -583,7 +544,7 @@
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <image name="wave" width="666.5" height="145.5"/>
         <namedColor name="AccentColor">
-            <color red="0.23899999260902405" green="0.69800001382827759" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="PrimaryColor">
             <color red="1" green="0.14100000262260437" blue="0.25900000333786011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
