@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmptyStateView" customModule="gamescatalogue" customModuleProvider="target">
+            <connections>
+                <outlet property="ivEmptyState" destination="SCT-KE-puK" id="NZU-TX-uvH"/>
+                <outlet property="labelTitle" destination="E0Z-Dd-66I" id="bot-Ln-9Fp"/>
+                <outlet property="viewContent" destination="iN0-l3-epB" id="ZYm-i6-FjY"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hvl-IV-Zjg" userLabel="View Empty">
+                    <rect key="frame" x="0.0" y="309.5" width="414" height="277"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptystate" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SCT-KE-puK" userLabel="Empty State Image">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="277"/>
+                            <accessibility key="accessibilityConfiguration" label="Empty State">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="414" id="qGo-pM-i4k"/>
+                                <constraint firstAttribute="height" constant="277" id="wXb-Ua-jDw"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have any games" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0Z-Dd-66I" userLabel="Empty State Label">
+                            <rect key="frame" x="96.5" y="234" width="221" height="23"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="SCT-KE-puK" firstAttribute="top" secondItem="Hvl-IV-Zjg" secondAttribute="top" id="86g-RL-gOX"/>
+                        <constraint firstItem="SCT-KE-puK" firstAttribute="centerX" secondItem="Hvl-IV-Zjg" secondAttribute="centerX" id="Ti2-cR-B51"/>
+                        <constraint firstItem="E0Z-Dd-66I" firstAttribute="centerX" secondItem="SCT-KE-puK" secondAttribute="centerX" id="gFQ-Hc-hck"/>
+                        <constraint firstItem="E0Z-Dd-66I" firstAttribute="bottom" secondItem="SCT-KE-puK" secondAttribute="bottom" constant="-20" id="qgn-Xv-ntN"/>
+                        <constraint firstItem="SCT-KE-puK" firstAttribute="centerY" secondItem="Hvl-IV-Zjg" secondAttribute="centerY" id="sbd-Im-myy"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Hvl-IV-Zjg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="E3x-fG-UTt"/>
+                <constraint firstAttribute="trailing" secondItem="Hvl-IV-Zjg" secondAttribute="trailing" id="FLU-vu-AGQ"/>
+                <constraint firstItem="Hvl-IV-Zjg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="eme-jq-tN9"/>
+                <constraint firstItem="Hvl-IV-Zjg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="xFT-VL-31P"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="101"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="emptystate" width="250" height="200"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

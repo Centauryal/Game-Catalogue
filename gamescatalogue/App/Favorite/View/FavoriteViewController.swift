@@ -13,8 +13,7 @@ import SkeletonView
 class FavoriteViewController: UIViewController {
 
     @IBOutlet weak var tbFavorite: UITableView!
-    @IBOutlet weak var viewEmptyState: UIView!
-    @IBOutlet weak var labelEmptyState: UILabel!
+    @IBOutlet weak var viewEmptyState: EmptyStateView!
     
     private var listFavorite: [GameDB] = []
     var presenter: FavoritePresenter?
@@ -31,11 +30,6 @@ class FavoriteViewController: UIViewController {
         loadAllFavorites()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showViewLoading(tbFavorite, true)
-    }
-    
     private func showUI() {
         tbFavorite.rowHeight = UITableView.automaticDimension
         tbFavorite.estimatedRowHeight = 200
@@ -43,8 +37,7 @@ class FavoriteViewController: UIViewController {
         tbFavorite.delegate = self
         tbFavorite.register(UINib(nibName: "FavoriteTableViewCell", bundle: nil), forCellReuseIdentifier: "favoriteTableViewCell")
         
-        labelEmptyState.font = UIFont.preferredFont(forTextStyle: .title2).bold()
-        labelEmptyState.text = "text_no_favorite".localized()
+        viewEmptyState.textTitle = "text_no_favorite".localized()
     }
     
     private func loadAllFavorites() {
@@ -79,6 +72,8 @@ class FavoriteViewController: UIViewController {
     }
     
     private func deleteFavorite(_ id: Int) {
+        showViewLoading(tbFavorite, true)
+        
         presenter?.deleteFavorite(id,
            receiveCompletion: { completion in
             switch completion {

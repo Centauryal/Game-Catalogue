@@ -14,8 +14,7 @@ import SkeletonView
 class ViewController: UIViewController {
     
     @IBOutlet weak var tbGames: UITableView!
-    @IBOutlet weak var viewEmptyState: UIView!
-    @IBOutlet weak var labelEmptyState: UILabel!
+    @IBOutlet weak var viewEmptyState: EmptyStateView!
     
     private var searchResultTableViewController: SearchResultTableViewController!
     private var searchController: UISearchController!
@@ -40,7 +39,6 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.hidesSearchBarWhenScrolling = true
-        showViewLoading(tbGames, true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -62,8 +60,7 @@ class ViewController: UIViewController {
         tbGames.delegate = self
         tbGames.register(UINib(nibName: "GamesTableViewCell", bundle: nil), forCellReuseIdentifier: "gamesTableViewCell")
         
-        labelEmptyState.font = UIFont.preferredFont(forTextStyle: .title2).bold()
-        labelEmptyState.text = "text_no_games".localized()
+        viewEmptyState.textTitle = "text_no_games".localized()
     }
     
     private func searchUI() {
@@ -88,6 +85,8 @@ class ViewController: UIViewController {
     }
     
     private func getListGames() {
+        showViewLoading(tbGames, true)
+        
         presenter?.getListGames(
             page: String(currentPage),
             receiveCompletion: { completion in

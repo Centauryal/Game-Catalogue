@@ -20,6 +20,8 @@
 		4C1E546026D931C500F57BDF /* GamesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1E545E26D931C500F57BDF /* GamesTableViewCell.xib */; };
 		4C1F1C662796A6BF00ECE435 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F1C652796A6BF00ECE435 /* SearchPresenter.swift */; };
 		4C1F1C682796A6EE00ECE435 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F1C672796A6EE00ECE435 /* SearchRouter.swift */; };
+		4C283CAC27B2164400CA7E06 /* EmptyStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C283CAB27B2164400CA7E06 /* EmptyStateView.xib */; };
+		4C283CAE27B2166400CA7E06 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C283CAD27B2166400CA7E06 /* EmptyStateView.swift */; };
 		4C2BADE927AD0FE2000E296E /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 4C2BADE827AD0FE2000E296E /* SkeletonView */; };
 		4C31F4662795ADE8001FF416 /* SearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C31F4652795ADE8001FF416 /* SearchResultTableViewController.swift */; };
 		4C359E4A27355F4B007E4AA3 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C359E4927355F4B007E4AA3 /* Injection.swift */; };
@@ -73,6 +75,8 @@
 		4C1E545E26D931C500F57BDF /* GamesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GamesTableViewCell.xib; sourceTree = "<group>"; };
 		4C1F1C652796A6BF00ECE435 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		4C1F1C672796A6EE00ECE435 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		4C283CAB27B2164400CA7E06 /* EmptyStateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyStateView.xib; sourceTree = "<group>"; };
+		4C283CAD27B2166400CA7E06 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		4C31F4652795ADE8001FF416 /* SearchResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewController.swift; sourceTree = "<group>"; };
 		4C359E4927355F4B007E4AA3 /* Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injection.swift; sourceTree = "<group>"; };
 		4C40572526EF8CE200B899F0 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +204,25 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		4C283CA927B2161F00CA7E06 /* Ratings */ = {
+			isa = PBXGroup;
+			children = (
+				4C641B9926E11B140074B6DC /* RatingStackView.xib */,
+				4C641B9B26E11B1E0074B6DC /* StarRatingStackView.swift */,
+				4C641B9C26E11B1E0074B6DC /* StarRatingView.swift */,
+			);
+			path = Ratings;
+			sourceTree = "<group>";
+		};
+		4C283CAA27B2162E00CA7E06 /* EmptyState */ = {
+			isa = PBXGroup;
+			children = (
+				4C283CAB27B2164400CA7E06 /* EmptyStateView.xib */,
+				4C283CAD27B2166400CA7E06 /* EmptyStateView.swift */,
+			);
+			path = EmptyState;
+			sourceTree = "<group>";
+		};
 		4C31F4642795AD9C001FF416 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,9 +260,8 @@
 		4C359E5027356D8C007E4AA3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4C641B9926E11B140074B6DC /* RatingStackView.xib */,
-				4C641B9B26E11B1E0074B6DC /* StarRatingStackView.swift */,
-				4C641B9C26E11B1E0074B6DC /* StarRatingView.swift */,
+				4C283CAA27B2162E00CA7E06 /* EmptyState */,
+				4C283CA927B2161F00CA7E06 /* Ratings */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -505,6 +527,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C283CAC27B2164400CA7E06 /* EmptyStateView.xib in Resources */,
 				4C641B9A26E11B140074B6DC /* RatingStackView.xib in Resources */,
 				4C82B0DF26DFDFFE0093B988 /* .swiftlint.yml in Resources */,
 				4C1E542E26D92E4C00F57BDF /* LaunchScreen.storyboard in Resources */,
@@ -561,6 +584,7 @@
 				4CAF74212736D729004DF3CC /* DetailPresenter.swift in Sources */,
 				4CAF741D2736D035004DF3CC /* HomePresenter.swift in Sources */,
 				4C1E542426D92E4B00F57BDF /* SceneDelegate.swift in Sources */,
+				4C283CAE27B2166400CA7E06 /* EmptyStateView.swift in Sources */,
 				4C641B9D26E11B1E0074B6DC /* StarRatingStackView.swift in Sources */,
 				4C641B9E26E11B1E0074B6DC /* StarRatingView.swift in Sources */,
 				4CFCBF6926EEF86100ADABE9 /* FavoriteTableViewCell.swift in Sources */,
@@ -785,7 +809,7 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6TBV69WD85;
 				INFOPLIST_FILE = "gamescatalogue/App/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -806,7 +830,7 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6TBV69WD85;
 				INFOPLIST_FILE = "gamescatalogue/App/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

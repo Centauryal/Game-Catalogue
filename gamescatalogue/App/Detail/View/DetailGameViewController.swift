@@ -26,7 +26,6 @@ class DetailGameViewController: UIViewController {
     @IBOutlet weak var labelDesc: UILabel!
     @IBOutlet weak var platform: UILabel!
     @IBOutlet weak var labelPlatform: UILabel!
-    @IBOutlet weak var viewLoading: UIView!
     
     private var detailGame: Detail?
     private var detailFavoriteGame: GameDB?
@@ -43,6 +42,7 @@ class DetailGameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
+        showViewLoading(self.view, true)
         if fromFavorite == 0 {
             getDetailGame()
         } else {
@@ -59,7 +59,7 @@ class DetailGameViewController: UIViewController {
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    self.viewLoading.isHidden = true
+                    self.showViewLoading(self.view, false)
                 case .failure:
                     self.showToast(String(describing: completion))
                 }
@@ -204,7 +204,7 @@ class DetailGameViewController: UIViewController {
             receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    self.viewLoading.isHidden = true
+                    self.showViewLoading(self.view, false)
                 case .failure:
                     self.showToast(String(describing: completion))
                 }
